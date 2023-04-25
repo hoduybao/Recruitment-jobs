@@ -1,0 +1,155 @@
+.wrapper {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    background-color: #00B4D8;
+}
+.inner {
+    height: 100%;
+    width: var(--default-layout-width);
+    padding: 40px var(--default-layout-horizontal-spacer);
+ 
+}
+.inner-top {
+    height: 50%;
+    width: 100%;
+    display: flex;
+}
+.inner-bottom{
+    height: 50%;
+    width: 100%;
+    display: flex;
+}
+.search-input {
+    width: 500px;
+    height: 46px;
+    display: flex;
+    background-color: white;
+    border-radius: var(--search-border-radius);
+    padding-left: 16px;
+    margin-right: 30px;
+    border: 1.5px solid transparent;
+    input {
+        flex: 1;
+        height: 100%;
+        color: var(--black);
+        font-size: 1.8rem;
+        font-weight: 500;
+        border: none;
+        outline: none;
+        font-weight: 500;
+        //caret-color: red;
+        padding: 10px 0px;
+        background-color: transparent;
+    }
+
+    &:focus-within {
+        border-color: rgb(22, 24, 35, 0.2);
+    }
+}
+.search-btn {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 52px;
+    border: none;
+    padding: 10px 15px;
+    outline: none;
+    border-top-right-radius: var(--search-border-radius);
+    border-bottom-right-radius: var(--search-border-radius);
+    font-size: 1.8rem;
+    color: #00B4D8;
+}
+.search-province{
+    position: relative;
+}
+.select_province_candidate {
+    width: 190px;
+    height: 46px;
+    padding-left: 50px;
+    margin-right: 30px;
+    border: none;
+    outline: none;
+    background: #ffffff;
+    border-radius: var(--search-border-radius);
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 46px;
+    color: black;
+}
+.btn_search_candidate {
+    width: 130px;
+    height: 46px;
+
+    background: #0077b6;
+    border-radius: 10px;
+
+    border: none;
+    outline: none;
+
+    color: white;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.8rem;
+    line-height: 46px;
+}
+.icon-province{
+    position: absolute;
+    font-size: 2.2rem;
+    top: 12px;
+    left: 15px;
+    color: #00B4D8;
+    
+}
+.select_work_form_candidate{
+    width: 250px;
+    height: 46px;
+    padding-left: 50px;
+    margin-right: 30px;
+    border: none;
+    outline: none;
+    background: #ffffff;
+    border-radius: var(--search-border-radius);
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 46px;
+    color: black;
+}
+.select_experience{
+    width: 220px;
+    height: 46px;
+    padding-left: 50px;
+    margin-right: 30px;
+    border: none;
+    outline: none;
+    background: #ffffff;
+    border-radius: var(--search-border-radius);
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 46px;
+    color: black;
+}
+.select_salary{
+    width: 190px;
+    height: 46px;
+    padding-left: 50px;
+    margin-right: 30px;
+    border: none;
+    outline: none;
+    background: #ffffff;
+    border-radius: var(--search-border-radius);
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 46px;
+    color: black;
+}

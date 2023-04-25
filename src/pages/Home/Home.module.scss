@@ -1,0 +1,16 @@
+.wrapper {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.inner {
+    background: white;
+    width: var(--default-layout-width);
+    padding: 15px var(--default-layout-horizontal-spacer);
+    border-radius: 10px;
+}
+.text_top_job {
+    font-size: 1.7rem;
+    font-weight: 600;
+}

@@ -1,0 +1,62 @@
+.wrapper {
+    background: white;
+    width: 100%;
+    height: var(--default-layout-header-height, 60px);
+    box-shadow: 0px 1px 1px rgb(0 0 0/12%);
+    display: flex;
+    justify-content: center;
+}
+.inner {
+    height: 100%;
+    width: var(--default-layout-width);
+    display: flex;
+    padding: 0 var(--default-layout-horizontal-spacer);
+    align-items: center;
+    justify-content: space-between;
+}
+.logo {
+    display: flex;
+}
+.actions {
+    display: flex;
+    align-items: center;
+}
+.btn_login_candidate {
+    font-weight: 600;
+    font-size: 1.5rem;
+    padding: 5px 10px;
+    background: #ffffff;
+    opacity: 0.9;
+    border: 0.5px solid #0096c7;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    color: #00b4d8;
+    margin-right: 10px;
+}
+.btn_signin_candidate {
+    font-weight: 600;
+    font-size: 1.5rem;
+    padding: 5px 15px;
+    background: #00b4d8;
+    opacity: 0.9;
+    border: 0.5px solid #0096c7;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    margin-right: 10px;
+}
+.btn_switch_recruiter {
+    display: flex;
+    font-weight: 600;
+    font-size: 1.4rem;
+    padding: 5px 15px;
+    background: #0096c7;
+    opacity: 0.9;
+    border: 0.5px solid #0096c7;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+}
+.icon_arrow{
+    font-size: 1.8rem;
+}

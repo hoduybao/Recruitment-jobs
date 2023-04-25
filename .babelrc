@@ -1,0 +1,12 @@
+{
+    "plugins": [
+      ["module-resolver", {
+        "alias": {
+          "~": "./src"
+        }
+      }]
+    ]
+  }
+
+
+//tao duong dan ngan gon
