@@ -1,18 +1,22 @@
 import Home from '~/pages/Home';
-import Following from '~/pages/Following';
-
+import Login from '~/pages/Login';
+import SignUp from '~/pages/SignUp';
+import { SignInLayout } from '~/Layout';
 const publicRoutes = [
     {
         path: '/',
         component: Home,
     },
     {
-        path: '/following',
-        component: Following,
+        path: '/sign-in',
+        component: Login,
+        layout: SignInLayout
     },
+
     {
-        path: '/following',
-        component: Following,
+        path: '/sign-up',
+        component: SignUp,
+        layout: SignInLayout
     },
 ];
 

@@ -14,13 +14,13 @@ function Header() {
                     <img src={images.logo} alt="logo" />
                 </div>
                 <div className={cx('actions')}>
-                    <Link className={cx('btn_login_candidate')} href="/">
+                    <Link className={cx('btn_login_candidate')} to="/sign-in">
                         Đăng nhập
                     </Link>
-                    <Link className={cx('btn_signin_candidate')} href="/">
+                    <Link className={cx('btn_signin_candidate')} to="/sign-up">
                         Đăng ký
                     </Link>
-                    <Link className={cx('btn_switch_recruiter')} href="/">
+                    <Link className={cx('btn_switch_recruiter')} to="/">
                         <span>Dành cho nhà tuyển dụng</span>
                         <div style={{ display: 'inline-block', marginLeft: 10,marginTop:2 }}>
                             <FontAwesomeIcon
