@@ -1,0 +1,89 @@
+.inner {
+    padding-top: 2rem;
+    background: white;
+    width: 100%;
+    border-radius: 5px;
+    padding-bottom: 2rem;
+}
+.text_top_job {
+    margin-left: 4%;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.card_company_home {
+    width: 100%;
+    margin-top: 1rem;
+    align-content: flex-start;
+    margin-left: 3%;
+}
+
+.item_recruit_candidate {
+    box-sizing: border-box;
+    position: relative;
+    width: 90%;
+    height: 20rem;
+    border-top: 1px solid #bbbcc0;
+
+    background: white;
+    &:hover {
+
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+        .name_recruit{
+            color: #21c2e2;
+        }
+    }
+    cursor: pointer;
+  
+}
+
+.logo_company {
+    position: absolute;
+    border: 1px solid #d7e4e8;
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: 20%;
+    height: 60%;
+    left: 5%;
+    top: 10%;
+}
+.name_recruit {
+    position: absolute;
+    width: 68%;
+    left: 28%;
+    height: 30%;
+    font-weight: 600;
+    font-size: 1.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* identical to box height */
+    top: 13%;
+
+    color: #29333f;
+}
+
+.require {
+    position: absolute;
+    width: 68%;
+    left: 30%;
+
+    /* identical to box height */
+    top: 30%;
+}
+.label {
+    font-weight: 500;
+
+    /* identical to box height */
+}
+.value {
+    font-weight: 500;
+}
+.time_update {
+    position: absolute;
+
+    font-size: 1.4rem;
+    /* identical to box height */
+    top: 80%;
+    right: 5%;
+}

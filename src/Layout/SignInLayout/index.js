@@ -5,7 +5,7 @@ import styles from './SignInLayout.module.scss';
 const cx = classNames.bind(styles);
 
 
-function DefaultLayout({ children }) {
+function SignInLayout({ children }) {
     return (
         <div className={cx('wrapper')}>
             <Header />
@@ -15,4 +15,4 @@ function DefaultLayout({ children }) {
     );
 }
 
-export default DefaultLayout;
+export default SignInLayout;

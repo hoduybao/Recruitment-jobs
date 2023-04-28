@@ -1,0 +1,332 @@
+.wrapper {
+    padding-top: 9rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.inner {
+    width: var(--default-layout-width);
+}
+.header_detail_job {
+    background: white;
+
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    padding-left: 4rem;
+    width: 100%;
+    display: flex;
+    border-radius: 10px;
+}
+.header_left {
+    width: 80%;
+    display: flex;
+}
+.header_right {
+    margin-top: 2rem;
+
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+}
+.block_info {
+    flex: 1;
+    margin-left: 3rem;
+    margin-top: 2rem;
+}
+.logo {
+    width: 15rem;
+    height: 15rem;
+    border: 1px solid #d7e4e8;
+    border-radius: 50%;
+}
+
+.name_job {
+    width: 85%;
+    margin-bottom: 0.5rem;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* identical to box height */
+    color: #0077b6;
+
+    &:hover {
+        overflow: visible;
+        white-space: pre-line;
+    }
+}
+.name_company {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+
+    /* identical to box height */
+    color: #58595b;
+}
+.deadline_submit {
+    color: #58595b;
+    font-weight: 500;
+}
+.btn_apply {
+    width: 55%;
+    height: 30%;
+
+    background: #0077b6;
+    border-radius: 10px;
+    border: none;
+
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.6rem;
+    /* identical to box height */
+    color: #ffffff;
+}
+.btn_save_job {
+    width: 55%;
+    height: 30%;
+
+    border-radius: 10px;
+    border: 0.5px solid #0096c7;
+
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.6rem;
+    /* identical to box height */
+    background: #ffffff;
+    color: #00b4d8;
+}
+
+.body_detail_job {
+    background: white;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    padding-left: 4rem;
+    width: 100%;
+    border-radius: 10px;
+}
+.text_detail {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
+    /* identical to box height */
+    color: #0077b6;
+}
+.info_job {
+    margin-top: 1rem;
+    margin-left: 2rem;
+    display: flex;
+    column-gap: 2rem;
+}
+.general_information {
+    width: 65%;
+    background: rgba(202, 240, 248, 0.4);
+    border-radius: 10px;
+}
+
+.text_general_information {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.8rem;
+    /* identical to box height */
+    margin-left: 3rem;
+    margin-top: 2rem;
+    color: #3d3d3d;
+}
+.list_items {
+    margin-top: 2%;
+    margin-left: 5%;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-row-gap: 3rem;
+}
+.item_infor {
+    display: flex;
+}
+.circle_icon {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #caf0f8;
+    margin-right: 1rem;
+}
+.icon_item {
+    position: absolute;
+    color: #0077b6;
+    top: 30%;
+    left: 30%;
+    font-size: 2rem;
+}
+.text_item {
+    color: #3d3d3d;
+    font-style: normal;
+    font-weight: 600;
+}
+.text_adress_work {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.8rem;
+    /* identical to box height */
+    margin-left: 3rem;
+    margin-top: 2rem;
+    color: #3d3d3d;
+}
+.value_adress_work {
+    margin-left: 3rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    width: 85%;
+    word-wrap: break-word;
+}
+.share_report {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+.share {
+    height: 45%;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 0.5px solid #939598;
+    border-radius: 10px;
+}
+.text_share {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.8rem;
+    /* identical to box height */
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+    color: #3d3d3d;
+}
+.text_copy {
+    font-size: 1.4rem;
+    margin-left: 2rem;
+}
+
+.value_copy {
+    height: 60%;
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+    display: flex;
+    column-gap: 1rem;
+}
+.link_job {
+    width: 70%;
+    height: 40%;
+
+    font-style: normal;
+    font-weight: 400;
+    line-height: 48px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    color: #939598;
+
+    background: rgba(187, 188, 192, 0.2);
+    border-radius: 5px;
+}
+.circle_copy {
+    position: relative;
+    width: 13%;
+    height: 40%;
+    border-radius: 6px;
+    background: #caf0f8;
+    margin-right: 1rem;
+}
+.icon_copy {
+    position: absolute;
+    left: 27%;
+    top: 22%;
+    font-size: 2rem;
+
+    color: #0077b6;
+}
+.report{
+    height: 55%;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 0.5px solid #939598;
+    border-radius: 10px;
+}
+.text_report{
+    font-size: 1.4rem;
+    margin-left: 2rem;
+    width: 90%;
+    height: 35%;
+}
+.btn_report{
+    box-sizing: border-box;
+
+width: 85%;
+height: 22%;
+background-color: white;
+
+border: 1px solid #EA4335;
+border-radius: 10px;
+margin-left: 2rem;
+margin-top: 5%;
+color: #EA4335;
+
+}
+.text_job_description{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
+    /* identical to box height */
+    margin-left: 1rem;
+    margin-top: 3rem;
+    color: #3d3d3d;
+}
+.list_job_description{
+    width: 90%;
+    margin-left: 2rem;
+    margin-top: 1rem;
+}
+
+.footer_detail_job {
+    background: white;
+    margin-top: 2rem;
+
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    padding-left: 4rem;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.title_footer{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 3rem;
+}
+.btn_view_company {
+    width: 13%;
+    height: 4rem;
+
+    border-radius: 10px;
+    border: 0.5px solid #0096c7;
+
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 4rem;
+    /* identical to box height */
+    background: #ffffff;
+    color: #00b4d8;
+}

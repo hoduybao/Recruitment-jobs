@@ -1,0 +1,116 @@
+.wrapper {
+    padding-top: 9rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.inner {
+    width: var(--default-layout-width);
+}
+.header_detail_job {
+    background: white;
+
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    padding-left: 4rem;
+    width: 100%;
+    display: flex;
+    border-radius: 10px;
+}
+.header_left {
+    width: 80%;
+    display: flex;
+}
+.header_right {
+    margin-top: 2rem;
+
+    flex: 1;
+}
+.block_info {
+    flex: 1;
+    margin-left: 3rem;
+    margin-top: 2rem;
+}
+.logo {
+    width: 15rem;
+    height: 15rem;
+    border: 1px solid #d7e4e8;
+    border-radius: 50%;
+}
+
+.name_company {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+
+    /* identical to box height */
+    color: #0077b6;
+}
+.item_header {
+    display: flex;
+    column-gap: 1rem;
+}
+.icon_item_header {
+    color: #2995cf;
+    margin-top: 3px;
+    font-size: 1.6rem;
+    width: 2rem;
+}
+.deadline_submit {
+    color: #58595b;
+    font-weight: 500;
+}
+
+.btn_apply {
+    width: 55%;
+    height: 30%;
+
+    background: #0077b6;
+    border-radius: 10px;
+    border: none;
+
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.6rem;
+    /* identical to box height */
+    color: #ffffff;
+    cursor: pointer;
+}
+.navigation {
+    background: white;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    height: 4.5rem;
+
+    width: 100%;
+    border-radius: 6px;
+    display: flex;
+    column-gap: 1rem;
+}
+.item_navi {
+    font-weight: 500;
+    font-size: 1.8rem;
+    height: 4.5rem;
+    line-height: 4.5rem;
+    text-align: center;
+    width: 15%;
+    /* identical to box height */
+
+    color: #58595b;
+}
+.active {
+    color: #0077b6;
+    border-bottom: 3px solid #0077b6;
+}
+.content{
+    width: 100%;
+    display: flex;
+    border-radius: 10px;
+    margin-bottom: 3rem;
+}
+.side_left{
+    width: 60%;
+}

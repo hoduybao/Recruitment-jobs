@@ -28,17 +28,11 @@ function Home() {
                             Net Company
                         </a>
                         <a className={cx('number_recruit_company_home')} href="/">
-                            Công việc đang tuyển: <span className={cx('number_job')}>5</span>
+                            <span className={cx('number_job')}>5 việc làm</span>&nbsp;- Hồ Chí Minh
                         </a>
 
-                        <div className={cx('evaluate_comany_home')}>
-                            Đánh giá: <span className={cx('evaluate')}>4.5/5</span>
-                            <FontAwesomeIcon icon={faStar} style={{ color: '#21c2e2' }} />
-                        </div>
-                        <div className={cx('address_company')}>
-                            <FontAwesomeIcon icon={faLocationDot} style={{ color: '#21c2e2', marginRight: 5 }} />
-                            Hồ Chí Minh
-                        </div>
+
+                    
                     </div>
                     <div className={cx('item_company_candidate', 'p-2 m-2')}>
                         <img src={images.logo} alt="logo" className={cx('logo_company_home')} />
@@ -46,17 +40,11 @@ function Home() {
                             Net Company
                         </a>
                         <a className={cx('number_recruit_company_home')} href="/">
-                            Công việc đang tuyển: <span className={cx('number_job')}>5</span>
+                            <span className={cx('number_job')}>5 việc làm</span>&nbsp;- Hồ Chí Minh
                         </a>
 
-                        <div className={cx('evaluate_comany_home')}>
-                            Đánh giá: <span className={cx('evaluate')}>4.5/5</span>
-                            <FontAwesomeIcon icon={faStar} style={{ color: '#21c2e2' }} />
-                        </div>
-                        <div className={cx('address_company')}>
-                            <FontAwesomeIcon icon={faLocationDot} style={{ color: '#21c2e2', marginRight: 5 }} />
-                            Hồ Chí Minh
-                        </div>
+
+                    
                     </div>
                     <div className={cx('item_company_candidate', 'p-2 m-2')}>
                         <img src={images.logo} alt="logo" className={cx('logo_company_home')} />
@@ -64,17 +52,11 @@ function Home() {
                             Net Company
                         </a>
                         <a className={cx('number_recruit_company_home')} href="/">
-                            Công việc đang tuyển: <span className={cx('number_job')}>5</span>
+                            <span className={cx('number_job')}>5 việc làm</span>&nbsp;- Hồ Chí Minh
                         </a>
 
-                        <div className={cx('evaluate_comany_home')}>
-                            Đánh giá: <span className={cx('evaluate')}>4.5/5</span>
-                            <FontAwesomeIcon icon={faStar} style={{ color: '#21c2e2' }} />
-                        </div>
-                        <div className={cx('address_company')}>
-                            <FontAwesomeIcon icon={faLocationDot} style={{ color: '#21c2e2', marginRight: 5 }} />
-                            Hồ Chí Minh
-                        </div>
+
+                    
                     </div>
                     <div className={cx('item_company_candidate', 'p-2 m-2')}>
                         <img src={images.logo} alt="logo" className={cx('logo_company_home')} />
@@ -82,17 +64,11 @@ function Home() {
                             Net Company
                         </a>
                         <a className={cx('number_recruit_company_home')} href="/">
-                            Công việc đang tuyển: <span className={cx('number_job')}>5</span>
+                            <span className={cx('number_job')}>5 việc làm</span>&nbsp;- Hồ Chí Minh
                         </a>
 
-                        <div className={cx('evaluate_comany_home')}>
-                            Đánh giá: <span className={cx('evaluate')}>4.5/5</span>
-                            <FontAwesomeIcon icon={faStar} style={{ color: '#21c2e2' }} />
-                        </div>
-                        <div className={cx('address_company')}>
-                            <FontAwesomeIcon icon={faLocationDot} style={{ color: '#21c2e2', marginRight: 5 }} />
-                            Hồ Chí Minh
-                        </div>
+
+                    
                     </div>
                     <div className={cx('item_company_candidate', 'p-2 m-2')}>
                         <img src={images.logo} alt="logo" className={cx('logo_company_home')} />
@@ -100,40 +76,27 @@ function Home() {
                             Net Company
                         </a>
                         <a className={cx('number_recruit_company_home')} href="/">
-                            Công việc đang tuyển: <span className={cx('number_job')}>5</span>
+                            <span className={cx('number_job')}>5 việc làm</span>&nbsp;- Hồ Chí Minh
                         </a>
 
-                        <div className={cx('evaluate_comany_home')}>
-                            Đánh giá: <span className={cx('evaluate')}>4.5/5</span>
-                            <FontAwesomeIcon icon={faStar} style={{ color: '#21c2e2' }} />
-                        </div>
-                        <div className={cx('address_company')}>
-                            <FontAwesomeIcon icon={faLocationDot} style={{ color: '#21c2e2', marginRight: 5 }} />
-                            Hồ Chí Minh
-                        </div>
+
+                    
                     </div>
+                    <div className={cx('item_company_candidate', 'p-2 m-2')}>
+                        <img src={images.logo} alt="logo" className={cx('logo_company_home')} />
+                        <a className={cx('name_company_home')} href="/">
+                            Net Company
+                        </a>
+                        <a className={cx('number_recruit_company_home')} href="/">
+                            <span className={cx('number_job')}>5 việc làm</span>&nbsp;- Hồ Chí Minh
+                        </a>
+
+
+                    
+                    </div>
+                 
                 </div>
-                <div className={cx('navigation-home')}>
-                    <nav aria-label="Page navigation example">
-                        <ul className="pagination">
-                            <li class="page-item">
-                                <a className="page-link" href="/">
-                                    1
-                                </a>
-                            </li>
-                            <li className="page-item">
-                                <a className="page-link" href="/">
-                                    2
-                                </a>
-                            </li>
-                            <li className="page-item">
-                                <a className="page-link" href="/">
-                                    3
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                
             </div>
         </div>
     );

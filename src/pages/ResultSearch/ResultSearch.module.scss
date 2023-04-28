@@ -1,0 +1,112 @@
+.wrapper {
+    margin-top: 3rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+.inner {
+    background: white;
+    width: var(--default-layout-width);
+    padding: 15px var(--default-layout-horizontal-spacer);
+    border-radius: 10px;
+}
+.text_top_job {
+    margin-left: 1%;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.card_company_home {
+    margin-top: 2rem;
+
+    align-content: flex-start;
+    column-gap: 4rem;
+    margin-left: 3%;
+    row-gap: 1rem;
+}
+
+.item_recruit_candidate {
+    box-sizing: border-box;
+    position: relative;
+    width: 45%;
+    height: 25rem;
+    border: 1px solid #bbbcc0;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    background: white;
+}
+
+.logo_company {
+    position: absolute;
+    border: 1px solid #D7E4E8;
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: 20%;
+    height: 40%;
+    left: 5%;
+    top: 10%;
+}
+.name_recruit{
+    position: absolute;
+    width: 68%;
+    left: 28%;
+    height: 30%;
+    font-weight: 500;
+    font-size: 1.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* identical to box height */
+    top: 10%;
+
+    color: #29333f;
+}
+.name_company{
+    position: absolute;
+    width: 68%;
+    left: 28%;
+    font-weight: 600;
+    font-size: 1.8rem;
+
+    /* identical to box height */
+    top: 35%;
+    color: #21c2e2;
+}
+.require{
+    position: absolute;
+    width: 68%;
+    left: 35%;
+
+    /* identical to box height */
+    top: 50%;
+}
+.label{
+  
+    font-weight: 500;
+
+    /* identical to box height */
+}
+.value{
+    font-weight: 500;
+    color: #21c2e2;
+
+}
+.time_update{
+    position: absolute;
+ 
+font-size: 1.4rem;
+    /* identical to box height */
+    top: 85%; 
+    right: 5%
+    
+}
+.navigation-home {
+    margin-top: 20px;
+
+    display: flex;
+    justify-content: center;
+}
+// .page-item{
+//     width: 3rem;
+//     height: 3rem;
+// }

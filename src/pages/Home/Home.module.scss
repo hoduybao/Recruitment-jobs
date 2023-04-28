@@ -12,101 +12,73 @@
     border-radius: 10px;
 }
 .text_top_job {
-    margin-left: 4rem;
+    margin-left: 1%;
     font-size: 1.8rem;
     font-weight: 600;
 }
 
 .card_company_home {
     margin-top: 2rem;
-    align-content:flex-start;
-    margin-left: 8rem;
+    align-content: flex-start;
+    justify-content: space-between;
+    margin-left: 1%;
+    row-gap: 20px;
 }
 
 .item_company_candidate {
     box-sizing: border-box;
     position: relative;
-    width: 45%;
-    height: 17rem;
-    border: 1px solid #BBBCC0;
+    width: 30%;
+    height: 30rem;
+    border: 1px solid #bbbcc0;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
     background: white;
 }
 
 .logo_company_home {
-    box-sizing: border-box;
     position: absolute;
-    width:10rem;
+
+    box-sizing: border-box;
+    width: 15rem;
     height: 10rem;
-    left: 2rem;
+    left: 50%;
+    transform: translate(-50%, 0);
     top: 13%;
-    border: 1px solid #D7E4E8;
-    border-radius: 10px;
-  
 }
 .name_company_home {
     position: absolute;
-    width: 32rem;
-    height: 36px;
-    left: 14rem;
-    top: 2rem;
-    font-style: normal;
+    width: 80%;
+    left: 50%;
     font-weight: 600;
-    font-size: 20px;
-    line-height: 36px;
-    /* identical to box height */
-
-    color: #00B4D8;
-  
-
-}
-.number_recruit_company_home{
-    position: absolute;
-    height: 27px;
-    left: 14.2rem;
-    text-decoration: none;
-    top: 6rem;
-    font-style: normal;
-    font-weight: 500;
     font-size: 1.8rem;
-    line-height: 27px;
-    /* identical to box height */
-
-
-    color: #29333F;
-}
-.number_job{
-    color: #21c2e2;
-}
-.evaluate_comany_home{
-    position: absolute;
-    height: 27px;
-    left: 14.2rem;
-    text-decoration: none;
-    top: 9rem;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.8rem;
-    line-height: 27px;
-    /* identical to box height */
-
-
-}
-.evaluate{
-    color: #21c2e2;
-}
-.address_company{
-    position: absolute;
-    height: 27px;
-    right:2rem;
-    top: 13rem;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.8rem;
-    line-height: 27px;
-}
-.navigation-home{
-    margin-top: 20px;
     display: flex;
     justify-content: center;
+    /* identical to box height */
+    transform: translate(-50%, 0);
+    top: 50%;
+
+    color: #29333f;
 }
+.number_recruit_company_home {
+    position: absolute;
+    height: 27px;
+    text-decoration: none;
+    width: 80%;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    justify-content: center;
+    padding: auto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 27px;
+    /* identical to box height */
+
+    color: #29333f;
+}
+.number_job {
+    color: #21c2e2;
+}
+
