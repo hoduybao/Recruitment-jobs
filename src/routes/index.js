@@ -4,6 +4,7 @@ import SignUp from '~/pages/SignUp';
 import ResultSearch from '~/pages/ResultSearch';
 import DetailJob from '~/pages/DetailJob';
 import ViewCompany from '~/pages/ViewCompany';
+import ManageJobs from '~/pages/ManageJobs';
 import { SignInLayout } from '~/Layout';
 const publicRoutes = [
     {
@@ -33,6 +34,11 @@ const publicRoutes = [
     {
         path: '/view-company',
         component: ViewCompany,
+        layout: SignInLayout
+    },
+    {
+        path: '/my-job',
+        component: ManageJobs,
         layout: SignInLayout
     },
     

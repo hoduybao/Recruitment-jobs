@@ -6,7 +6,7 @@ import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
-function Following() {
+function Login() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -83,9 +83,8 @@ function Following() {
                 </div>
              
             </div>
-            {/**/}
         </div>
     );
 }
 
-export default Following;
+export default Login;

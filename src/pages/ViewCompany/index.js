@@ -6,17 +6,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays, faLocationDot, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import ListJobs from '~/Layout/components/ListJobs';
 import IntroCompany from '~/Layout/components/IntroCompany';
-import { useRef, useState } from 'react';
+import DetailReview from '~/Layout/components/DetailReview';
+import TotalReview from '~/Layout/components/TotalReview';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function ViewCompany() {
     const [classJob, setClassJob] = useState(['active']);
     const [classReview, setClassReview] = useState([]);
-
+    const [isListJob,setIsListJob] =useState(true);
     var classesJob = cx('item_navi', ...classJob);
     var classesReview = cx('item_navi', ...classReview);
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -58,8 +59,10 @@ function ViewCompany() {
                         onClick={(e) => {
                             setClassJob(['active']);
                             setClassReview([]);
+                            setIsListJob(true);
                         }}
                         to=""
+                        
                     >
                         Việc làm
                     </Link>
@@ -68,8 +71,9 @@ function ViewCompany() {
                         onClick={(e) => {
                             setClassReview(['active']);
                             setClassJob([]);
+                            setIsListJob(false);
                         }}
-                        to="review"
+                        to=""
                     >
                         Đánh giá
                     </Link>
@@ -81,9 +85,17 @@ function ViewCompany() {
                             <IntroCompany/>
                         </div>
                     ) : (
-                        <div></div>
+                        <div className={cx('side_left')}>
+                            <DetailReview />
+                        </div>
                     )}
-                    <div></div>
+                    <div className={cx('side_right')}>
+                        <TotalReview isListJob={isListJob} onClick={()=>{
+                            setClassReview(['active']);
+                            setClassJob([]);
+                            setIsListJob(false);
+                        }}/>
+                    </div>
                 </div>
             </div>
         </div>

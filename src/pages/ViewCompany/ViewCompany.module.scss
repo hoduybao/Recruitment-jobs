@@ -1,5 +1,5 @@
 .wrapper {
-    padding-top: 9rem;
+    padding-top: 8rem;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -108,9 +108,13 @@
 .content{
     width: 100%;
     display: flex;
+    justify-content: space-between;
     border-radius: 10px;
     margin-bottom: 3rem;
 }
 .side_left{
     width: 60%;
+}
+.side_right{
+    width: 39%;
 }

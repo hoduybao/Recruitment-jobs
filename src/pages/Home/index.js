@@ -1,8 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import images from '~/assets/images';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot, faStar } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 const cx = classNames.bind(styles);
 

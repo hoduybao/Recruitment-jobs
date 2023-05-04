@@ -1,0 +1,42 @@
+.inner {
+    padding-top: 2rem;
+    background: white;
+    width: 100%;
+    border-radius: 5px;
+    padding-bottom: 2rem;
+}
+.text_review_overall{
+    margin-left: 5%;
+    font-size: 2rem;
+    font-weight: 500;
+}
+.rating_company{
+    color: rgb(232, 72, 72);
+    margin-top: 2%;
+    margin-left: 7%;
+    font-size: 2.8rem;
+}
+.value_star{
+    margin-left: 4%;
+    font-size: 2.2rem;
+    font-weight: 500;
+}
+.view_list_review{
+    width: 93%;
+    margin-top: 8%;
+    margin-left:3%;
+    border-top: 1px solid #bbbcc0;    
+}
+.btn_view_review{
+    font-weight: 500;
+    font-size: 1.5rem;
+    background-color:red;
+    border-color: transparent;
+    border-radius: 5px;
+    color: white;
+    width: 60%;
+    padding: 5px 0px;
+    margin-top: 5%;
+
+    margin-left: 20%;
+}

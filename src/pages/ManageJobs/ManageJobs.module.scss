@@ -1,28 +1,65 @@
-.wrapper {
-    margin-top: 3rem;
+.wrapper{
+    width: 100%;
+    padding-top: 6.1rem;
+
+}
+.wrapper_inner{
+    background: white;
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 2rem;
 }
-.inner {
-    background: white;
-    width: var(--default-layout-width);
-    padding: 15px var(--default-layout-horizontal-spacer);
-    border-radius: 10px;
-}
-.text_top_job {
-    margin-left: 1%;
-    font-size: 1.8rem;
-    font-weight: 600;
-}
+.inner{
 
+    width: var(--default-layout-width);
+}
+.navigation {
+    color:rgb(69, 66, 66);
+    margin-bottom: 1rem;
+    height: 100%;
+    width: 100%;
+    border-radius: 6px;
+    display: flex;
+    column-gap: 2rem;
+}
+.item_navi {
+    font-weight: 500;
+    height: 100%;
+    padding-top: 1rem;
+    line-height: 3rem;
+    text-align: center;
+    width: 12%;
+    /* identical to box height */
+    color:rgb(69, 66, 66);
+    &:hover{
+        color:currentColor;
+        border-bottom: 3px solid rgba(143, 133, 133, 0.55);;
+    }
+}
+.active {
+    color: #EA2635;
+    border-bottom: 3px solid #EA2635;;
+    &:hover{
+        color: #EA2635;
+    }
+}
+.content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+.text_title{
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: red;
+}
 .card_company_home {
     margin-top: 2rem;
 
     align-content: flex-start;
     column-gap: 4rem;
-    margin-left: 3%;
     row-gap: 1rem;
 }
 
@@ -100,13 +137,3 @@ font-size: 1.4rem;
     right: 5%
     
 }
-.navigation-home {
-    margin-top: 20px;
-
-    display: flex;
-    justify-content: center;
-}
-// .page-item{
-//     width: 3rem;
-//     height: 3rem;
-// }

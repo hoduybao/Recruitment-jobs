@@ -2,8 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './ResultSearch.module.scss';
 import images from '~/assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock, faClockRotateLeft, faLocationDot, faStar, faTimeline } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
+import {  faClockRotateLeft  } from '@fortawesome/free-solid-svg-icons';
 const cx = classNames.bind(styles);
 function ResultSearch() {
     return (

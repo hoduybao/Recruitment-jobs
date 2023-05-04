@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './SignUp.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock, faPerson, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);

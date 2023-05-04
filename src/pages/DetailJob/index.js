@@ -6,12 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faAddressCard,
     faBriefcase,
-    faCashRegister,
-    faClock,
     faClockRotateLeft,
     faCopy,
     faMarsAndVenus,
-    faMoneyBill,
     faMoneyBillWave,
     faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
