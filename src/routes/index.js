@@ -11,6 +11,7 @@ import SignUpEmployer from '~/Layout/Employer/components/SignUp';
 import { SignInLayoutEmployer } from '~/Layout/Employer';
 import { DefaultLayout } from '~/Layout/Employer';
 import { SignInLayout } from '~/Layout';
+import PostNews from '~/Layout/Employer/components/PostNews';
 const publicRoutes = [
     {
         path: '/',
@@ -62,16 +63,12 @@ const publicRoutes = [
         path: '/employer',
         component: HomeEmployer,
         layout: DefaultLayout,
-         employer: true
+        employer: true,
     },
-    {path: '/employer/jobs',
-    component: ManageJobs,
-    employer: true,
-    layout: DefaultLayout,},
-    {path: '/employer/detail-job',
-    component: DetailJob,
-    employer: true,
-    layout: DefaultLayout,}
+    { path: '/employer/jobs', component: ManageJobs, employer: true, layout: DefaultLayout },
+    { path: '/employer/detail-job', component: DetailJob, employer: true, layout: DefaultLayout },
+    { path: '/employer/post-job', component: PostNews, layout: DefaultLayout },
+
 ];
 
 const privateRoutes = [];

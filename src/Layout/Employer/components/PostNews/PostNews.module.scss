@@ -1,0 +1,156 @@
+.wrapper {
+    padding-top: 1rem;
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.content {
+    background: #ffffff;
+    width: 98%;
+    padding-left: 7%;
+}
+.title {
+  
+    margin-top: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.5rem;
+    /* identical to box height */
+
+
+    color: #00b4d8;
+}
+.introduce {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.4rem;
+    /* identical to box height */
+
+
+    color: #939598;
+}
+.label_title {
+    margin-top: 4rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.6rem;
+    /* identical to box height */
+    color: #3d3d3d;
+}
+.title_recruitment {
+    width: 63.5%;
+    height: 4rem;
+    padding-left: 1rem;
+    background: #ffffff;
+    border: 1px solid #939598;
+    border-radius: 5px;
+}
+.infor_general {
+    margin-top: 3rem;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.8rem;
+    /* identical to box height */
+
+    color: #3d3d3d;
+}
+.wrapp_infor_general {
+    display: flex;
+    margin-top: 2rem;
+    width: 80%;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+}
+.item {
+    width: 30%;
+}
+.label_general {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.6rem;
+    /* identical to box height */
+    color: #3d3d3d;
+}
+
+.experience_select,
+.sex_select,
+.quantity,
+.value_salary {
+    width: 65%;
+    height: 4rem;
+    padding-left: 1rem;
+    background: #ffffff;
+    border: 1px solid #939598;
+    border-radius: 5px;
+    font-size: 1.6rem;
+}
+.salary {
+    width: 90%;
+    height: 4rem;
+    padding-left: 1rem;
+    background: #ffffff;
+    border: 1px solid #939598;
+    border-radius: 5px;
+    font-size: 1.6rem;
+}
+.job_describe{
+   
+    width: 65%;
+    height: 250px;
+    border: 0.5px solid black;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    overflow-wrap: break-word;
+    /* identical to box height */
+    resize: none;
+    color: #494848;
+  }
+
+  .lable_deadline {
+    margin-top: 2rem;
+    font-style: normal;
+    font-weight:600;
+    font-size: 1.6rem;
+    /* identical to box height */
+    color: #3d3d3d;
+}
+.deadline {
+    width: 160px;
+    height: 4rem;
+    padding-left: 1rem;
+    background: #ffffff;
+    border: 1px solid #939598;
+    border-radius: 5px;
+    display: block;
+}
+.submit_recruits{
+    margin-top: 2rem;
+width: 10rem;
+height: 4rem;
+margin-bottom:  5rem;
+
+background: #00B4D8;
+border-radius: 6px;
+color: white;
+border: none;
+font-weight: 500;
+}
+.cancle{
+    margin-top: 2rem;
+    margin-left: 1rem;
+
+    height: 4rem;
+    padding: 0.8rem 1.5rem;
+    
+    background: white;
+    border-radius: 5px;
+    color:#000000;
+    border:1px solid #00B4D8;
+    font-weight: 500;
+}
