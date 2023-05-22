@@ -1,20 +1,30 @@
-.wrapper{
+.wrapper {
     width: 100%;
     padding-top: 6.1rem;
-
 }
-.wrapper_inner{
+.wrapper_employer {
+    width: 100%;
+    .content {
+        padding-left: 3%;
+    }
+    .inner{
+        width: 96%;
+    }
+    .item_recruit_candidate{
+        width: 500px;
+    }
+}
+.wrapper_inner {
     background: white;
     width: 100%;
     display: flex;
     justify-content: center;
 }
-.inner{
-
+.inner {
     width: var(--default-layout-width);
 }
 .navigation {
-    color:rgb(69, 66, 66);
+    color: rgb(69, 66, 66);
     margin-bottom: 1rem;
     height: 100%;
     width: 100%;
@@ -30,43 +40,43 @@
     text-align: center;
     width: 12%;
     /* identical to box height */
-    color:rgb(69, 66, 66);
-    &:hover{
-        color:currentColor;
-        border-bottom: 3px solid rgba(143, 133, 133, 0.55);;
+    color: rgb(69, 66, 66);
+    &:hover {
+        color: currentColor;
+        border-bottom: 3px solid rgba(143, 133, 133, 0.55);
     }
 }
 .active {
-    color: #EA2635;
-    border-bottom: 3px solid #EA2635;;
-    &:hover{
-        color: #EA2635;
+    color: black;
+    border-bottom: 3px solid black;
+    &:hover {
+        color: black;
     }
 }
-.content{
+.content {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-top: 4%;
     margin-bottom: 4%;
 }
-.text_title{
+.text_title {
     font-weight: 600;
     font-size: 1.8rem;
-    color: red;
+    color: black;
 }
 .card_company_home {
     margin-top: 2rem;
-
+    flex-wrap: wrap;
     align-content: flex-start;
-    column-gap: 4rem;
+    column-gap: 1rem;
     row-gap: 1rem;
 }
 
 .item_recruit_candidate {
     box-sizing: border-box;
     position: relative;
-    width: 45%;
+    width: 410px;
     height: 22rem;
     border: 1px solid #bbbcc0;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
@@ -75,7 +85,7 @@
 
 .logo_company {
     position: absolute;
-    border: 1px solid #D7E4E8;
+    border: 1px solid #d7e4e8;
     border-radius: 10px;
     box-sizing: border-box;
     width: 20%;
@@ -83,7 +93,7 @@
     left: 5%;
     top: 10%;
 }
-.name_recruit{
+.name_recruit {
     position: absolute;
     width: 68%;
     left: 28%;
@@ -98,7 +108,7 @@
 
     color: #29333f;
 }
-.name_company{
+.name_company {
     position: absolute;
     width: 68%;
     left: 28%;
@@ -109,7 +119,7 @@
     top: 25%;
     color: #21c2e2;
 }
-.require{
+.require {
     position: absolute;
     width: 68%;
     left: 32%;
@@ -117,23 +127,20 @@
     /* identical to box height */
     top: 40%;
 }
-.label{
-  
+.label {
     font-weight: 500;
 
     /* identical to box height */
 }
-.value{
+.value {
     font-weight: 500;
     color: #21c2e2;
-
 }
-.time_update{
+.time_update {
     position: absolute;
- 
-font-size: 1.4rem;
+
+    font-size: 1.4rem;
     /* identical to box height */
-    top: 80%; 
-    right: 5%
-    
+    top: 80%;
+    right: 5%;
 }

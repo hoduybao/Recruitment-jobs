@@ -15,6 +15,8 @@ function App() {
                         } else if (route === null) {
                             Layout = Fragment;
                         }
+                        let employer=false;
+                        employer=route.employer;
                         const Page = route.component;
                         return (
                             <Route
@@ -22,7 +24,7 @@ function App() {
                                 path={route.path}
                                 element={
                                     <Layout>
-                                        <Page />
+                                        <Page employer={employer} />
                                     </Layout>
                                 }
                             />

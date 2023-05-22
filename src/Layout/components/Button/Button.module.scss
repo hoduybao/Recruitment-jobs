@@ -1,0 +1,44 @@
+.wrapper{
+    display: inline-flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: 400;
+    min-width: 100px;
+    padding: 9px 16px;
+
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: var(--white);
+    border: 1px solid transparent;
+
+    user-select: none;
+   
+    &.disabled{
+        pointer-events: none;
+        opacity: 0.5;
+    }
+}
+
+.icon + .title, .title + .icon{
+    margin-left: 10px;
+}
+
+.icon{
+    color:  #4c4d4f;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-size: 1.8rem;
+}
+.title
+{
+    color:  #4c4d4f;
+}
+
+
+
+
+
+

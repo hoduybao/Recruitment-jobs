@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 const cx = classNames.bind(styles);
 
-function Header() {
+function Header({ employer = false }) {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -14,22 +14,46 @@ function Header() {
                     <img src={images.logo} alt="logo" />
                 </div>
                 <div className={cx('actions')}>
-                    <Link className={cx('btn_login_candidate')} to="/sign-in">
-                        Đăng nhập
-                    </Link>
-                    <Link className={cx('btn_signin_candidate')} to="/sign-up">
-                        Đăng ký
-                    </Link>
-                    <Link className={cx('btn_switch_recruiter')} to="/">
-                        <span>Dành cho nhà tuyển dụng</span>
-                        <div style={{ display: 'inline-block', marginLeft: 10,marginTop:2 }}>
-                            <FontAwesomeIcon
-                                className={cx('icon_arrow')}
-                                icon={faArrowRight}
-                                style={{ color: '#ffffff' }}
-                            />
-                        </div>
-                    </Link>
+                    {employer === false ? (
+                        <>
+                            <Link className={cx('btn_login_candidate')} to="/sign-in">
+                                Đăng nhập
+                            </Link>
+                            <Link className={cx('btn_signin_candidate')} to="/sign-up">
+                                Đăng ký
+                            </Link>
+                            <Link className={cx('btn_switch_recruiter')} to="/employer">
+                                <span>Dành cho nhà tuyển dụng</span>
+                                <div style={{ display: 'inline-block', marginLeft: 10, marginTop: 2 }}>
+                                    <FontAwesomeIcon
+                                        className={cx('icon_arrow')}
+                                        icon={faArrowRight}
+                                        style={{ color: '#ffffff' }}
+                                    />
+                                </div>
+                            </Link>
+                        </>
+                    ) : (
+                        <>
+                        <Link className={cx('btn_login_candidate')} to="/employer/sign-in">
+                                Đăng nhập
+                            </Link>
+                        <Link className={cx('btn_signin_candidate')} to="/employer/sign-up">
+                            Đăng ký
+                        </Link>
+                        <Link className={cx('btn_switch_recruiter')} to="/">
+                                <span>Dành cho người tìm việc</span>
+                                <div style={{ display: 'inline-block', marginLeft: 10, marginTop: 2 }}>
+                                    <FontAwesomeIcon
+                                        className={cx('icon_arrow')}
+                                        icon={faArrowRight}
+                                        style={{ color: '#ffffff' }}
+                                    />
+                                </div>
+                            </Link>
+                        </>
+                      
+                    )}
                 </div>
             </div>
         </header>

@@ -6,15 +6,26 @@ import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
-function Login() {
+function Login({ employer = false }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <div className={cx('side-left')}>
-                    <div className={cx('text_welcome_login')}>Chào mừng bạn trở lại</div>
-                    <div className={cx('text_login_by_account')}>
-                        Đăng nhập vào tài khoản <span className={cx('text_jore')}>JORE</span> của bạn
-                    </div>
+                    {employer === false ? (
+                        <>
+                            <div className={cx('text_welcome_login')}>Chào mừng bạn trở lại</div>
+                            <div className={cx('text_login_by_account')}>
+                                Đăng nhập vào tài khoản <span className={cx('text_jore')}>JORE</span> của bạn
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className={cx('text_welcome_login')}>Chào mừng bạn trở lại</div>
+                            <div className={cx('text_login_by_account')}>
+                                Đăng nhập vào tài khoản <span className={cx('text_jore')}> JORE BUSINESS </span> của bạn
+                            </div>
+                        </>
+                    )}
 
                     {/* {{#if message}}
         <div class="alert alert-success mt-2">
@@ -60,28 +71,34 @@ function Login() {
                         <button type="submit" className={cx('submit_form_login')}>
                             Đăng nhập
                         </button>
-                        <div className={cx('or')}>Hoặc</div>
                     </form>
-                    <div className={cx('login_other')}>
-                        <button className={cx('login_facebook')}>
-                            <img src={images.facebook} alt="facebook" className={cx('facebook')} />
-                        </button>
-                        <button className={cx('login_email')}>
-                            <img src={images.google} alt="google" className={cx('google')} />
-                        </button>
-                    </div>
-                    <div className={cx('no_account')}>
-                        Bạn chưa có tài khoản?
-                        <Link to="/sign-up" className={cx('signup-now')}>
-                            Đăng ký ngay
-                        </Link>
-                    </div>
+                    {!employer && (
+                        <>
+                            <div className={cx('or')}>Hoặc</div>
+                            <div className={cx('login_other')}>
+                                <button className={cx('login_facebook')}>
+                                    <img src={images.facebook} alt="facebook" className={cx('facebook')} />
+                                </button>
+                                <button className={cx('login_email')}>
+                                    <img src={images.google} alt="google" className={cx('google')} />
+                                </button>
+                            </div>
+                            <div className={cx('no_account')}>
+                                Bạn chưa có tài khoản?
+                                <Link to="sign-up" className={cx('signup-now')}>
+                                    Đăng ký ngay
+                                </Link>
+                            </div>
+                        </>
+
+                    )}
+
+
                 </div>
 
                 <div className={cx('side-right')}>
                     <img src={images.sideLogin} id="side_login" alt="login" />
                 </div>
-             
             </div>
         </div>
     );

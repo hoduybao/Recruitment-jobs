@@ -1,20 +1,22 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import images from '~/assets/images';
-import axios from 'axios';
+import request from '~/utils/request';
 const cx = classNames.bind(styles);
 
 function Home() {
-    axios
-        .get(
-            `https://hiringwebapi-production.up.railway.app/getAll?fbclid=IwAR3poxBWCdRZRmHVdFmIh4RZd04P86gJ8S5SenMXP4DVhOTYPm7iMb6jtiQ`,
-        )
-        .then((res) => {
-            console.log(res.data.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    
+    request
+    .get(`company/getAll`, {
+        params: {
+        },
+    })
+    .then((res) => {
+        //  console.log(res.data.data)
+        console.log(res.data);
+    });
+  
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>

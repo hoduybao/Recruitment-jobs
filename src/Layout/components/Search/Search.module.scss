@@ -1,7 +1,7 @@
 .wrapper {
     padding-top: 6rem;
     width: 100%;
-    height: 26rem;
+    height: 30rem;
     display: flex;
     justify-content: center;
     background-color: #00B4D8;
@@ -21,6 +21,10 @@
     height: 50%;
     width: 100%;
     display: flex;
+}
+.search-result{
+    width: 500px;
+
 }
 .search-input {
     width: 500px;
@@ -153,4 +157,17 @@
     font-size: 1.8rem;
     line-height: 46px;
     color: black;
+}
+.search-title{
+    padding: 5px 12px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgba(17, 17, 18, 0.5);
+}
+.item_result{
+    padding: 5px 12px;
+    &:hover{
+        background-color: rgb(22,24,25,0.03);
+        cursor: pointer;
+    }
 }

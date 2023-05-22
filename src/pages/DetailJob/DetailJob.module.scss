@@ -4,6 +4,15 @@
     display: flex;
     justify-content: center;
 }
+.wrapper_employer {
+    padding-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .inner{
+        width:97%;
+    }
+}
 .inner {
     width: var(--default-layout-width);
 }
@@ -106,8 +115,7 @@
 .body_detail_job {
     background: white;
     margin-top: 2rem;
-    margin-bottom: 2rem;
-
+    margin-bottom: 1rem;
 
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -255,34 +263,46 @@
 
     color: #0077b6;
 }
-.report{
+.report {
     height: 55%;
     box-sizing: border-box;
     background: #ffffff;
     border: 0.5px solid #939598;
     border-radius: 10px;
 }
-.text_report{
+.text_report {
     font-size: 1.4rem;
     margin-left: 2rem;
     width: 90%;
     height: 35%;
 }
-.btn_report{
+.btn_report {
     box-sizing: border-box;
 
-width: 85%;
-height: 22%;
-background-color: white;
+    width: 85%;
+    height: 22%;
+    background-color: white;
 
-border: 1px solid #EA4335;
-border-radius: 10px;
-margin-left: 2rem;
-margin-top: 5%;
-color: #EA4335;
-
+    border: 1px solid #ea4335;
+    border-radius: 10px;
+    margin-left: 2rem;
+    margin-top: 5%;
+    color: #ea4335;
 }
-.text_job_description{
+.btn_view_CV{
+    box-sizing: border-box;
+
+    width: 85%;
+    height: 22%;
+    background-color: white;
+    font-weight: 600;
+    border: 1px solid #0077B6;
+    border-radius: 10px;
+    margin-left: 2rem;
+    margin-top: 5%;
+    color:#0077B6;
+}
+.text_job_description {
     font-style: normal;
     font-weight: 600;
     font-size: 2rem;
@@ -291,7 +311,7 @@ color: #EA4335;
     margin-top: 3rem;
     color: #3d3d3d;
 }
-.list_job_description{
+.list_job_description {
     width: 90%;
     margin-left: 2rem;
     margin-top: 1rem;
@@ -309,7 +329,7 @@ color: #EA4335;
     border-radius: 10px;
 }
 
-.title_footer{
+.title_footer {
     display: flex;
     justify-content: space-between;
     margin-right: 3rem;
@@ -329,4 +349,14 @@ color: #EA4335;
     /* identical to box height */
     background: #ffffff;
     color: #00b4d8;
+}
+.icon_setting{
+    width: 3rem;
+    height: 3rem;
+}
+.wrapper_setting{
+    margin-left: 15%;
+    margin-right: 2%;
+    width: 3rem;
+    height: 3rem;
 }

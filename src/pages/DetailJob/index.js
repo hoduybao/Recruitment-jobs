@@ -3,20 +3,50 @@ import styles from './DetailJob.module.scss';
 import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Menu from '~/Layout/components/Popper/Menu';
 import {
     faAddressCard,
+    faBars,
     faBriefcase,
     faClockRotateLeft,
     faCopy,
+    faEyeSlash,
     faMarsAndVenus,
     faMoneyBillWave,
+    faPenToSquare,
+    faTrashCan,
+    faUser,
     faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
 const cx = classNames.bind(styles);
 
-function DetailJob() {
+function DetailJob({ employer }) {
+    const userMenu = [
+        {
+            icon: <FontAwesomeIcon icon={faPenToSquare} />,
+            title: 'Chỉnh sửa bài đăng',
+            to: '/',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faEyeSlash} />,
+            title: 'Ẩn bài đăng',
+            to: '/',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faTrashCan} />,
+            title: 'Xóa bài đăng',
+            to: '/',
+        },
+
+    ];
+    var classesWrapper;
+    if (employer) {
+        classesWrapper = cx('wrapper_employer');
+    } else {
+        classesWrapper = cx('wrapper');
+    }
     return (
-        <div className={cx('wrapper')}>
+        <div className={classesWrapper}>
             <div className={cx('inner')}>
                 <div className={cx('header_detail_job')}>
                     <div className={cx('header_left')}>
@@ -33,19 +63,41 @@ function DetailJob() {
                             </div>
                         </div>
                     </div>
-                    <div className={cx('header_right')}>
-                        <button
-                            type="button"
-                            className={cx('btn_apply')}
-                            data-bs-toggle="modal"
-                            data-bs-target="#modal_apply_company"
-                        >
-                            Ứng tuyển
-                        </button>
-                        <button type="button" className={cx('btn_save_job')}>
-                            Lưu tin
-                        </button>
-                    </div>
+
+                    {employer === false ? (
+                        <div className={cx('header_right')}>
+                            <button
+                                type="button"
+                                className={cx('btn_apply')}
+                                data-bs-toggle="modal"
+                                data-bs-target="#modal_apply_company"
+                            >
+                                Ứng tuyển
+                            </button>
+                            <button type="button" className={cx('btn_save_job')}>
+                                Lưu tin
+                            </button>
+                        </div>
+                    ) : (
+                        <Menu items={userMenu}>
+                            <div className={cx('wrapper_setting')}>
+                                <FontAwesomeIcon icon={faBars} className={cx('icon_setting')} />
+                            </div>
+                        </Menu>
+                        //      <div className={cx('header_right')}>
+                        //      <button
+                        //          type="button"
+                        //          className={cx('btn_apply')}
+                        //          data-bs-toggle="modal"
+                        //          data-bs-target="#modal_apply_company"
+                        //      >
+                        //          Hồ sơ ứng tuyển
+                        //      </button>
+                        //      <button type="button" className={cx('btn_save_job')}>
+                        //          Lưu tin
+                        //      </button>
+                        //  </div>
+                    )}
 
                     {/* 
 {{#if data.isApplied}}
@@ -131,14 +183,26 @@ function DetailJob() {
                                     </div>
                                 </div>
                             </div>
-                            <div className={cx('report')}>
-                                <div className={cx('text_share')}>Báo cáo tin tuyển dụng</div>
+                            {employer===false?(
+                                  <div className={cx('report')}>
+                                  <div className={cx('text_share')}>Báo cáo tin tuyển dụng</div>
+                                  <div className={cx('text_report')}>
+                                      Nếu bạn thấy rằng tin tuyển dụng này không đúng hoặc có một trong các dấu hiệu xấu,
+                                      hãy phản ánh với chúng tôi.
+                                  </div>
+                                  <button className={cx('btn_report')}>Báo cáo</button>
+                              </div>
+                            ):(
+                                <div className={cx('report')}>
+                                <div className={cx('text_share')}>Quản lý hồ sơ ứng tuyển</div>
                                 <div className={cx('text_report')}>
-                                    Nếu bạn thấy rằng tin tuyển dụng này không đúng hoặc có một trong các dấu hiệu xấu,
-                                    hãy phản ánh với chúng tôi.
+                                    
+                                    Danh sách hồ sơ ứng viên đã ứng tuyển vào công việc này đang chờ bạn xem xét đấy.
                                 </div>
-                                <button className={cx('btn_report')}>Báo cáo</button>
+                                <button className={cx('btn_view_CV')}>Xem danh sách</button>
                             </div>
+                            )}
+                          
                         </div>
                     </div>
                     <div className={cx('text_job_description')}>Mô tả công việc</div>
@@ -157,7 +221,6 @@ function DetailJob() {
                         <li>công việc tốt</li>
                     </ul>
                 </div>
-               
             </div>
         </div>
     );

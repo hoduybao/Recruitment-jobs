@@ -1,0 +1,76 @@
+.wrapper {
+    width: 22%;
+    background-color: white;
+}
+.header {
+    padding-left: 1.5rem;
+    padding-bottom: 1.5rem;
+    margin-top: 2rem;
+    display: flex;
+    column-gap: 1rem;
+    border-bottom: 0.5px solid rgba(192, 199, 206, 0.7);
+}
+.avatar {
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 50%;
+    border: 1px solid rgb(212, 203, 203);
+}
+.name_employer {
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1.4rem;
+    color: #6d6e71;
+}
+.text_info {
+    font-weight: 500;
+    font-style: normal;
+    font-size: 1.2rem;
+    color: #a1a7ae;
+}
+.menu {
+    color: #6d6e71;
+    padding-left: 2rem;
+    padding-bottom: 1.5rem;
+    margin-top: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+}
+.item {
+    position: relative;
+
+    &:hover {
+        .name_item {
+            font-size: 1.9rem;
+        }
+        .icon_menu {
+            font-size: 3.1rem;
+        }
+    }
+}
+.selected {
+    color: #00b4d8;
+    &:hover {
+        color: #00b4d8;
+    }
+}
+.not_selected {
+    color: #6d6e71;
+    &:hover {
+        color: #6d6e71;
+    }
+}
+
+.name_item {
+    top: 50%;
+    position: absolute;
+    font-size: 1.8rem;
+    font-weight: 500;
+    transform: translateY(-50%);
+}
+.icon_menu {
+    font-size: 3rem;
+    width: 4rem;
+}
