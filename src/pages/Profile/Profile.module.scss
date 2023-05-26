@@ -1,0 +1,129 @@
+.wrapper {
+    padding-top: 6rem;
+    width: 100%;
+    display: flex;
+    min-height: 90vh;
+    justify-content: center;
+}
+.inner {
+    margin-top: 1rem;
+    width: 70%;
+    display: flex;
+    row-gap: 1rem;
+    flex-direction: column;
+}
+.head_profie {
+    background: white;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    padding-top: 1rem;
+    padding-left: 3rem;
+    padding-bottom: 2rem;
+    column-gap: 2rem;
+}
+.wrapper_avatar {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+.avatar {
+    width: 12rem;
+    height: 12rem;
+
+    border: 1px solid #d7e4e8;
+    border-radius: 50%;
+}
+
+.btn_edit {
+    background-color: #e4e6eb;
+    border: none;
+    padding: 4px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+.icon_edit {
+    margin-right: 4px;
+}
+
+.name_my_profile {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2.6rem;
+    /* identical to box height */
+    color: black;
+
+    margin-top: 3rem;
+}
+.email {
+    font-style: normal;
+    font-size: 1.8rem;
+    /* identical to box height */
+    color: rgb(58, 56, 56);
+}
+.icon_email {
+    color: rgb(58, 56, 56);
+}
+.general_infor {
+    border-radius: 10px;
+    background: white;
+    width: 100%;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+}
+.title_general_infor {
+    margin-left: 4%;
+    margin-bottom: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.8rem;
+    /* identical to box height */
+
+    color: #3d3d3d;
+}
+.title_experience{
+    margin-left: 4%;
+    margin-bottom: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.6rem;
+    /* identical to box height */
+
+    color: #3d3d3d;
+}
+.experience{
+    font-size: 1.7rem;
+    font-weight: 500;
+}
+.icon_infor{
+    margin-right: 7px;
+    
+}
+.dob,.gender,.address,.phone{
+    font-size: 1.7rem;
+    margin-left: 6%;
+    margin-bottom: 1rem;
+}
+.list_skills{
+    font-size: 1.7rem;
+    margin-left: 6%;
+    margin-bottom: 2rem;
+}
+.CV{
+    display: flex;
+    justify-content: center;
+    color:#3D3D3D;
+    font-size: 2.5rem;
+    font-weight: 600;
+    &:hover{
+        color:#3D3D3D;
+        font-size: 2.6rem
+    }
+}
+.icon_CV{
+    color: #00B4D8;
+    margin-right: 10px;
+    margin-top: 4px;
+}
+

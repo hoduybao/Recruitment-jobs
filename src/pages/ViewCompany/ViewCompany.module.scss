@@ -118,3 +118,122 @@
 .side_right{
     width: 39%;
 }
+
+
+.modal {
+    position: fixed;
+    width:35%;
+    z-index: 1040;
+    top: 20%;
+    left: 30%;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+.backdrop {
+    position: fixed;
+    z-index: 1040;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    opacity: 0.5;
+}
+.modal-title {
+    margin-left: 3rem;
+    margin-top: 2rem;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
+    /* identical to box height */
+}
+.modal_name_job {
+    font-style: normal;
+    font-weight: 500;
+    color:  #0077b6;
+}
+.label_report {
+    margin-left: 7rem;
+    margin-top: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+}
+.label_start{
+    margin-left: 7rem;
+    margin-top: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+}
+.value_report {
+    margin-left: 7rem;
+
+    width: 78%;
+    height: 150px;
+    border: 0.5px solid black;
+    background: #ffffff;
+    border-radius: 10px;
+    font-style: normal;
+    font-weight: 400;
+    padding: 10px;
+    font-size: 18px;
+    overflow-wrap: break-word;
+    /* identical to box height */
+    color: #494848;
+}
+.line {
+    margin-top: 1rem;
+    height: 0;
+    border: 0.2px solid #adadad;
+}
+.secondary-button {
+    margin-top: 1rem;
+    width: 6rem;
+    height: 3.5rem;
+    margin-bottom: 5rem;
+
+    border-radius: 6px;
+    color: white;
+    border: none;
+    font-weight: 500;
+    background: #6D6E71;
+    margin-right: 0.5rem;
+}
+.primary-button {
+    margin-top: 1rem;
+    width: 10rem;
+    height: 3.5rem;
+    margin-bottom: 5rem;
+
+    background: #00b4d8;
+    border-radius: 6px;
+    color: white;
+    border: none;
+    font-weight: 500;
+    margin-right: 5rem;
+
+}
+.btn-close {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    padding-left: 6px;
+    padding-right: 5px;
+    padding-bottom: 2px;
+    border-radius: 3px;
+    border: none;
+    background-color: #000;
+    opacity: 0.7;
+    cursor: pointer;
+    margin-right: 0.6rem;
+}
+.rating_company{
+    margin-left: 2rem;
+    color: red;
+    font-size: 2.5rem;
+}

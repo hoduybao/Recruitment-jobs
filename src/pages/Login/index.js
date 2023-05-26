@@ -85,7 +85,7 @@ function Login({ employer = false }) {
                             </div>
                             <div className={cx('no_account')}>
                                 Bạn chưa có tài khoản?
-                                <Link to="sign-up" className={cx('signup-now')}>
+                                <Link to="/sign-up" className={cx('signup-now')}>
                                     Đăng ký ngay
                                 </Link>
                             </div>

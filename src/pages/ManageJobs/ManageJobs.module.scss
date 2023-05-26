@@ -69,14 +69,14 @@
     margin-top: 2rem;
     flex-wrap: wrap;
     align-content: flex-start;
-    column-gap: 1rem;
+    column-gap: 0.1rem;
     row-gap: 1rem;
 }
 
 .item_recruit_candidate {
     box-sizing: border-box;
     position: relative;
-    width: 410px;
+    width: 396px;
     height: 22rem;
     border: 1px solid #bbbcc0;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
@@ -89,7 +89,7 @@
     border-radius: 10px;
     box-sizing: border-box;
     width: 20%;
-    height: 50%;
+    height: 40%;
     left: 5%;
     top: 10%;
 }
@@ -99,7 +99,7 @@
     left: 28%;
     height: 30%;
     font-weight: 500;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -113,7 +113,7 @@
     width: 68%;
     left: 28%;
     font-weight: 600;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 
     /* identical to box height */
     top: 25%;
@@ -122,14 +122,14 @@
 .require {
     position: absolute;
     width: 68%;
-    left: 32%;
+    left: 35%;
 
     /* identical to box height */
     top: 40%;
 }
 .label {
     font-weight: 500;
-
+    font-size: 1.4rem;
     /* identical to box height */
 }
 .value {
@@ -139,7 +139,7 @@
 .time_update {
     position: absolute;
 
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     /* identical to box height */
     top: 80%;
     right: 5%;

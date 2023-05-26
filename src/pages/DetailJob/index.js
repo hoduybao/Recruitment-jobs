@@ -4,6 +4,8 @@ import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Menu from '~/Layout/components/Popper/Menu';
+import Modal from 'react-overlays/Modal';
+
 import {
     faAddressCard,
     faBars,
@@ -18,9 +20,26 @@ import {
     faUser,
     faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 const cx = classNames.bind(styles);
 
-function DetailJob({ employer }) {
+function DetailJob({ employer = false }) {
+    const [showModal, setShowModal] = useState(false);
+    var handleClose = () => setShowModal(false);
+
+    var handleSave = () => {
+        console.log('success');
+    };
+    const renderBackdrop = (props) => <div className={cx('backdrop')} {...props} />;
+
+    const [showModalReport, setShowModalReport] = useState(false);
+    var handleCloseReport = () => setShowModalReport(false);
+
+    var handleSaveReport = () => {
+        console.log('success');
+    };
+    const renderBackdropReport = (props) => <div className={cx('backdrop')} {...props} />;
+
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faPenToSquare} />,
@@ -37,7 +56,6 @@ function DetailJob({ employer }) {
             title: 'Xóa bài đăng',
             to: '/',
         },
-
     ];
     var classesWrapper;
     if (employer) {
@@ -69,14 +87,56 @@ function DetailJob({ employer }) {
                             <button
                                 type="button"
                                 className={cx('btn_apply')}
-                                data-bs-toggle="modal"
-                                data-bs-target="#modal_apply_company"
+                                onClick={() => {
+                                    setShowModal(true);
+                                }}
                             >
                                 Ứng tuyển
                             </button>
                             <button type="button" className={cx('btn_save_job')}>
                                 Lưu tin
                             </button>
+                            <Modal
+                                className={cx('modal')}
+                                show={showModal}
+                                onHide={handleClose}
+                                renderBackdrop={renderBackdrop}
+                            >
+                                <div>
+                                    <div className={cx('modal-header')}>
+                                        <div className={cx('modal-title')}>
+                                            {' '}
+                                            Ứng tuyển:&nbsp;<span className={cx('modal_name_job')}>Java</span>
+                                        </div>
+                                        <span className={cx('btn-close')} onClick={handleClose}>
+                                            x
+                                        </span>
+                                    </div>
+                                    <div className={cx('line')}></div>
+
+                                    <div className={cx('modal-body')}>
+                                        <div className={cx('text_fullname_CV')}>Họ và tên:</div>
+                                        <input type="text" name="name" className={cx('fullname_cv')} required />
+                                        <div className={cx('text_CV_me')}>
+                                            CV của bạn:
+                                            <input type="file" name="file_cv" className={cx('inputfile')} required />
+                                        </div>
+                                        <p className={cx('note_cv')}>Chỉ nhận file .doc, .docx, .pdf, tối đa 3MB</p>
+                                        <div className={cx('text_introduce_CV')}>
+                                            Giới thiệu một số kỹ năng, dự án của bạn:
+                                        </div>
+                                        <textarea name="introduce" className={cx('introduce_cv')} required></textarea>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button className={cx('secondary-button')} onClick={handleClose}>
+                                            Đóng
+                                        </button>
+                                        <button className={cx('primary-button')} onClick={handleSave}>
+                                            Hoàn thành
+                                        </button>
+                                    </div>
+                                </div>
+                            </Modal>
                         </div>
                     ) : (
                         <Menu items={userMenu}>
@@ -84,31 +144,10 @@ function DetailJob({ employer }) {
                                 <FontAwesomeIcon icon={faBars} className={cx('icon_setting')} />
                             </div>
                         </Menu>
-                        //      <div className={cx('header_right')}>
-                        //      <button
-                        //          type="button"
-                        //          className={cx('btn_apply')}
-                        //          data-bs-toggle="modal"
-                        //          data-bs-target="#modal_apply_company"
-                        //      >
-                        //          Hồ sơ ứng tuyển
-                        //      </button>
-                        //      <button type="button" className={cx('btn_save_job')}>
-                        //          Lưu tin
-                        //      </button>
-                        //  </div>
+          
                     )}
 
-                    {/* 
-{{#if data.isApplied}}
-<button type="button" className="btn_apply_to_company_detail_job" data-bs-toggle="modal"
-    data-bs-target="#modal_apply_company" disabled>Đã ứng tuyển</button>
-{{else}}
-<button type="button" className="btn_apply_to_company_detail_job" data-bs-toggle="modal"
-    data-bs-target="#modal_apply_company">Ứng tuyển</button>
-{{/if}}
-<button type="button" className="btn_save_job_detail_job">Lưu tin</button>
-</div> */}
+
                 </div>
                 <div className={cx('body_detail_job')}>
                     <div className={cx('text_detail')}>Chi tiết tuyển dụng</div>
@@ -183,26 +222,65 @@ function DetailJob({ employer }) {
                                     </div>
                                 </div>
                             </div>
-                            {employer===false?(
-                                  <div className={cx('report')}>
-                                  <div className={cx('text_share')}>Báo cáo tin tuyển dụng</div>
-                                  <div className={cx('text_report')}>
-                                      Nếu bạn thấy rằng tin tuyển dụng này không đúng hoặc có một trong các dấu hiệu xấu,
-                                      hãy phản ánh với chúng tôi.
-                                  </div>
-                                  <button className={cx('btn_report')}>Báo cáo</button>
-                              </div>
-                            ):(
+                            {employer === false ? (
                                 <div className={cx('report')}>
-                                <div className={cx('text_share')}>Quản lý hồ sơ ứng tuyển</div>
-                                <div className={cx('text_report')}>
-                                    
-                                    Danh sách hồ sơ ứng viên đã ứng tuyển vào công việc này đang chờ bạn xem xét đấy.
+                                    <div className={cx('text_share')}>Báo cáo tin tuyển dụng</div>
+                                    <div className={cx('text_report')}>
+                                        Nếu bạn thấy rằng tin tuyển dụng này không đúng hoặc có một trong các dấu hiệu
+                                        xấu, hãy phản ánh với chúng tôi.
+                                    </div>
+                                    <button className={cx('btn_report')}  onClick={() => {
+                                    setShowModalReport(true);
+                                }}>Báo cáo</button>
+                                    <Modal
+                                        className={cx('modal')}
+                                        show={showModalReport}
+                                        onHide={handleCloseReport}
+                                        renderBackdrop={renderBackdropReport}
+                                    >
+                                        <div>
+                                            <div className={cx('modal-header')}>
+                                                <div className={cx('modal-title')}>
+                                                    Báo cáo:&nbsp;<span className={cx('modal_name_job')}>Java</span>
+                                                </div>
+                                                <span className={cx('btn-close')} onClick={handleCloseReport}>
+                                                    x
+                                                </span>
+                                            </div>
+                                            <div className={cx('line')}></div>
+
+                                            <div className={cx('modal-body')}>
+                                                
+                                                <div className={cx('label_report')}>
+                                                    Nội dung báo cáo:
+                                                </div>
+                                                <textarea
+                                                    name="introduce"
+                                                    className={cx('value_report')}
+                                                    required
+                                                ></textarea>
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button className={cx('secondary-button')} onClick={handleCloseReport}>
+                                                    Hủy
+                                                </button>
+                                                <button className={cx('primary-button')} onClick={handleSaveReport}>
+                                                    Gửi
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </Modal>
                                 </div>
-                                <button className={cx('btn_view_CV')}>Xem danh sách</button>
-                            </div>
+                            ) : (
+                                <div className={cx('report')}>
+                                    <div className={cx('text_share')}>Quản lý hồ sơ ứng tuyển</div>
+                                    <div className={cx('text_report')}>
+                                        Danh sách hồ sơ ứng viên đã ứng tuyển vào công việc này đang chờ bạn xem xét
+                                        đấy.
+                                    </div>
+                                    <button className={cx('btn_view_CV')}>Xem danh sách</button>
+                                </div>
                             )}
-                          
                         </div>
                     </div>
                     <div className={cx('text_job_description')}>Mô tả công việc</div>

@@ -1,0 +1,64 @@
+.inner-bottom{
+    height: 6rem;
+    width: 100%;
+    display: flex;
+}
+.search-province{
+    position: relative;
+}
+.icon-province{
+    position: absolute;
+    font-size: 2.2rem;
+    top: 12px;
+    left: 15px;
+    color: #00B4D8;
+    
+}
+.select_work_form_candidate{
+    width: 90%;
+    height: 46px;
+    padding-left: 50px;
+    margin-right: 30px;
+    border: none;
+    outline: none;
+    background: #ffffff;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 46px;
+    color: black;
+}
+.select_experience{
+    width: 90%;
+    height: 46px;
+    padding-left: 50px;
+    margin-right: 30px;
+    border: none;
+    outline: none;
+    background: #ffffff;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 46px;
+    color: black;
+}
+.select_salary{
+    width: 90%;
+    height: 46px;
+    padding-left: 50px;
+    margin-right: 30px;
+    border: none;
+    outline: none;
+    background: #ffffff;
+    border-radius:4px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 46px;
+    color: black;
+}

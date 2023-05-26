@@ -9,6 +9,9 @@ import IntroCompany from '~/Layout/components/IntroCompany';
 import DetailReview from '~/Layout/components/DetailReview';
 import TotalReview from '~/Layout/components/TotalReview';
 import { useState } from 'react';
+import { Rate } from 'antd';
+
+import Modal from 'react-overlays/Modal';
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +21,15 @@ function ViewCompany() {
     const [isListJob,setIsListJob] =useState(true);
     var classesJob = cx('item_navi', ...classJob);
     var classesReview = cx('item_navi', ...classReview);
+
+    const [showModalReport, setShowModalReport] = useState(false);
+    var handleCloseReport = () => setShowModalReport(false);
+
+    var handleSaveReport = () => {
+        console.log('success');
+    };
+    const renderBackdropReport = (props) => <div className={cx('backdrop')} {...props} />;
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -48,9 +60,53 @@ function ViewCompany() {
                             className={cx('btn_apply')}
                             data-bs-toggle="modal"
                             data-bs-target="#modal_apply_company"
+                            onClick={() => {
+                                setShowModalReport(true);
+                            }}
                         >
                             Đánh giá
                         </button>
+                        <Modal
+                                        className={cx('modal')}
+                                        show={showModalReport}
+                                        onHide={handleCloseReport}
+                                        renderBackdrop={renderBackdropReport}
+                                    >
+                                        <div>
+                                            <div className={cx('modal-header')}>
+                                                <div className={cx('modal-title')}>
+                                                    Đánh giá:&nbsp;<span className={cx('modal_name_job')}>Java</span>
+                                                </div>
+                                                <span className={cx('btn-close')} onClick={handleCloseReport}>
+                                                    x
+                                                </span>
+                                            </div>
+                                            <div className={cx('line')}></div>
+
+                                            <div className={cx('modal-body')}>
+                                                <span className={cx('label_start')}>Đánh giá: </span>
+                                                <Rate className={cx('rating_company')} defaultValue={5} allowHalf />
+
+                                                <div className={cx('label_report')}>
+                                                    Nội dung:
+                                                </div>
+                                                <textarea
+                                                    name="introduce"
+                                                    className={cx('value_report')}
+                                                    required
+                                                ></textarea>
+                                             
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button className={cx('secondary-button')} onClick={handleCloseReport}>
+                                                    Hủy
+                                                </button>
+                                                <button className={cx('primary-button')} onClick={handleSaveReport}>
+                                                    Gửi
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </Modal>
                     </div>
                 </div>
                 <div className={cx('navigation')}>

@@ -9,8 +9,8 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    .inner{
-        width:97%;
+    .inner {
+        width: 97%;
     }
 }
 .inner {
@@ -289,18 +289,18 @@
     margin-top: 5%;
     color: #ea4335;
 }
-.btn_view_CV{
+.btn_view_CV {
     box-sizing: border-box;
 
     width: 85%;
     height: 22%;
     background-color: white;
     font-weight: 600;
-    border: 1px solid #0077B6;
+    border: 1px solid #0077b6;
     border-radius: 10px;
     margin-left: 2rem;
     margin-top: 5%;
-    color:#0077B6;
+    color: #0077b6;
 }
 .text_job_description {
     font-style: normal;
@@ -350,13 +350,189 @@
     background: #ffffff;
     color: #00b4d8;
 }
-.icon_setting{
+.icon_setting {
     width: 3rem;
     height: 3rem;
 }
-.wrapper_setting{
+.wrapper_setting {
     margin-left: 15%;
     margin-right: 2%;
     width: 3rem;
     height: 3rem;
+}
+
+.modal {
+    font-family: arial;
+}
+
+.modal {
+    position: fixed;
+    width:40%;
+    z-index: 1040;
+    top: 20%;
+    left: 30%;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+.backdrop {
+    position: fixed;
+    z-index: 1040;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    opacity: 0.5;
+}
+.modal-title {
+    margin-left: 3rem;
+    margin-top: 2rem;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
+    /* identical to box height */
+}
+.modal_name_job {
+    font-style: normal;
+    font-weight: 500;
+    color: #00b4d8;
+}
+.text_fullname_CV {
+    margin-left: 7rem;
+    margin-top: 2.2rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    display: inline;
+    /* identical to box height */
+}
+.fullname_cv {
+    width: 35rem;
+    height: 3.5rem;
+
+    margin-left: 3.5rem;
+    margin-top: 2.2rem;
+    border: 0.5px solid black;
+    background: #ffffff;
+    border-radius: 6px;
+    padding-left: 1rem;
+    line-height: 3.5rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.8rem;
+    /* identical to box height */
+
+    color: #494848;
+}
+.text_CV_me {
+    margin-left: 7rem;
+    margin-top: 2.5rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+}
+.inputfile {
+    margin-left: 2rem;
+}
+.btn-close {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    padding-left: 6px;
+    padding-right: 5px;
+    padding-bottom: 2px;
+
+    border: none;
+    background-color: #000;
+    opacity: 0.7;
+    cursor: pointer;
+    margin-right: 0.6rem;
+}
+.note_cv {
+    margin-left: 19rem;
+    margin-top: 1rem;
+    font-size: 1.6rem;
+    color: #4a4a51;
+}
+.line {
+    margin-top: 1rem;
+    height: 0;
+    border: 0.2px solid #adadad;
+}
+.secondary-button {
+    margin-top: 1rem;
+    width: 6rem;
+    height: 3.5rem;
+    margin-bottom: 5rem;
+
+    border-radius: 6px;
+    color: white;
+    border: none;
+    font-weight: 500;
+    background: #6D6E71;
+    margin-right: 0.5rem;
+}
+.primary-button {
+    margin-top: 1rem;
+    width: 10rem;
+    height: 3.5rem;
+    margin-bottom: 5rem;
+
+    background: #00b4d8;
+    border-radius: 6px;
+    color: white;
+    border: none;
+    font-weight: 500;
+    margin-right: 6rem;
+
+}
+.text_introduce_CV {
+    margin-left: 7rem;
+    margin-top: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+}
+.introduce_cv {
+    margin-left: 7rem;
+
+    width: 78%;
+    height: 150px;
+    border: 0.5px solid black;
+    background: #ffffff;
+    border-radius: 10px;
+    font-style: normal;
+    font-weight: 400;
+    padding: 10px;
+    font-size: 18px;
+    overflow-wrap: break-word;
+    /* identical to box height */
+    color: #494848;
+}
+.label_report {
+    margin-left: 7rem;
+    margin-top: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+}
+.value_report {
+    margin-left: 7rem;
+
+    width: 78%;
+    height: 150px;
+    border: 0.5px solid black;
+    background: #ffffff;
+    border-radius: 10px;
+    font-style: normal;
+    font-weight: 400;
+    padding: 10px;
+    font-size: 18px;
+    overflow-wrap: break-word;
+    /* identical to box height */
+    color: #494848;
 }

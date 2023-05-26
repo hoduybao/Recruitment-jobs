@@ -2,12 +2,15 @@
     margin-top: 3rem;
     width: 100%;
     display: flex;
-    justify-content: center;
     margin-bottom: 2rem;
+    justify-content: center;
 }
 .inner {
-    background: white;
     width: var(--default-layout-width);
+}
+
+.inner_content{
+    background: white;
     padding: 15px var(--default-layout-horizontal-spacer);
     border-radius: 10px;
 }
@@ -21,7 +24,7 @@
     margin-top: 2rem;
 
     align-content: flex-start;
-    column-gap: 4rem;
+    column-gap: 3rem;
     margin-left: 3%;
     row-gap: 1rem;
 }
@@ -29,7 +32,7 @@
 .item_recruit_candidate {
     box-sizing: border-box;
     position: relative;
-    width: 550px;
+    width: 530px;
     height: 22rem;
     border: 1px solid #bbbcc0;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);

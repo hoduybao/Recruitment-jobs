@@ -17,6 +17,8 @@ function App() {
                         }
                         let employer=false;
                         employer=route.employer;
+                        let update=false;
+                        update=route.update;
                         const Page = route.component;
                         return (
                             <Route
@@ -24,7 +26,7 @@ function App() {
                                 path={route.path}
                                 element={
                                     <Layout>
-                                        <Page employer={employer} />
+                                        <Page employer={employer} update={update}  />
                                     </Layout>
                                 }
                             />

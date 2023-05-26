@@ -11,6 +11,7 @@ import SignUpEmployer from '~/Layout/Employer/components/SignUp';
 import { SignInLayoutEmployer } from '~/Layout/Employer';
 import { DefaultLayout } from '~/Layout/Employer';
 import { SignInLayout } from '~/Layout';
+import Profile from '~/pages/Profile';
 import PostNews from '~/Layout/Employer/components/PostNews';
 const publicRoutes = [
     {
@@ -22,7 +23,11 @@ const publicRoutes = [
         component: Login,
         layout: SignInLayout,
     },
-
+    {
+        path: '/profile',
+        component: Profile,
+        layout: SignInLayout,
+    },
     {
         path: '/sign-up',
         component: SignUp,
@@ -54,6 +59,7 @@ const publicRoutes = [
         employer: true,
         layout: SignInLayoutEmployer,
     },
+    
     {
         path: '/employer/sign-up',
         component: SignUpEmployer,
@@ -68,6 +74,8 @@ const publicRoutes = [
     { path: '/employer/jobs', component: ManageJobs, employer: true, layout: DefaultLayout },
     { path: '/employer/detail-job', component: DetailJob, employer: true, layout: DefaultLayout },
     { path: '/employer/post-job', component: PostNews, layout: DefaultLayout },
+    { path: '/employer/update-job', component: PostNews, layout: DefaultLayout ,update:true},
+
 
 ];
 

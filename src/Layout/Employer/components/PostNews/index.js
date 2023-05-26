@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
-function PostNews() {
+function PostNews({ update = false }) {
     const [hidenSalary, setHidenSalary] = useState(true);
     const [selectedSalary, setSelectedSalary] = useState('0');
 
@@ -21,8 +21,17 @@ function PostNews() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
-                <div className={cx('title')}>Đăng tin tuyển dụng</div>
-                <div className={cx('introduce')}>Vui lòng nhập thông tin tuyển dụng</div>
+                {update === false ? (
+                    <>
+                        <div className={cx('title')}>Đăng tin tuyển dụng</div>
+                        <div className={cx('introduce')}>Vui lòng nhập thông tin tuyển dụng</div>
+                    </>
+                ) : (
+                    <>
+                        <div className={cx('title')}>Chỉnh sửa tin tuyển dụng</div>
+                        <div className={cx('introduce')}>Vui lòng nhập thông tin chỉnh sửa</div>
+                    </>
+                )}
                 <div className={cx('label_title')}>Tiêu đề</div>
                 <input
                     type="text"
@@ -116,7 +125,11 @@ function PostNews() {
                 <div className={cx('lable_deadline')}>Hạn nộp hồ sơ</div>
                 <input type="date" name="deadline" className={cx('deadline')} required placeholder="Hạn nộp hồ sơ" />
 
-                <button className={cx('submit_recruits')}>Đăng tin</button>
+                {update === false ? (
+                    <button className={cx('submit_recruits')}>Đăng tin</button>
+                ) : (
+                    <button className={cx('submit_recruits')}>Cập nhật</button>
+                )}
                 <Link className={cx('cancle')} to="/employer">
                     Hủy bỏ
                 </Link>

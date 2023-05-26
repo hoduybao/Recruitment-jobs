@@ -9,25 +9,39 @@
 .inner {
     height: 100%;
     width: var(--default-layout-width);
-    padding: 40px var(--default-layout-horizontal-spacer);
- 
+    padding: 30px var(--default-layout-horizontal-spacer);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 3rem;
+
 }
 .inner-top {
     height: 50%;
     width: 100%;
     display: flex;
+    justify-content: center;
 }
-.inner-bottom{
-    height: 50%;
-    width: 100%;
-    display: flex;
+.title_welcome{
+    
+font-style: normal;
+font-weight: 700;
+font-size: 3.6rem;
+/* identical to box height */
+color: #FFFFFF;
+display: flex;
+justify-content: center;
+
+}
+.name_web{
+    color: #023E8A;
 }
 .search-result{
     width: 500px;
 
 }
 .search-input {
-    width: 500px;
+    width: 40%;
     height: 46px;
     display: flex;
     background-color: white;
@@ -70,9 +84,9 @@
     position: relative;
 }
 .select_province_candidate {
-    width: 190px;
+    width: 90%;
     height: 46px;
-    padding-left: 50px;
+    padding-left: 40px;
     margin-right: 30px;
     border: none;
     outline: none;
@@ -86,7 +100,7 @@
     color: black;
 }
 .btn_search_candidate {
-    width: 130px;
+    width: 120px;
     height: 46px;
 
     background: #0077b6;
@@ -110,54 +124,7 @@
     color: #00B4D8;
     
 }
-.select_work_form_candidate{
-    width: 250px;
-    height: 46px;
-    padding-left: 50px;
-    margin-right: 30px;
-    border: none;
-    outline: none;
-    background: #ffffff;
-    border-radius: var(--search-border-radius);
 
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.8rem;
-    line-height: 46px;
-    color: black;
-}
-.select_experience{
-    width: 220px;
-    height: 46px;
-    padding-left: 50px;
-    margin-right: 30px;
-    border: none;
-    outline: none;
-    background: #ffffff;
-    border-radius: var(--search-border-radius);
-
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.8rem;
-    line-height: 46px;
-    color: black;
-}
-.select_salary{
-    width: 190px;
-    height: 46px;
-    padding-left: 50px;
-    margin-right: 30px;
-    border: none;
-    outline: none;
-    background: #ffffff;
-    border-radius: var(--search-border-radius);
-
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.8rem;
-    line-height: 46px;
-    color: black;
-}
 .search-title{
     padding: 5px 12px;
     font-size: 1.5rem;
