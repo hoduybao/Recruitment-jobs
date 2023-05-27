@@ -1,5 +1,5 @@
 .wrapper {
-    width: 21%;
+    width: 20%;
     background-color: white;
 }
 .header {
@@ -43,7 +43,7 @@
 
     &:hover {
         .name_item {
-            font-size: 1.9rem;
+            font-size: 1.8rem;
         }
         .icon_menu {
             font-size: 3.1rem;
@@ -66,7 +66,7 @@
 .name_item {
     top: 50%;
     position: absolute;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: 500;
     transform: translateY(-50%);
 }

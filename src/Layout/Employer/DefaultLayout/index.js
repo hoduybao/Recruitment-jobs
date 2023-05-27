@@ -5,19 +5,17 @@ import SideBar from './SideBar';
 import styles from './DefaultLayout.module.scss';
 const cx = classNames.bind(styles);
 
-
 function DefaultLayout({ children }) {
     return (
         <div className={cx('wrapper')}>
-        <Header employer />
-        <div className={cx('container')}>
-            <SideBar />
-            <div className={cx('content')}>{children}</div>
+            <Header employer />
+            <div className={cx('container')}>
+                <SideBar />
+                <div className={cx('content')}>{children}</div>
+            </div>
+            <Footer />
         </div>
-        <Footer/>
-    </div>
     );
 }
 
 export default DefaultLayout;
-

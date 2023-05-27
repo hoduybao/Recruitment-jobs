@@ -13,6 +13,7 @@ import { DefaultLayout } from '~/Layout/Employer';
 import { SignInLayout } from '~/Layout';
 import Profile from '~/pages/Profile';
 import PostNews from '~/Layout/Employer/components/PostNews';
+import ListCandidate from '~/Layout/Employer/components/ListCandidate';
 const publicRoutes = [
     {
         path: '/',
@@ -75,6 +76,7 @@ const publicRoutes = [
     { path: '/employer/detail-job', component: DetailJob, employer: true, layout: DefaultLayout },
     { path: '/employer/post-job', component: PostNews, layout: DefaultLayout },
     { path: '/employer/update-job', component: PostNews, layout: DefaultLayout ,update:true},
+    { path: '/employer/list-candidate', component: ListCandidate, layout: DefaultLayout},
 
 
 ];
