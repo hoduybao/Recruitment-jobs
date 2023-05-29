@@ -4,18 +4,25 @@ import images from '~/assets/images';
 import Filter from '~/Layout/components/Filter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 function ResultSearch() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Filter className={cx('fil')}/>
+                <Filter className={cx('fil')} />
                 <div className={cx('inner_content')}>
                     <div className={cx('text_top_job')}>
                         Tìm thấy<span> 10 </span> công việc phù hợp với bạn
                     </div>
                     <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
-                        <div className={cx('item_recruit_candidate', 'p-2 m-2')}>
+                        <Link
+                            className={cx('item_recruit_candidate', 'p-2 m-2')}
+                            to="/detail-job"
+                            onClick={() => {
+                                window.localStorage.setItem('id_job', '2');
+                            }}
+                        >
                             <img src={images.logo} alt="logo" className={cx('logo_company')} />
                             <div className={cx('name_recruit')} href="/">
                                 Frontend - Developer (ReactJS, AngularJS)
@@ -39,7 +46,7 @@ function ResultSearch() {
                                 />
                                 Cập nhật gần nhất: <span className={cx('value')}>2023-04-20</span>
                             </div>
-                        </div>
+                        </Link>
                         <div className={cx('item_recruit_candidate', 'p-2 m-2')}>
                             <img src={images.logo} alt="logo" className={cx('logo_company')} />
                             <div className={cx('name_recruit')} href="/">

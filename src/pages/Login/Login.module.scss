@@ -14,11 +14,11 @@
     flex-direction: row;
 }
 .side-left{
-    width: 55%;
+    width: 100%;
 }
 .side-right{
    padding-top: 10%;
-    width: 45%;
+    width: 100%;
 }
 .text_welcome_login {
     width: 34rem;
@@ -60,6 +60,10 @@
 .email,
 .password {
     position: relative;
+}
+.error{
+    color: red;
+    margin-top: 0.4rem;
 }
 .email_login,
 .password_login {

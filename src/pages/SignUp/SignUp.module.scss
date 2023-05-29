@@ -10,19 +10,17 @@
     padding-left: 10rem;
     width: var(--default-layout-width);
     display: flex;
-    flex-direction: row;
 }
 .side-left{
-    width: 60%;
+    width: 100%;
 }
 .side-right{
     padding-top: 15%;
 
-    width: 40%;
+    width: 100%;
 }
 .text_welcome_signup {
     width: 100%;
-    height: 4rem;
 
     font-style: normal;
     font-weight: 700;
@@ -60,6 +58,10 @@
 .email,.fullname,
 .password {
     position: relative;
+}
+.error{
+    color: red;
+    margin-top: 0.4rem;
 }
 .email_login,
 .password_login,.name_signup {

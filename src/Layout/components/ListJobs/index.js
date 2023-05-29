@@ -3,6 +3,7 @@ import styles from './ListJobs.module.scss';
 import images from '~/assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function ListJobs() {
@@ -12,7 +13,10 @@ function ListJobs() {
                    Tất cả việc làm
                 </div>
                 <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
-                    <div className={cx('item_recruit_candidate', 'p-2 m-2')}>
+                    <Link className={cx('item_recruit_candidate', 'p-2 m-2')} to="/detail-job"
+                    onClick={()=>{
+                        window.localStorage.setItem("id_job","5")
+                    }}>
                         <img src={images.logo} alt="logo" className={cx('logo_company')} />
                         <div className={cx('name_recruit')} href="/">
                             Frontend - Developer (ReactJS, AngularJS)
@@ -32,7 +36,7 @@ function ListJobs() {
                             <FontAwesomeIcon icon={faClockRotateLeft} style={{ marginRight: 5 }} />
                             Cập nhật gần nhất: 2023-04-20
                         </div>
-                    </div>
+                    </Link>
                     <div className={cx('item_recruit_candidate', 'p-2 m-2')}>
                         <img src={images.logo} alt="logo" className={cx('logo_company')} />
                         <div className={cx('name_recruit')} href="/">

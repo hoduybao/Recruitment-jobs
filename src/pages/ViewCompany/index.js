@@ -21,7 +21,8 @@ function ViewCompany() {
     const [isListJob,setIsListJob] =useState(true);
     var classesJob = cx('item_navi', ...classJob);
     var classesReview = cx('item_navi', ...classReview);
-
+    let id_company = window.localStorage.getItem("id_company");
+    console.log(id_company);
     const [showModalReport, setShowModalReport] = useState(false);
     var handleCloseReport = () => setShowModalReport(false);
 

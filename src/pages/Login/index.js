@@ -4,9 +4,58 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import images from '~/assets/images';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import request from '~/utils/request';
 const cx = classNames.bind(styles);
 
 function Login({ employer = false }) {
+    const [signin, setSignin] = useState({
+        email: '',
+        password: '',
+    });
+    const [errors, setErrors] = useState({
+        email: '',
+        password: '',
+    });
+    const [success,setSuccess]=useState(true);
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setSignin((prevInputs) => ({ ...prevInputs, [name]: value }));
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+    };
+    const handleRegister = (event) => {
+        event.preventDefault();
+
+        // Validate inputs
+        const newErrors = {};
+        if (!signin.email) {
+            newErrors.email = 'Chưa nhập email';
+            setSuccess(false);
+        }
+       
+        if (!signin.password) {
+            newErrors.password = 'Chưa nhập mật khẩu';
+            setSuccess(false);
+        }
+    
+
+        setErrors(newErrors);
+
+        // Handle form submission logic
+        if (success) {
+            request
+                .post(`auth/login`, {
+                    params: {
+                        email: signin.email,
+                        password: signin.password,
+                    },
+                })
+                .then((res) => {
+                    console.log(res.data);
+                });
+        }
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -47,28 +96,34 @@ function Login({ employer = false }) {
                         </div>
                         <div className={cx('email')}>
                             <input
+                                value={signin.email}
                                 type="email"
                                 name="email"
                                 className={cx('email_login')}
-                                required
                                 placeholder="Nhập email"
+                                onChange={handleChange}
                             />
                             <FontAwesomeIcon icon={faEnvelope} className={cx('icon_email')} />
                         </div>
+                        {errors.email && <span className={cx('error')}>{errors.email}</span>}
+
                         <div className={cx('label_password')}>Mật khẩu</div>
 
                         <div className={cx('password')}>
                             <input
+                                value={signin.password}
                                 type="password"
                                 name="password"
                                 className={cx('password_login')}
-                                required
                                 placeholder="Nhập mật khẩu"
+                                onChange={handleChange}
                             />
 
                             <FontAwesomeIcon icon={faLock} className={cx('icon_password')} />
                         </div>
-                        <button type="submit" className={cx('submit_form_login')}>
+                        {errors.password && <span className={cx('error')}>{errors.password}</span>}
+
+                        <button type="button" className={cx('submit_form_login')} onClick={handleRegister}>
                             Đăng nhập
                         </button>
                     </form>
@@ -90,10 +145,7 @@ function Login({ employer = false }) {
                                 </Link>
                             </div>
                         </>
-
                     )}
-
-
                 </div>
 
                 <div className={cx('side-right')}>

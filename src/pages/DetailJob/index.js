@@ -38,6 +38,10 @@ function DetailJob({ employer = false }) {
     var handleSaveReport = () => {
         console.log('success');
     };
+
+    let id_job = window.localStorage.getItem('id_job');
+    console.log(id_job);
+
     const renderBackdropReport = (props) => <div className={cx('backdrop')} {...props} />;
 
     const userMenu = [
@@ -71,7 +75,10 @@ function DetailJob({ employer = false }) {
                         <img src={images.logo} alt="logo_company" className={cx('logo')} />
                         <div className={cx('block_info')}>
                             <div className={cx('name_job')}>Backend Java - Spring boot </div>
-                            <Link to="/">
+                            <Link to="/view-company"
+                            onClick={() => {
+                                window.localStorage.setItem('id_company', '3');
+                            }}>
                                 <div className={cx('name_company')}>VNG games</div>
                             </Link>
 
@@ -144,10 +151,7 @@ function DetailJob({ employer = false }) {
                                 <FontAwesomeIcon icon={faBars} className={cx('icon_setting')} />
                             </div>
                         </Menu>
-          
                     )}
-
-
                 </div>
                 <div className={cx('body_detail_job')}>
                     <div className={cx('text_detail')}>Chi tiết tuyển dụng</div>
@@ -229,9 +233,14 @@ function DetailJob({ employer = false }) {
                                         Nếu bạn thấy rằng tin tuyển dụng này không đúng hoặc có một trong các dấu hiệu
                                         xấu, hãy phản ánh với chúng tôi.
                                     </div>
-                                    <button className={cx('btn_report')}  onClick={() => {
-                                    setShowModalReport(true);
-                                }}>Báo cáo</button>
+                                    <button
+                                        className={cx('btn_report')}
+                                        onClick={() => {
+                                            setShowModalReport(true);
+                                        }}
+                                    >
+                                        Báo cáo
+                                    </button>
                                     <Modal
                                         className={cx('modal')}
                                         show={showModalReport}
@@ -250,10 +259,7 @@ function DetailJob({ employer = false }) {
                                             <div className={cx('line')}></div>
 
                                             <div className={cx('modal-body')}>
-                                                
-                                                <div className={cx('label_report')}>
-                                                    Nội dung báo cáo:
-                                                </div>
+                                                <div className={cx('label_report')}>Nội dung báo cáo:</div>
                                                 <textarea
                                                     name="introduce"
                                                     className={cx('value_report')}
