@@ -32,6 +32,8 @@ function Home() {
                             <span className={cx('number_job')}>5 việc làm</span>&nbsp;- Hồ Chí Minh
                         </div>
                     </Link>
+
+                    
                     <div className={cx('item_company_candidate', 'p-2 m-2')}>
                         <img src={images.logo} alt="logo" className={cx('logo_company_home')} />
                         <a className={cx('name_company_home')} href="/">

@@ -52,7 +52,6 @@ function SignUp() {
         }
 
         setErrors(newErrors);
-
         // Handle form submission logic
         if (success) {
             request
