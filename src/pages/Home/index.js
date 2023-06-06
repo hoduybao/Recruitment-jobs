@@ -1,19 +1,20 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import images from '~/assets/images';
-import request from '~/utils/request';
+import UserService from '~/utils/request';
 import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function Home() {
-    request
-        .get(`company/getAll`, {
-            params: {},
-        })
-        .then((res) => {
-            //  console.log(res.data.data)
-            console.log(res.data);
-        });
+
+    // UserService
+    //     .getTopCompany(`company/getAll`, {
+           
+    //     })
+    //     .then((res) => {
+    //         //  console.log(res.data.data)
+    //         console.log(res.data);
+    //     });
 
     return (
         <div className={cx('wrapper')}>
@@ -33,7 +34,7 @@ function Home() {
                         </div>
                     </Link>
 
-                    
+
                     <div className={cx('item_company_candidate', 'p-2 m-2')}>
                         <img src={images.logo} alt="logo" className={cx('logo_company_home')} />
                         <a className={cx('name_company_home')} href="/">

@@ -5,7 +5,7 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import request from '~/utils/request';
+import UserService from '~/utils/request';
 const cx = classNames.bind(styles);
 
 function Login({ employer = false }) {
@@ -17,7 +17,7 @@ function Login({ employer = false }) {
         email: '',
         password: '',
     });
-    const [success,setSuccess]=useState(true);
+    const [success, setSuccess] = useState(true);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -33,27 +33,35 @@ function Login({ employer = false }) {
             newErrors.email = 'Chưa nhập email';
             setSuccess(false);
         }
-       
+
         if (!signin.password) {
             newErrors.password = 'Chưa nhập mật khẩu';
             setSuccess(false);
         }
-    
 
         setErrors(newErrors);
 
         // Handle form submission logic
         if (success) {
-            request
-                .post(`auth/login`, {
-                    params: {
-                        email: signin.email,
-                        password: signin.password,
-                    },
-                })
-                .then((res) => {
-                    console.log(res.data);
+            const fetch = async () => {
+                let response = await UserService.postLogin(`auth/login`, {
+                    username: signin.email,
+                    password: signin.password,
                 });
+                console.log(response);
+                if(response.status==="ok")
+                {
+                    window.localStorage.setItem('user', response.data);
+                    window.location.href = 'http://localhost:3001';
+                }
+                else{
+                    newErrors.email = response.message;
+                    setErrors(newErrors);
+
+                }
+            };
+            fetch();
+
         }
     };
     return (

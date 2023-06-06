@@ -3,11 +3,10 @@ import styles from './Search.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import HeadlessTippy from '@tippyjs/react/headless';
-import * as request from '~/utils/request';
+import UserService from '~/utils/request';
 import { useEffect, useState } from 'react';
 import { useDebounce } from '../hooks';
 import { Wrapper as PopperWrapper } from '~/Layout/components/Popper';
-import Filter from '../Filter';
 const cx = classNames.bind(styles);
 
 function Search() {
@@ -21,8 +20,8 @@ function Search() {
             setSearchResult([]);
             return;
         }
-        request
-            .get(`users/search`, {
+        UserService
+            .searchJob(`users/search`, {
                 params: {
                     q: debounced,
                     type: 'less',

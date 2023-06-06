@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import images from '~/assets/images';
 import { Link } from 'react-router-dom';
-import request from '~/utils/request';
+import UserService from '~/utils/request';
 import { useState } from 'react';
 const cx = classNames.bind(styles);
 
@@ -51,22 +51,33 @@ function SignUp() {
             setSuccess(false);
         }
 
-        setErrors(newErrors);
         // Handle form submission logic
         if (success) {
-            request
-                .post(`auth/signup/candidate`, {
-                    params: {
-                        "fullname": signup.fullname,
-                        "email": signup.email,
-                        "password": signup.password,
-                    },
-                })
-                .then((res) => {
-                    //  console.log(res.data.data)
-                    console.log(res.data);
+            const fetch = async () => {
+                let response = await UserService.postLogin(`auth/signup/candidate`, {
+                    fullname: signup.fullname,
+                    email: signup.email,
+                    password: signup.password,
                 });
+
+                console.log(response);
+                if(response.status==="ok")
+                {
+                    window.location.href = 'http://localhost:3001/sign-in';
+                }
+                else{
+                    newErrors.email = response.message;
+                    setErrors(newErrors);
+
+                }
+            };
+            fetch();
         }
+        else{
+            setErrors(newErrors);
+
+        }
+
     };
 
     return (
