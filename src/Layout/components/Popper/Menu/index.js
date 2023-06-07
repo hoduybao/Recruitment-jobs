@@ -6,10 +6,18 @@ import MenuItem from './MenuItem';
 const cx = classNames.bind(styles);
 
 function Menu({ children, items = [] }) {
-    console.log(items);
+
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        window.location.href = 'http://localhost:3001/sign-in';
+    };
     const renderItems = () => {
         return items.map((item, index) => {
-            return <MenuItem key={index} data={item} />;
+            return <MenuItem key={index} data={item}  onClick={()=>{
+                if(item.separate){
+                    handleLogout();
+                }
+            }}/>;
         });
     };
 
@@ -23,7 +31,6 @@ function Menu({ children, items = [] }) {
             render={(attrs) => (
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
                     <PopperWrapper className={cx('menu-popper')}>
-                        {console.log("a")}
                         {renderItems()}
                     </PopperWrapper>
                 </div>

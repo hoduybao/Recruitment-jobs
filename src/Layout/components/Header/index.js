@@ -6,42 +6,43 @@ import UserService from '~/utils/request';
 import Menu from '../Popper/Menu';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faSignOut } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faBriefcase, faKey, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
 const cx = classNames.bind(styles);
 
 function Header({ employer = false }) {
     const user = localStorage.getItem('user');
-    console.log(user);
-    if(user)
-    {
+    const [info, setInfo] = useState({});
+
+    if (user) {
         const fetch = async () => {
             let response = await UserService.getUser(`candidate/myInfo
             `);
-            console.log(response);
-            // if(response.status==="ok")
-            // {
-            //     window.localStorage.setItem('user', response.data);
-            //     window.location.href = 'http://localhost:3001';
-            // }
-            // else{
-                
-
-            // }
+            setInfo(response.data);
         };
         fetch();
     }
+
+
     const userMenu = [
-       
         {
-            icon: <FontAwesomeIcon icon={faArrowRight} />,
-            title: 'Setting',
-            to: '/setting',
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'Trang cá nhân',
+            to: '/profile',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faBriefcase} />,
+            title: 'Công việc của tôi',
+            to: '/my-job',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faKey} />,
+            title: 'Đổi mật khẩu',
         },
         {
             separate: true,
             icon: <FontAwesomeIcon icon={faSignOut} />,
             title: 'Log out',
-            to: '/logout',
         },
     ];
     return (
@@ -96,11 +97,7 @@ function Header({ employer = false }) {
                 {user && (
                     <div className={cx('actions')}>
                         <Menu items={userMenu}>
-                            <Image
-                                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/39911deb09b62b80810dec42c0722bbd~c5_100x100.jpeg?x-expires=1682272800&x-signature=p%2BPQFSaSfYsmqF4Z3O4rT4d9rhk%3D"
-                                className={cx('user-avatar')}
-                                alt="nguyenvana"
-                            />
+                            <Image src={info.avatar} className={cx('user-avatar')} alt="nguyenvana" />
                         </Menu>
                     </div>
                 )}

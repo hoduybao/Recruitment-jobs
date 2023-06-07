@@ -20,8 +20,9 @@ function Search() {
             setSearchResult([]);
             return;
         }
+        
         UserService
-            .searchJob(`users/search`, {
+            .searchJob(`job/search?text=&address=`, {
                 params: {
                     q: debounced,
                     type: 'less',
