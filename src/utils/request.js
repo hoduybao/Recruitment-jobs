@@ -25,6 +25,15 @@ class UserService {
         return response.data;
     }
 
+    GetCompany=async(path,options={})=>{
+        const response=await request.get(path,options);
+        return response.data;
+    }
+
+    getJobPosting=async(path,options={})=>{
+        const response=await request.get(path,options);
+        return response.data;
+    }
     
 }
 

@@ -14,34 +14,26 @@ function DetailReview() {
                 <div className={cx('item_review')}>
                     <Rate defaultValue={3} disabled/>
                     <div className={cx('time_review')}>20-10-2022</div>
-                    <div className={cx('good')}>Điểm tốt</div>
+                    <div className={cx('good')}>Đánh giá</div>
                     <p>Công ty rộng rãi , lương cao</p>
-                    <div className={cx('good')}>Điểm cần cải thiện</div>
-                    <p>Vệ sinh thường xuyên</p>
                 </div>
                 <div className={cx('item_review')}>
                     <Rate defaultValue={3} disabled/>
                     <div className={cx('time_review')}>20-10-2022</div>
-                    <div className={cx('good')}>Điểm tốt</div>
+                    <div className={cx('good')}>Đánh giá</div>
                     <p>Công ty rộng rãi , lương cao</p>
-                    <div className={cx('good')}>Điểm cần cải thiện</div>
-                    <p>Vệ sinh thường xuyên</p>
                 </div>
                 <div className={cx('item_review')}>
                     <Rate defaultValue={3} disabled/>
                     <div className={cx('time_review')}>20-10-2022</div>
-                    <div className={cx('good')}>Điểm tốt</div>
+                    <div className={cx('good')}>Đánh giá</div>
                     <p>Công ty rộng rãi , lương cao</p>
-                    <div className={cx('good')}>Điểm cần cải thiện</div>
-                    <p>Vệ sinh thường xuyên</p>
                 </div>
                 <div className={cx('item_review')}>
                     <Rate defaultValue={3} disabled/>
                     <div className={cx('time_review')}>20-10-2022</div>
-                    <div className={cx('good')}>Điểm tốt</div>
+                    <div className={cx('good')}>Đánh giá</div>
                     <p>Công ty rộng rãi , lương cao</p>
-                    <div className={cx('good')}>Điểm cần cải thiện</div>
-                    <p>Vệ sinh thường xuyên</p>
                 </div>
             </div>
         </div>

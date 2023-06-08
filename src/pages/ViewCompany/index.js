@@ -8,21 +8,27 @@ import ListJobs from '~/Layout/components/ListJobs';
 import IntroCompany from '~/Layout/components/IntroCompany';
 import DetailReview from '~/Layout/components/DetailReview';
 import TotalReview from '~/Layout/components/TotalReview';
-import { useState } from 'react';
 import { Rate } from 'antd';
+import React, { useState, useEffect } from 'react';
+import UserService from '~/utils/request';
+import { useLocation } from 'react-router-dom';
+
 
 import Modal from 'react-overlays/Modal';
 
 const cx = classNames.bind(styles);
 
 function ViewCompany() {
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const id_company = params.get('id');
+
     const [classJob, setClassJob] = useState(['active']);
     const [classReview, setClassReview] = useState([]);
-    const [isListJob,setIsListJob] =useState(true);
+    const [isListJob, setIsListJob] = useState(true);
     var classesJob = cx('item_navi', ...classJob);
     var classesReview = cx('item_navi', ...classReview);
-    let id_company = window.localStorage.getItem("id_company");
-    console.log(id_company);
+
     const [showModalReport, setShowModalReport] = useState(false);
     var handleCloseReport = () => setShowModalReport(false);
 
@@ -31,6 +37,22 @@ function ViewCompany() {
     };
     const renderBackdropReport = (props) => <div className={cx('backdrop')} {...props} />;
 
+    const [companies, setCompanies] = useState([]);
+
+    // useEffect(() => {
+    //     UserService.GetCompany(`company/${id_company}`, {}).then((res) => {
+    //         setCompanies(res.data);
+    //     });
+    // }, [id_company]);
+    useEffect(() => {
+        const fetch = async () => {
+            let response = await UserService.GetCompany(`company/${id_company}`);
+            setCompanies(response.data);
+        };
+        fetch();
+    }, [id_company]);
+    
+    
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -38,7 +60,7 @@ function ViewCompany() {
                     <div className={cx('header_left')}>
                         <img src={images.logo} alt="logo_company" className={cx('logo')} />
                         <div className={cx('block_info')}>
-                            <div className={cx('name_company')}>VNG games</div>
+                            <div className={cx('name_company')}>{companies.name}</div>
                             <div className={cx('item_header')}>
                                 <FontAwesomeIcon icon={faUserGroup} className={cx('icon_item_header')} />
                                 <div className={cx('deadline_submit')}>10-20 người</div>
@@ -50,7 +72,7 @@ function ViewCompany() {
                             <div className={cx('item_header')}>
                                 <FontAwesomeIcon icon={faLocationDot} className={cx('icon_item_header')} />
                                 <div className={cx('deadline_submit')}>
-                                    Đường Võ Văn Ngân, Thủ Đức, Thành phố Hồ Chí Minh{' '}
+                                    {companies.address}
                                 </div>
                             </div>
                         </div>
@@ -68,46 +90,46 @@ function ViewCompany() {
                             Đánh giá
                         </button>
                         <Modal
-                                        className={cx('modal')}
-                                        show={showModalReport}
-                                        onHide={handleCloseReport}
-                                        renderBackdrop={renderBackdropReport}
-                                    >
-                                        <div>
-                                            <div className={cx('modal-header')}>
-                                                <div className={cx('modal-title')}>
-                                                    Đánh giá:&nbsp;<span className={cx('modal_name_job')}>Java</span>
-                                                </div>
-                                                <span className={cx('btn-close')} onClick={handleCloseReport}>
-                                                    x
-                                                </span>
-                                            </div>
-                                            <div className={cx('line')}></div>
+                            className={cx('modal')}
+                            show={showModalReport}
+                            onHide={handleCloseReport}
+                            renderBackdrop={renderBackdropReport}
+                        >
+                            <div>
+                                <div className={cx('modal-header')}>
+                                    <div className={cx('modal-title')}>
+                                        Đánh giá:&nbsp;<span className={cx('modal_name_job')}>Java</span>
+                                    </div>
+                                    <span className={cx('btn-close')} onClick={handleCloseReport}>
+                                        x
+                                    </span>
+                                </div>
+                                <div className={cx('line')}></div>
 
-                                            <div className={cx('modal-body')}>
-                                                <span className={cx('label_start')}>Đánh giá: </span>
-                                                <Rate className={cx('rating_company')} defaultValue={5} allowHalf />
+                                <div className={cx('modal-body')}>
+                                    <span className={cx('label_start')}>Đánh giá: </span>
+                                    <Rate className={cx('rating_company')} defaultValue={5} allowHalf />
 
-                                                <div className={cx('label_report')}>
-                                                    Nội dung:
-                                                </div>
-                                                <textarea
-                                                    name="introduce"
-                                                    className={cx('value_report')}
-                                                    required
-                                                ></textarea>
-                                             
-                                            </div>
-                                            <div className="modal-footer">
-                                                <button className={cx('secondary-button')} onClick={handleCloseReport}>
-                                                    Hủy
-                                                </button>
-                                                <button className={cx('primary-button')} onClick={handleSaveReport}>
-                                                    Gửi
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </Modal>
+                                    <div className={cx('label_report')}>
+                                        Nội dung:
+                                    </div>
+                                    <textarea
+                                        name="introduce"
+                                        className={cx('value_report')}
+                                        required
+                                    ></textarea>
+
+                                </div>
+                                <div className="modal-footer">
+                                    <button className={cx('secondary-button')} onClick={handleCloseReport}>
+                                        Hủy
+                                    </button>
+                                    <button className={cx('primary-button')} onClick={handleSaveReport}>
+                                        Gửi
+                                    </button>
+                                </div>
+                            </div>
+                        </Modal>
                     </div>
                 </div>
                 <div className={cx('navigation')}>
@@ -119,7 +141,7 @@ function ViewCompany() {
                             setIsListJob(true);
                         }}
                         to=""
-                        
+
                     >
                         Việc làm
                     </Link>
@@ -138,8 +160,8 @@ function ViewCompany() {
                 <div className={cx('content')}>
                     {classJob.length > 0 ? (
                         <div className={cx('side_left')}>
-                            <ListJobs />
-                            <IntroCompany/>
+                            {companies.jobPostingList != null &&<ListJobs companies={companies.jobPostingList}/>}
+                            <IntroCompany companies={companies.description}/>
                         </div>
                     ) : (
                         <div className={cx('side_left')}>
@@ -147,11 +169,11 @@ function ViewCompany() {
                         </div>
                     )}
                     <div className={cx('side_right')}>
-                        <TotalReview isListJob={isListJob} onClick={()=>{
+                        <TotalReview isListJob={isListJob} onClick={() => {
                             setClassReview(['active']);
                             setClassJob([]);
                             setIsListJob(false);
-                        }}/>
+                        }} />
                     </div>
                 </div>
             </div>

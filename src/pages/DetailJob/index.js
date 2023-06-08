@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Menu from '~/Layout/components/Popper/Menu';
 import Modal from 'react-overlays/Modal';
+import React, { useState, useEffect } from 'react';
+
 
 import {
     faAddressCard,
@@ -20,10 +22,23 @@ import {
     faUser,
     faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import UserService from '~/utils/request';
+
+
+
 const cx = classNames.bind(styles);
 
 function DetailJob({ employer = false }) {
+
+  
+
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const id_job = params.get('id');
+
+    const currentPath = window.location.origin + location.pathname + location.search;
+
     const [showModal, setShowModal] = useState(false);
     var handleClose = () => setShowModal(false);
 
@@ -39,8 +54,17 @@ function DetailJob({ employer = false }) {
         console.log('success');
     };
 
-    let id_job = window.localStorage.getItem('id_job');
-    console.log(id_job);
+    const [jobs, setJobs] = useState([]);
+
+    useEffect(() => {
+        const fetch = async () => {
+            let response = await UserService.getJobPosting(`job/${id_job}`);
+            setJobs(response.data);
+        };
+        fetch();
+    }, [id_job]);
+
+    console.log(jobs);
 
     const renderBackdropReport = (props) => <div className={cx('backdrop')} {...props} />;
 
@@ -74,17 +98,16 @@ function DetailJob({ employer = false }) {
                     <div className={cx('header_left')}>
                         <img src={images.logo} alt="logo_company" className={cx('logo')} />
                         <div className={cx('block_info')}>
-                            <div className={cx('name_job')}>Backend Java - Spring boot </div>
-                            <Link to="/view-company"
-                            onClick={() => {
-                                window.localStorage.setItem('id_company', '3');
-                            }}>
-                                <div className={cx('name_company')}>VNG games</div>
+                            <div className={cx('name_job')}>{jobs.title}</div>
+                            <Link 
+                            to={`/view-company?id=${jobs.companyInfo?.id}`}
+                            >
+                                <div className={cx('name_company')}>{jobs.companyInfo?.name}</div>
                             </Link>
 
                             <div className={cx('deadline_submit')}>
                                 <FontAwesomeIcon icon={faClockRotateLeft} style={{ marginRight: 10 }} />
-                                Hạn nộp hồ sơ: 20-10-2002
+                                Hạn nộp hồ sơ: {jobs.dueDate}
                             </div>
                         </div>
                     </div>
@@ -113,7 +136,7 @@ function DetailJob({ employer = false }) {
                                     <div className={cx('modal-header')}>
                                         <div className={cx('modal-title')}>
                                             {' '}
-                                            Ứng tuyển:&nbsp;<span className={cx('modal_name_job')}>Java</span>
+                                            Ứng tuyển:&nbsp;<span className={cx('modal_name_job')}>{jobs.title}</span>
                                         </div>
                                         <span className={cx('btn-close')} onClick={handleClose}>
                                             x
@@ -165,7 +188,7 @@ function DetailJob({ employer = false }) {
                                     </div>
                                     <div>
                                         <div className={cx('text_item')}>Mức lương</div>
-                                        <div className={cx('value_item')}>10 triệu</div>
+                                        <div className={cx('value_item')}>{jobs.jobDescription?.salary}</div>
                                     </div>
                                 </div>
                                 <div className={cx('item_infor')}>
@@ -174,7 +197,7 @@ function DetailJob({ employer = false }) {
                                     </div>
                                     <div>
                                         <div className={cx('text_item')}>Số lượng</div>
-                                        <div className={cx('value_item')}>10 người</div>
+                                        <div className={cx('value_item')}>{jobs.jobDescription?.number_candidates}</div>
                                     </div>
                                 </div>
                                 <div className={cx('item_infor')}>
@@ -183,7 +206,7 @@ function DetailJob({ employer = false }) {
                                     </div>
                                     <div>
                                         <div className={cx('text_item')}>Hình thức làm việc</div>
-                                        <div className={cx('value_item')}>10 người</div>
+                                        <div className={cx('value_item')}>{jobs.jobDescription?.working_form}</div>
                                     </div>
                                 </div>
                                 <div className={cx('item_infor')}>
@@ -192,7 +215,7 @@ function DetailJob({ employer = false }) {
                                     </div>
                                     <div>
                                         <div className={cx('text_item')}>Giới tính</div>
-                                        <div className={cx('value_item')}>Nam</div>
+                                        <div className={cx('value_item')}>{jobs.jobDescription?.gender}</div>
                                     </div>
                                 </div>
                                 <div className={cx('item_infor')}>
@@ -201,13 +224,13 @@ function DetailJob({ employer = false }) {
                                     </div>
                                     <div>
                                         <div className={cx('text_item')}>Kinh nghiệm</div>
-                                        <div className={cx('value_item')}>1 năm</div>
+                                        <div className={cx('value_item')}>{jobs.jobDescription?.experience}</div>
                                     </div>
                                 </div>
                             </div>
 
                             <div className={cx('text_adress_work')}>Địa điểm làm việc</div>
-                            <div className={cx('value_adress_work')}>Võ Văn Ngân , Thủ Đức , Hồ Chí Minh</div>
+                            <div className={cx('value_adress_work')}>{jobs.jobDescription?.address_work}</div>
                         </div>
                         <div className={cx('share_report')}>
                             <div className={cx('share')}>
@@ -216,7 +239,7 @@ function DetailJob({ employer = false }) {
                                 <div className={cx('value_copy')}>
                                     <input
                                         type="text"
-                                        value="http://localhost:3032/candidate/detail_job/{{idDocRecruitment}}"
+                                        value={currentPath}
                                         disabled
                                         name="link_job"
                                         className={cx('link_job')}
@@ -291,18 +314,15 @@ function DetailJob({ employer = false }) {
                     </div>
                     <div className={cx('text_job_description')}>Mô tả công việc</div>
                     <ul className={cx('list_job_description')}>
-                        <li>công việc tốt</li>
-                        <li>công việc tốt</li>
+                        {jobs.jobDescription?.description}
                     </ul>
                     <div className={cx('text_job_description')}>Yêu cầu ứng viên</div>
                     <ul className={cx('list_job_description')}>
-                        <li>công việc tốt</li>
-                        <li>công việc tốt</li>
+                    {jobs.jobDescription?.requirement}
                     </ul>
                     <div className={cx('text_job_description')}>Quyền lợi</div>
                     <ul className={cx('list_job_description')}>
-                        <li>công việc tốt</li>
-                        <li>công việc tốt</li>
+                    {jobs.jobDescription?.benefits}
                     </ul>
                 </div>
             </div>
