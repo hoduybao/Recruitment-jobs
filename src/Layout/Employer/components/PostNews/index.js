@@ -1,12 +1,17 @@
 import classNames from 'classnames/bind';
 import styles from './PostNews.module.scss';
 import { useState } from 'react';
+import UserService from '~/utils/request';
+
 import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function PostNews({ update = false }) {
+    // var result = string1.localeCompare(string2);
     const [hidenSalary, setHidenSalary] = useState(true);
     const [selectedSalary, setSelectedSalary] = useState('0');
+    var today = new Date();
+    var dateString = today.toISOString().split('T')[0];
 
     const handleChangeSalary = (e) => {
         var value = e.target.value;
@@ -21,17 +26,29 @@ function PostNews({ update = false }) {
 
     const [post, setPost] = useState({
         tittle: '',
-        quantity: '',
+        quantity: '1',
+        gender: 'Không yêu cầu',
+        experience: 'Không yêu cầu',
+        salary: '',
+        working_form: 'Full time',
+        address_work: '',
         description: '',
         requirement: '',
-        benefit: '',
+        benefits: '',
+        dueDate: dateString,
     });
     const [errors, setErrors] = useState({
         tittle: '',
         quantity: '',
+        gender: '',
+        experience: '',
+        salary: '',
+        working_form: '',
+        address_work: '',
         description: '',
         requirement: '',
-        benefit: '',
+        benefits: '',
+        dueDate: '',
     });
 
     let success = true;
@@ -41,7 +58,79 @@ function PostNews({ update = false }) {
         setPost((prevInputs) => ({ ...prevInputs, [name]: value }));
         setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
     };
+    const handleRegister = (event) => {
+        event.preventDefault();
 
+        // Validate inputs
+        const newErrors = {};
+        if (post.quantity < 1) {
+            console.log(post.quantity);
+            newErrors.quantity = 'Số lượng không phù hợp';
+            success = false;
+        }
+        if (!post.tittle) {
+            newErrors.tittle = 'Chưa nhập tiêu đề tuyển dụng';
+            success = false;
+        }
+        if (selectedSalary !== '0') {
+            if (!post.salary) {
+                newErrors.salary = 'Chưa nhập mức lương';
+                success = false;
+            } else {
+                setPost((prevInputs) => ({ ...prevInputs, salary: post.salary + ' triệu' }));
+            }
+        } else {
+            setPost((prevInputs) => ({ ...prevInputs, salary: 'Thỏa thuận' }));
+        }
+
+        if (!post.address_work) {
+            newErrors.address_work = 'Chưa nhập địa chỉ làm việc';
+            success = false;
+        }
+
+        if (!post.description) {
+            newErrors.description = 'Chưa nhập mô tả công việc';
+            success = false;
+        }
+        if (!post.requirement) {
+            newErrors.requirement = 'Chưa nhập yêu cầu ứng viên';
+            success = false;
+        }
+        if (!post.benefits) {
+            newErrors.benefits = 'Chưa nhập quyền lợi làm việc';
+            success = false;
+        }
+        setErrors(newErrors);
+
+        // Handle form submission logic
+        if (success) {
+            const fetch = async () => {
+                let response = await UserService.postJob(`employer/addJobPosting`, {
+                    title: post.tittle,
+                    postDate: dateString,
+                    dueDate: post.dueDate,
+                    description: post.description,
+                    benefits: post.benefits,
+                    requirement: post.requirement,
+                    gender: post.gender,
+                    experience: post.experience,
+                    salary: post.salary,
+                    number_candidates: post.quantity,
+                    working_form: post.working_form,
+                    address_work: post.address_work,
+                });
+                console.log(response);
+                if (response.status === 'ok') {
+                    console.log('success');
+                } else {
+                    console.log('no_success');
+                }
+            };
+            fetch();
+        } else {
+            setErrors(newErrors);
+        }
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
@@ -59,11 +148,15 @@ function PostNews({ update = false }) {
                 <div className={cx('label_title')}>Tiêu đề</div>
                 <input
                     type="text"
-                    name="title_recruitment"
+                    value={post.tittle}
+                    onChange={handleChange}
+                    name="tittle"
                     className={cx('title_recruitment')}
                     required
                     placeholder="Tiêu đề tuyển dụng"
                 />
+                {errors.tittle && <span className={cx('error')}>{errors.tittle}</span>}
+
                 <h4 className={cx('infor_general')}>Thông tin chung</h4>
                 <div className={cx('wrapp_infor_general')}>
                     <div className={cx('item')}>
@@ -72,30 +165,37 @@ function PostNews({ update = false }) {
                             type="number"
                             name="quantity"
                             min="1"
+                            value={post.quantity}
+                            onChange={handleChange}
                             className={cx('quantity')}
                             required
                             placeholder="Số lượng"
                         />
+                        {errors.quantity && <span className={cx('error')}>{errors.quantity}</span>}
                     </div>
+
                     <div className={cx('item')}>
                         <div className="label_general">Giới tính</div>
-                        <select name="sex" value="not" className={cx('sex_select')} required="">
-                            <option value="not">Không yêu cầu</option>
-                            <option value="male">Nam</option>
-                            <option value="female">Nữ</option>
+                        <select name="gender" value={post.gender} onChange={handleChange} className={cx('sex_select')}>
+                            <option value="Không yêu cầu">Không yêu cầu</option>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
                         </select>
                     </div>
                     <div className={cx('item')}>
                         <div className="label_general">Kinh nghiệm</div>
 
-                        <select name="experience" className={cx('experience_select')} required="">
-                            <option value="0" selected>
-                                Không yêu cầu
-                            </option>
-                            <option value="1">1 năm</option>
-                            <option value="2">2 năm</option>
-                            <option value="3">3 năm</option>
-                            <option value="4">Trên 3 năm</option>
+                        <select
+                            name="experience"
+                            value={post.experience}
+                            onChange={handleChange}
+                            className={cx('experience_select')}
+                        >
+                            <option value="Không yêu cầu">Không yêu cầu</option>
+                            <option value="1 năm">1 năm</option>
+                            <option value="2 năm">2 năm</option>
+                            <option value="3 năm">3 năm</option>
+                            <option value="Trên 3 năm">Trên 3 năm</option>
                         </select>
                     </div>
                     <div className={cx('item')}>
@@ -108,7 +208,7 @@ function PostNews({ update = false }) {
                             onChange={handleChangeSalary}
                             required=""
                         >
-                            <option value="0">Thỏa thuận</option>
+                            <option value="Thỏa thuận">Thỏa thuận</option>
                             <option value="1">Quy định</option>
                         </select>
                     </div>
@@ -117,37 +217,94 @@ function PostNews({ update = false }) {
 
                         <input
                             type="number"
-                            name="value_salary"
+                            name="salary"
+                            value={post.salary}
+                            onChange={handleChange}
                             min="1"
                             className={cx('value_salary')}
                             required
                             placeholder="tối đa (triệu)"
                         />
+                        {errors.salary && <span className={cx('error')}>{errors.salary}</span>}
                     </div>
                     <div className={cx('item')}>
                         <div className="label_general">Hình thức làm việc</div>
 
-                        <select name="experience" className={cx('experience_select')} required="">
-                            <option value="full" selected>
-                                Full time
-                            </option>
-                            <option value="part">Part time</option>
-                            <option value="remote">Remote</option>
+                        <select
+                            name="working_form"
+                            value={post.working_form}
+                            onChange={handleChange}
+                            className={cx('experience_select')}
+                            required=""
+                        >
+                            <option value="Full time">Full time</option>
+                            <option value="Part time">Part time</option>
+                            <option value="Remote">Remote</option>
                         </select>
                     </div>
                 </div>
+                <h4 className={cx('infor_general')}>Địa chỉ làm việc</h4>
+                <input
+                    type="text"
+                    name="address_work"
+                    value={post.address_work}
+                    onChange={handleChange}
+                    className={cx('input_address')}
+                    required
+                    placeholder="Địa điểm làm việc"
+                />
+                {errors.address_work && <span className={cx('error')}>{errors.address_work}</span>}
+
                 <h4 className={cx('infor_general')}>Mô tả công việc</h4>
-                <textarea type="text" name="job_describe" className={cx('job_describe')} required></textarea>
+                <textarea
+                    type="text"
+                    name="description"
+                    value={post.description}
+                    onChange={handleChange}
+                    className={cx('job_describe')}
+                    required
+                ></textarea>
+                {errors.description && <span className={cx('error')}>{errors.description}</span>}
+
                 <h4 className={cx('infor_general')}>Yêu cầu ứng viên</h4>
-                <textarea type="text" name="job_require" className={cx('job_describe')} required></textarea>
+                <textarea
+                    type="text"
+                    name="requirement"
+                    value={post.requirement}
+                    onChange={handleChange}
+                    className={cx('job_describe')}
+                    required
+                ></textarea>
+                {errors.requirement && <span className={cx('error')}>{errors.requirement}</span>}
+
                 <h4 className={cx('infor_general')}>Quyền lợi</h4>
-                <textarea type="text" name="job_benefits" className={cx('job_describe')} required></textarea>
+                <textarea
+                    type="text"
+                    name="benefits"
+                    value={post.benefits}
+                    onChange={handleChange}
+                    className={cx('job_describe')}
+                    required
+                ></textarea>
+                {errors.benefits && <span className={cx('error')}>{errors.benefits}</span>}
 
                 <div className={cx('lable_deadline')}>Hạn nộp hồ sơ</div>
-                <input type="date" name="deadline" className={cx('deadline')} required placeholder="Hạn nộp hồ sơ" />
+                <input
+                    type="date"
+                    name="dueDate"
+                    min={dateString}
+                    value={post.dueDate}
+                    onChange={handleChange}
+                    className={cx('deadline')}
+                    required
+                    placeholder="Hạn nộp hồ sơ"
+                />
+                {errors.dueDate && <span className={cx('error')}>{errors.dueDate}</span>}
 
                 {update === false ? (
-                    <button className={cx('submit_recruits')}>Đăng tin</button>
+                    <button type="button" className={cx('submit_recruits')} onClick={handleRegister}>
+                        Đăng tin
+                    </button>
                 ) : (
                     <button className={cx('submit_recruits')}>Cập nhật</button>
                 )}

@@ -24,6 +24,11 @@ class UserService {
         const response=await request.get(path,options);
         return response.data;
     }
+    postJob=async(path,options={})=>{
+        const headers=authHeader();
+        const response=await request.post(path,options,{headers});
+        return response.data;
+    }
 
     GetCompany=async(path,options={})=>{
         const response=await request.get(path,options);

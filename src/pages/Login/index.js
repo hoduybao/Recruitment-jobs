@@ -39,29 +39,40 @@ function Login({ employer = false }) {
             setSuccess(false);
         }
 
-        setErrors(newErrors);
-
         // Handle form submission logic
         if (success) {
             const fetch = async () => {
-                let response = await UserService.postLogin(`auth/login`, {
-                    username: signin.email,
-                    password: signin.password,
-                });
-                console.log(response);
-                if (response.status === 'ok') {
-                    window.localStorage.setItem('user', response.data);
-                    if (employer) {
+                if (employer) {
+                    let response = await UserService.postLogin(`auth/loginEmployer`, {
+                        username: signin.email,
+                        password: signin.password,
+                    });
+                    console.log(response);
+                    if (response.status === 'ok') {
+                        window.localStorage.setItem('user', response.data);
                         window.location.href = 'http://localhost:3001/employer';
                     } else {
-                        window.location.href = 'http://localhost:3001';
+                        newErrors.email = response.message;
+                        setErrors(newErrors);
                     }
                 } else {
-                    newErrors.email = response.message;
-                    setErrors(newErrors);
+                    let response = await UserService.postLogin(`auth/loginCandidate`, {
+                        username: signin.email,
+                        password: signin.password,
+                    });
+                    console.log(response);
+                    if (response.status === 'ok') {
+                        window.localStorage.setItem('user', response.data);
+                        window.location.href = 'http://localhost:3001';
+                    } else {
+                        newErrors.email = response.message;
+                        setErrors(newErrors);
+                    }
                 }
             };
             fetch();
+        } else {
+            setErrors(newErrors);
         }
     };
     return (

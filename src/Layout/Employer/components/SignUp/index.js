@@ -64,7 +64,6 @@ function SignUp() {
             newErrors.phone = 'Chưa nhập số điện thoại';
             success = false;
         }
-        setErrors(newErrors);
 
         // Handle form submission logic
         if (success) {

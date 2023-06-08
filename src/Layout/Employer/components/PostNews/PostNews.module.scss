@@ -38,7 +38,16 @@
     /* identical to box height */
     color: #3d3d3d;
 }
+
 .title_recruitment {
+    width: 63.5%;
+    height: 4rem;
+    padding-left: 1rem;
+    background: #ffffff;
+    border: 1px solid #939598;
+    border-radius: 5px;
+}
+.input_address{
     width: 63.5%;
     height: 4rem;
     padding-left: 1rem;
@@ -153,4 +162,10 @@ font-weight: 500;
     color:#000000;
     border:1px solid #00B4D8;
     font-weight: 500;
+}
+.error{
+    color: red;
+    margin-top: 0.4rem;
+    display: block;
+
 }
