@@ -9,14 +9,14 @@ function Home() {
 
     
 
-    // UserService
-    //     .getTopCompany(`company/getAll`, {
+    UserService
+        .getTopCompany(`company/getAll`, {
 
-    //     })
-    //     .then((res) => {
-    //         //  console.log(res.data.data)
-    //         console.log(res.data);
-    //     });
+        })
+        .then((res) => {
+            //  console.log(res.data.data)
+            console.log(res.data);
+        });
 
     return (
         <div className={cx('wrapper')}>

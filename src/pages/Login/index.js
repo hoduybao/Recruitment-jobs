@@ -49,19 +49,19 @@ function Login({ employer = false }) {
                     password: signin.password,
                 });
                 console.log(response);
-                if(response.status==="ok")
-                {
+                if (response.status === 'ok') {
                     window.localStorage.setItem('user', response.data);
-                    window.location.href = 'http://localhost:3001';
-                }
-                else{
+                    if (employer) {
+                        window.location.href = 'http://localhost:3001/employer';
+                    } else {
+                        window.location.href = 'http://localhost:3001';
+                    }
+                } else {
                     newErrors.email = response.message;
                     setErrors(newErrors);
-
                 }
             };
             fetch();
-
         }
     };
     return (

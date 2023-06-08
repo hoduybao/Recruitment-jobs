@@ -18,6 +18,30 @@ function PostNews({ update = false }) {
             setHidenSalary(false);
         }
     };
+
+    const [post, setPost] = useState({
+        tittle: '',
+        quantity: '',
+        description: '',
+        requirement: '',
+        benefit: '',
+    });
+    const [errors, setErrors] = useState({
+        tittle: '',
+        quantity: '',
+        description: '',
+        requirement: '',
+        benefit: '',
+    });
+
+    let success = true;
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setPost((prevInputs) => ({ ...prevInputs, [name]: value }));
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+    };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
@@ -48,7 +72,6 @@ function PostNews({ update = false }) {
                             type="number"
                             name="quantity"
                             min="1"
-                            value="1"
                             className={cx('quantity')}
                             required
                             placeholder="Số lượng"
@@ -56,10 +79,8 @@ function PostNews({ update = false }) {
                     </div>
                     <div className={cx('item')}>
                         <div className="label_general">Giới tính</div>
-                        <select name="sex" className={cx('sex_select')} required="">
-                            <option value="not" selected>
-                                Không yêu cầu
-                            </option>
+                        <select name="sex" value="not" className={cx('sex_select')} required="">
+                            <option value="not">Không yêu cầu</option>
                             <option value="male">Nam</option>
                             <option value="female">Nữ</option>
                         </select>

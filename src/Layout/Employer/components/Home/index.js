@@ -5,6 +5,8 @@ import { faBullhorn, faCheckToSlot, faFileMedical } from '@fortawesome/free-soli
 const cx = classNames.bind(styles);
 
 function Home() {
+    const user=localStorage.getItem('user');
+    console.log(user)
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>

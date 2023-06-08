@@ -5,35 +5,44 @@ import Image from '../Images';
 import UserService from '~/utils/request';
 import Menu from '../Popper/Menu';
 import { Link } from 'react-router-dom';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faBriefcase, faKey, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faBell, faKey, faMagnifyingGlassPlus, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
+
 const cx = classNames.bind(styles);
 
 function Header({ employer = false }) {
-    const user = localStorage.getItem('user');
+    var user = localStorage.getItem('user');
+    var path = employer === false ? '' : '/employer';
     const [info, setInfo] = useState({});
 
-    if (user) {
-        const fetch = async () => {
-            let response = await UserService.getUser(`candidate/myInfo
-            `);
-            setInfo(response.data);
-        };
-        fetch();
-    }
+    useEffect(() => {
+        if (user) {
+            const fetch = async () => {
+                if (employer) {
+                    let response = await UserService.getUser(`employer/myInfo
+                `);
+                    response.data.avatar = response.data.logo;
+                    setInfo(response.data);
+                } else {
+                    let response = await UserService.getUser(`candidate/myInfo
+                    `);
 
+                    setInfo(response.data);
+                }
+            };
+            fetch();
+        }
+    }, [employer, user]);
 
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faUser} />,
             title: 'Trang cá nhân',
-            to: '/profile',
-        },
-        {
-            icon: <FontAwesomeIcon icon={faBriefcase} />,
-            title: 'Công việc của tôi',
-            to: '/my-job',
+            to: `${path}/profile`,
         },
         {
             icon: <FontAwesomeIcon icon={faKey} />,
@@ -43,6 +52,7 @@ function Header({ employer = false }) {
             separate: true,
             icon: <FontAwesomeIcon icon={faSignOut} />,
             title: 'Log out',
+            employer: employer,
         },
     ];
     return (
@@ -96,6 +106,13 @@ function Header({ employer = false }) {
                 )}
                 {user && (
                     <div className={cx('actions')}>
+                        {employer && (
+                            <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
+                                <div>
+                                    <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
+                                </div>
+                            </Tippy>
+                        )}
                         <Menu items={userMenu}>
                             <Image src={info.avatar} className={cx('user-avatar')} alt="nguyenvana" />
                         </Menu>

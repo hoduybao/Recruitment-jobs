@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './SideBar.module.scss';
 import images from '~/assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck, faFile, faFileLines, faSquarePollVertical } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck, faFile, faFileLines, faMagnifyingGlassPlus, faSquarePollVertical } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookMessenger } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
@@ -56,7 +56,7 @@ function SideBar() {
                     <FontAwesomeIcon icon={faFileLines} style={{ marginRight: 20 }} className={cx('icon_menu')} />
                     <span className={cx('name_item')}>Quản lý tin tuyển dụng</span>
                 </Link>
-                <Link className={cx('item',...classes3)} onClick={()=>{
+                <Link className={cx('item',...classes3)} to="/employer/post-job"  onClick={()=>{
                      setClasses3(["selected"]);
                      setClasses2(["not_selected"]);
                      setClasses1(["not_selected"]);
@@ -64,11 +64,11 @@ function SideBar() {
 
                 }}>
                     <FontAwesomeIcon
-                        icon={faFacebookMessenger}
+                        icon={faMagnifyingGlassPlus}
                         style={{ marginRight: 20 }}
                         className={cx('icon_menu')}
                     />
-                    <span className={cx('name_item')}>Tin nhắn</span>
+                    <span className={cx('name_item')}>Đăng tin</span>
                 </Link>
             </div>
         </aside>

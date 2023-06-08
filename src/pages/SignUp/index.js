@@ -10,19 +10,19 @@ const cx = classNames.bind(styles);
 
 function SignUp() {
     const [signup, setSignup] = useState({
-        fullname: '',
+        name: '',
         email: '',
         password: '',
         confirm: '',
     });
     const [errors, setErrors] = useState({
-        fullname: '',
+        name: '',
         email: '',
         password: '',
         confirm: '',
     });
 
-    const [success, setSuccess] = useState(true);
+    let success=true;
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -36,26 +36,26 @@ function SignUp() {
         const newErrors = {};
         if (!signup.email) {
             newErrors.email = 'Chưa nhập email';
-            setSuccess(false);
+            success=false;
         }
         if (!signup.name) {
-            newErrors.username = 'Chưa nhập họ tên';
-            setSuccess(false);
+            newErrors.name = 'Chưa nhập họ tên';
+            success=false;
         }
         if (!signup.password) {
             newErrors.password = 'Chưa nhập mật khẩu';
-            setSuccess(false);
+            success=false;
         }
         if (!signup.confirm || signup.password !== signup.confirm) {
             newErrors.confirm = 'Xác nhận mật khẩu không đúng';
-            setSuccess(false);
+            success=false;
         }
 
         // Handle form submission logic
         if (success) {
             const fetch = async () => {
                 let response = await UserService.postLogin(`auth/signup/candidate`, {
-                    fullname: signup.fullname,
+                    fullname: signup.name,
                     email: signup.email,
                     password: signup.password,
                 });
@@ -104,9 +104,9 @@ function SignUp() {
                         <div className={cx('label_name')}>Họ tên</div>
                         <div className={cx('fullname')}>
                             <input
-                                value={signup.full_name}
+                                value={signup.name}
                                 type="text"
-                                name="fullname"
+                                name="name"
                                 className={cx('name_signup')}
                                 required
                                 placeholder="Nhập họ tên"
