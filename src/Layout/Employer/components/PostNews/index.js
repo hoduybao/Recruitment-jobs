@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './PostNews.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UserService from '~/utils/request';
 
 import { Link } from 'react-router-dom';
@@ -31,7 +31,7 @@ function PostNews({ update = false }) {
         experience: 'Không yêu cầu',
         salary: '',
         working_form: 'Full time',
-        address_work: '',
+        address_work: 'Thành phố Hà Nội',
         description: '',
         requirement: '',
         benefits: '',
@@ -131,6 +131,22 @@ function PostNews({ update = false }) {
             setErrors(newErrors);
         }
     };
+    const urlProvice = 'https://provinces.open-api.vn/api/';
+    const [provinces, setProvinces] = useState([]);
+    useEffect(() => {
+        fetch(urlProvice)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                setProvinces(data);
+                console.log(provinces);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    });
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
@@ -244,15 +260,18 @@ function PostNews({ update = false }) {
                     </div>
                 </div>
                 <h4 className={cx('infor_general')}>Địa chỉ làm việc</h4>
-                <input
-                    type="text"
+                <select
                     name="address_work"
                     value={post.address_work}
                     onChange={handleChange}
                     className={cx('input_address')}
-                    required
-                    placeholder="Địa điểm làm việc"
-                />
+                    required=""
+                >
+                    {provinces.map((province) => (
+                        <option value={province.name}>{province.name}</option>
+                    ))}
+                </select>
+
                 {errors.address_work && <span className={cx('error')}>{errors.address_work}</span>}
 
                 <h4 className={cx('infor_general')}>Mô tả công việc</h4>

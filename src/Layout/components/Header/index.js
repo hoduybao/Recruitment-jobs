@@ -58,9 +58,9 @@ function Header({ employer = false }) {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <div className={cx('logo')}>
+                <Link className={cx('logo')}  to="/">
                     <img src={images.logo} alt="logo" />
-                </div>
+                </Link>
                 {!user && (
                     <div className={cx('actions')}>
                         {employer === false ? (

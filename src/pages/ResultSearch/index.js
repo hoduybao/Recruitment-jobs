@@ -1,102 +1,74 @@
 import classNames from 'classnames/bind';
 import styles from './ResultSearch.module.scss';
-import images from '~/assets/images';
 import Filter from '~/Layout/components/Filter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import UserService from '~/utils/request';
+import { useState } from 'react';
 const cx = classNames.bind(styles);
 function ResultSearch() {
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const text = params.get('text');
+    const address = params.get('address');
+    const [result, setResult] = useState([]);
+    useEffect(() => {
+        const fetch = async () => {
+            const response = await UserService.searchJob(`job/search?text=${text}&address=${address}`, {});
+            console.log(response.data);
+            setResult(response.data);
+        };
+        fetch();
+    }, [text, address]);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <Filter className={cx('fil')} />
                 <div className={cx('inner_content')}>
-                    <div className={cx('text_top_job')}>
-                        Tìm thấy<span> 10 </span> công việc phù hợp với bạn
-                    </div>
+                    {result.length === 0 ? (
+                        <div className={cx('text_top_job')}>Không tìm thấy công việc nào phù hợp với bạn</div>
+                    ) : (
+                        <div className={cx('text_top_job')}>
+                            Tìm thấy<span> {result.length} </span> công việc phù hợp với bạn
+                        </div>
+                    )}
+
                     <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
-                        <Link
-                            className={cx('item_recruit_candidate', 'p-2 m-2')}
-                            to="/detail-job"
-                            onClick={() => {
-                                window.localStorage.setItem('id_job', '2');
-                            }}
-                        >
-                            <img src={images.logo} alt="logo" className={cx('logo_company')} />
-                            <div className={cx('name_recruit')} href="/">
-                                Frontend - Developer (ReactJS, AngularJS)
-                            </div>
-                            <div className={cx('name_company')}>NET Company</div>
-                            <ul className={cx('require')}>
-                                <li className={cx('label')}>
-                                    Mức lương: <span className={cx('value')}>12-20 triệu</span>
-                                </li>
-                                <li className={cx('label')}>
-                                    Kinh nghiệm: <span className={cx('value')}>1 năm</span>
-                                </li>
-                                <li className={cx('label')}>
-                                    Địa điểm: <span className={cx('value')}>Hồ Chí Minh</span>
-                                </li>
-                            </ul>
-                            <div className={cx('time_update')}>
-                                <FontAwesomeIcon
-                                    icon={faClockRotateLeft}
-                                    style={{ color: '#21c2e2', marginRight: 5 }}
-                                />
-                                Cập nhật gần nhất: <span className={cx('value')}>2023-04-20</span>
-                            </div>
-                        </Link>
-                        <div className={cx('item_recruit_candidate', 'p-2 m-2')}>
-                            <img src={images.logo} alt="logo" className={cx('logo_company')} />
-                            <div className={cx('name_recruit')} href="/">
-                                Frontend - Developer (ReactJS, AngularJS)
-                            </div>
-                            <div className={cx('name_company')}>NET Company</div>
-                            <ul className={cx('require')}>
-                                <li className={cx('label')}>
-                                    Mức lương: <span className={cx('value')}>12-20 triệu</span>
-                                </li>
-                                <li className={cx('label')}>
-                                    Kinh nghiệm: <span className={cx('value')}>1 năm</span>
-                                </li>
-                                <li className={cx('label')}>
-                                    Địa điểm: <span className={cx('value')}>Hồ Chí Minh</span>
-                                </li>
-                            </ul>
-                            <div className={cx('time_update')}>
-                                <FontAwesomeIcon
-                                    icon={faClockRotateLeft}
-                                    style={{ color: '#21c2e2', marginRight: 5 }}
-                                />
-                                Cập nhật gần nhất: <span className={cx('value')}>2023-04-20</span>
-                            </div>
-                        </div>
-                        <div className={cx('item_recruit_candidate', 'p-2 m-2')}>
-                            <img src={images.logo} alt="logo" className={cx('logo_company')} />
-                            <div className={cx('name_recruit')} href="/">
-                                Frontend - Developer (ReactJS, AngularJS)
-                            </div>
-                            <div className={cx('name_company')}>NET Company</div>
-                            <ul className={cx('require')}>
-                                <li className={cx('label')}>
-                                    Mức lương: <span className={cx('value')}>12-20 triệu</span>
-                                </li>
-                                <li className={cx('label')}>
-                                    Kinh nghiệm: <span className={cx('value')}>1 năm</span>
-                                </li>
-                                <li className={cx('label')}>
-                                    Địa điểm: <span className={cx('value')}>Hồ Chí Minh</span>
-                                </li>
-                            </ul>
-                            <div className={cx('time_update')}>
-                                <FontAwesomeIcon
-                                    icon={faClockRotateLeft}
-                                    style={{ color: '#21c2e2', marginRight: 5 }}
-                                />
-                                Cập nhật gần nhất: <span className={cx('value')}>2023-04-20</span>
-                            </div>
-                        </div>
+                        {result.map((job, index) => (
+                            <Link
+                                className={cx('item_recruit_candidate', 'p-2 m-2')}
+                                to={`/detail-job?id=${job.id}`}
+                               
+                            >
+                                <img src={job.companyInfo.logo} alt="logo" className={cx('logo_company')} />
+                                <div className={cx('name_recruit')} href="/">
+                                    {job.title}
+                                </div>
+                                <div className={cx('name_company')}>{job.companyInfo.name}</div>
+                                <ul className={cx('require')}>
+                                    <li className={cx('label')}>
+                                        Mức lương: <span className={cx('value')}>{job.jobDescription.salary}</span>
+                                    </li>
+                                    <li className={cx('label')}>
+                                        Kinh nghiệm: <span className={cx('value')}>{job.jobDescription.experience}</span>
+                                    </li>
+                                    <li className={cx('label')}>
+                                        Địa điểm: <span className={cx('value')}>{job.jobDescription.address_work}</span>
+                                    </li>
+                                </ul>
+                                <div className={cx('time_update')}>
+                                    <FontAwesomeIcon
+                                        icon={faClockRotateLeft}
+                                        style={{  marginRight: 5 }}
+                                    />
+                                   
+                                Cập nhật gần nhất: <span className={cx('value')}>{job.postDate}</span>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                     <div className={cx('navigation-home')}>
                         <nav aria-label="Page navigation example">

@@ -36,12 +36,9 @@ justify-content: center;
 .name_web{
     color: #023E8A;
 }
-.search-result{
-    width: 500px;
 
-}
 .search-input {
-    width: 40%;
+    width: 45%;
     height: 46px;
     display: flex;
     background-color: white;
@@ -98,6 +95,7 @@ justify-content: center;
     font-size: 1.8rem;
     line-height: 46px;
     color: black;
+    cursor: pointer;
 }
 .btn_search_candidate {
     width: 120px;
@@ -132,9 +130,12 @@ justify-content: center;
     color: rgba(17, 17, 18, 0.5);
 }
 .item_result{
+    display: block;
+    color: black;
     padding: 5px 12px;
     &:hover{
-        background-color: rgb(22,24,25,0.03);
+        color: black;
+        background-color: rgb(22,24,25,0.05);
         cursor: pointer;
     }
 }
