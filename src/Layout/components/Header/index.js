@@ -16,6 +16,7 @@ const cx = classNames.bind(styles);
 
 function Header({ employer = false }) {
     var user = localStorage.getItem('user');
+    console.log(user);
     var path = employer === false ? '' : '/employer';
     const [info, setInfo] = useState({});
 

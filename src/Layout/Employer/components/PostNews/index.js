@@ -60,7 +60,7 @@ function PostNews({ update = false }) {
     };
     const handleRegister = (event) => {
         event.preventDefault();
-
+        var newSalary = '';
         // Validate inputs
         const newErrors = {};
         if (post.quantity < 1) {
@@ -78,12 +78,12 @@ function PostNews({ update = false }) {
                 newErrors.salary = 'Chưa nhập mức lương';
                 success = false;
             } else {
-                console.log(post.salary + " triệu");
-                setPost((prevInputs) => ({ ...prevInputs, salary: post.salary + " triệu" }));
-                
+                //     console.log(post.salary + " triệu");
+                newSalary = post.salary.toString() + ' triệu';
             }
         } else {
-            setPost((prevInputs) => ({ ...prevInputs, salary: 'Thỏa thuận' }));
+            newSalary = 'Thỏa thuận';
+            setPost((prevInputs) => ({ ...prevInputs, salary: newSalary }));
         }
 
         if (!post.address_work) {
@@ -117,7 +117,7 @@ function PostNews({ update = false }) {
                     requirement: post.requirement,
                     gender: post.gender,
                     experience: post.experience,
-                    salary: post.salary,
+                    salary: newSalary,
                     number_candidates: post.quantity,
                     working_form: post.working_form,
                     address_work: post.address_work,
@@ -226,7 +226,7 @@ function PostNews({ update = false }) {
                             onChange={handleChangeSalary}
                             required=""
                         >
-                            <option value="Thỏa thuận">Thỏa thuận</option>
+                            <option value="0">Thỏa thuận</option>
                             <option value="1">Quy định</option>
                         </select>
                     </div>
