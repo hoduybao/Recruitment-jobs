@@ -31,8 +31,6 @@ const cx = classNames.bind(styles);
 
 function DetailJob({ employer = false }) {
 
-  
-
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const id_job = params.get('id');
@@ -96,7 +94,7 @@ function DetailJob({ employer = false }) {
             <div className={cx('inner')}>
                 <div className={cx('header_detail_job')}>
                     <div className={cx('header_left')}>
-                        <img src={images.logo} alt="logo_company" className={cx('logo')} />
+                        <img src={jobs.companyInfo?.logo} alt="logo_company" className={cx('logo')} />
                         <div className={cx('block_info')}>
                             <div className={cx('name_job')}>{jobs.title}</div>
                             <Link 

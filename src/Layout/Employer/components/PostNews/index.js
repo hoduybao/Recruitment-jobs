@@ -72,12 +72,15 @@ function PostNews({ update = false }) {
             newErrors.tittle = 'Chưa nhập tiêu đề tuyển dụng';
             success = false;
         }
+        //let newSalary=post.salary+ " triệu";
         if (selectedSalary !== '0') {
             if (!post.salary) {
                 newErrors.salary = 'Chưa nhập mức lương';
                 success = false;
             } else {
-                setPost((prevInputs) => ({ ...prevInputs, salary: post.salary + ' triệu' }));
+                console.log(post.salary + " triệu");
+                setPost((prevInputs) => ({ ...prevInputs, salary: post.salary + " triệu" }));
+                
             }
         } else {
             setPost((prevInputs) => ({ ...prevInputs, salary: 'Thỏa thuận' }));
@@ -140,7 +143,6 @@ function PostNews({ update = false }) {
             })
             .then((data) => {
                 setProvinces(data);
-                console.log(provinces);
             })
             .catch(function (error) {
                 console.log(error);

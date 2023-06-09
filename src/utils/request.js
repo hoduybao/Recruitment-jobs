@@ -39,6 +39,11 @@ class UserService {
         const response=await request.get(path,options);
         return response.data;
     }
+
+    myInfoEmployer=async(path,options={})=>{
+        const response=await request.get(path,options);
+        return response.data;
+    }
     
 }
 
