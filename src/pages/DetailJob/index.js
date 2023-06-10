@@ -1,12 +1,13 @@
 import classNames from 'classnames/bind';
 import styles from './DetailJob.module.scss';
-import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Menu from '~/Layout/components/Popper/Menu';
 import Modal from 'react-overlays/Modal';
 import React, { useState, useEffect } from 'react';
-import { authPost } from '~/utils/auth';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
     faAddressCard,
     faBars,
@@ -34,10 +35,12 @@ function DetailJob({ employer = false }) {
     const currentPath = window.location.origin + location.pathname + location.search;
 
     const [showModal, setShowModal] = useState(false);
-    var handleClose = () => setShowModal(false);
+    var handleClose = () => {
+        setShowModal(false);
+    };
     const [apply, setApply] = useState({
         name: '',
-        file_cv: {},
+        file_cv: null,
         introduce: '',
     });
     const [errors, setErrors] = useState({
@@ -50,8 +53,22 @@ function DetailJob({ employer = false }) {
         if (name === 'file_cv') {
             let value2 = event.target.files[0];
 
-            setApply((prevInputs) => ({ ...prevInputs, [name]: value2 }));
-            setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+            if (!(value2.size > 3 * 1024 * 1024)) {
+                setApply((prevInputs) => ({ ...prevInputs, [name]: value2 }));
+                setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+            }
+            else{
+                toast.error('File không được quá 3MB!', {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'light',
+                });
+            }
         } else {
             setApply((prevInputs) => ({ ...prevInputs, [name]: value }));
             setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
@@ -68,7 +85,7 @@ function DetailJob({ employer = false }) {
         }
 
         if (!apply.file_cv) {
-            newErrors.password = 'Chưa chọn file CV';
+            newErrors.file_cv = 'Chưa chọn file phù hợp';
             success = false;
         }
 
@@ -85,18 +102,16 @@ function DetailJob({ employer = false }) {
 
             const submitCV = () => {
                 const formData = new FormData();
-                formData.append(
-                    'info',
-                    JSON.stringify({ introLetter: 'Em muốn ứng tuyển vào công ty ạ', name: 'Dương Minh Hiếu' }),
-                );
                 formData.append('file', apply.file_cv);
+                formData.append('name', apply.name);
+
+                formData.append('introLetter', apply.introduce);
 
                 const requestOptions = {
                     method: 'POST',
                     headers: {
-                        'Content-Type': `multipart/form-data`,
                         Authorization:
-                            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob2R1eWJhb28yMDAyQGdtYWlsLmNvbSIsImlhdCI6MTY4NjM5MDgzOSwiZXhwIjoxNjg2NDc3MjM5fQ._zGXDgWvVDoLYasPFDkaft5yr84aOuv2mYO0mKV6dGE',
+                            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob2R1eWJhb28yMDAyQGdtYWlsLmNvbSIsImlhdCI6MTY4NjQxNTExMywiZXhwIjoxNjg2NTAxNTEzfQ.E_Ru-1QOESYVvryesqT9lk51sIbAFHGQEX1O5KjAixI',
                     },
                     body: formData,
                 };
@@ -105,7 +120,20 @@ function DetailJob({ employer = false }) {
                     .then((response) => response.json())
                     .then((data) => {
                         // Xử lý kết quả trả về từ API
-                        console.log(data);
+                        if (data.status === 'ok') {
+                            toast.success('Ứng tuyển thành công!', {
+                                position: 'top-right',
+                                autoClose: 3000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: 'light',
+                            });
+                        }
+                        handleClose();
+
                     })
                     .catch((error) => {
                         // Xử lý lỗi
@@ -163,6 +191,20 @@ function DetailJob({ employer = false }) {
     }
     return (
         <div className={classesWrapper}>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            {/* Same as */}
+            <ToastContainer />
             <div className={cx('inner')}>
                 <div className={cx('header_detail_job')}>
                     <div className={cx('header_left')}>
@@ -224,6 +266,8 @@ function DetailJob({ employer = false }) {
                                                 required
                                             />
                                         </div>
+                                        {errors.name && <span className={cx('error')}>{errors.name}</span>}
+
                                         <div className={cx('wrapper_name_CV')}>
                                             <div className={cx('text_CV_me')}>
                                                 CV của bạn:
@@ -231,9 +275,8 @@ function DetailJob({ employer = false }) {
                                                     {' '}
                                                     <input
                                                         type="file"
-                                                        accept=".doc, .docx, .pdf"
+                                                        accept=".doc, .docx, .pdf,"
                                                         name="file_cv"
-                                                        enctype="multipart/form-data"
                                                         onChange={handleChange}
                                                         className={cx('inputfile')}
                                                         required
@@ -244,6 +287,7 @@ function DetailJob({ employer = false }) {
                                                 </div>
                                             </div>
                                         </div>
+                                        {errors.file_cv && <span className={cx('error')}>{errors.file_cv}</span>}
                                         <div className={cx('text_introduce_CV')}>
                                             Giới thiệu một số kỹ năng, dự án của bạn:
                                         </div>

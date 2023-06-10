@@ -452,13 +452,16 @@
 }
 .wrapper_cv {
     display: inline;
-    margin-left: 2%;
+    margin-left: 1%;
 }
 .note_cv {
-    display: block;
+    display: inline-block;
     margin-top: 1rem;
+    margin-right: 1%;
+    margin-left: 20.5%;
     font-size: 1.6rem;
     color: #4a4a51;
+    word-wrap: break-word;
 }
 .line {
     margin-top: 1rem;
@@ -540,4 +543,10 @@
     overflow-wrap: break-word;
     /* identical to box height */
     color: #494848;
+}
+.error {
+    margin-left: 30%;
+
+    color: red;
+    margin-top: 0.4rem;
 }
