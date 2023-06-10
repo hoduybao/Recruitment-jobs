@@ -17,7 +17,7 @@ function Login({ employer = false }) {
         email: '',
         password: '',
     });
-    const [success, setSuccess] = useState(true);
+    let success = true;
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -31,12 +31,12 @@ function Login({ employer = false }) {
         const newErrors = {};
         if (!signin.email) {
             newErrors.email = 'Chưa nhập email';
-            setSuccess(false);
+            success = false;
         }
 
         if (!signin.password) {
             newErrors.password = 'Chưa nhập mật khẩu';
-            setSuccess(false);
+            success = false;
         }
 
         // Handle form submission logic

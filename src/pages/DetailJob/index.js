@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Menu from '~/Layout/components/Popper/Menu';
 import Modal from 'react-overlays/Modal';
 import React, { useState, useEffect } from 'react';
-
-
+import { authPost } from '~/utils/auth';
 import {
     faAddressCard,
     faBars,
@@ -25,12 +24,9 @@ import {
 import { useLocation } from 'react-router-dom';
 import UserService from '~/utils/request';
 
-
-
 const cx = classNames.bind(styles);
 
 function DetailJob({ employer = false }) {
-
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const id_job = params.get('id');
@@ -39,9 +35,87 @@ function DetailJob({ employer = false }) {
 
     const [showModal, setShowModal] = useState(false);
     var handleClose = () => setShowModal(false);
+    const [apply, setApply] = useState({
+        name: '',
+        file_cv: {},
+        introduce: '',
+    });
+    const [errors, setErrors] = useState({
+        name: '',
+        file_cv: '',
+        introduce: '',
+    });
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        if (name === 'file_cv') {
+            let value2 = event.target.files[0];
 
-    var handleSave = () => {
-        console.log('success');
+            setApply((prevInputs) => ({ ...prevInputs, [name]: value2 }));
+            setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+        } else {
+            setApply((prevInputs) => ({ ...prevInputs, [name]: value }));
+            setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+        }
+    };
+    var handleSave = (event) => {
+        event.preventDefault();
+        let success = true;
+        // Validate inputs
+        const newErrors = {};
+        if (!apply.name) {
+            newErrors.name = 'Chưa nhập họ tên';
+            success = false;
+        }
+
+        if (!apply.file_cv) {
+            newErrors.password = 'Chưa chọn file CV';
+            success = false;
+        }
+
+        if (success) {
+            // console.log(apply.file_cv);
+            // var formdata = new FormData();
+            // formdata.append('file', apply.file_cv);
+            // formdata.append('info', '{"introLetter": "Em muốn ứng tuyển vào công ty ạ", "name": "Dương Minh Hiếu"}');
+            // const fetch = async () => {
+            //     let response = await UserService.applyJob(`candidate/submitCV/${id_job}`, formdata);
+            //     console.log(response);
+            // };
+            // fetch();
+
+            const submitCV = () => {
+                const formData = new FormData();
+                formData.append(
+                    'info',
+                    JSON.stringify({ introLetter: 'Em muốn ứng tuyển vào công ty ạ', name: 'Dương Minh Hiếu' }),
+                );
+                formData.append('file', apply.file_cv);
+
+                const requestOptions = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': `multipart/form-data`,
+                        Authorization:
+                            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob2R1eWJhb28yMDAyQGdtYWlsLmNvbSIsImlhdCI6MTY4NjM5MDgzOSwiZXhwIjoxNjg2NDc3MjM5fQ._zGXDgWvVDoLYasPFDkaft5yr84aOuv2mYO0mKV6dGE',
+                    },
+                    body: formData,
+                };
+
+                fetch('https://hiringweb.up.railway.app/candidate/submitCV/1', requestOptions)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        // Xử lý kết quả trả về từ API
+                        console.log(data);
+                    })
+                    .catch((error) => {
+                        // Xử lý lỗi
+                        console.error(error);
+                    });
+            };
+            submitCV();
+        } else {
+            setErrors(newErrors);
+        }
     };
     const renderBackdrop = (props) => <div className={cx('backdrop')} {...props} />;
 
@@ -62,10 +136,7 @@ function DetailJob({ employer = false }) {
         fetch();
     }, [id_job]);
 
-    console.log(jobs);
-
     const renderBackdropReport = (props) => <div className={cx('backdrop')} {...props} />;
-
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faPenToSquare} />,
@@ -83,6 +154,7 @@ function DetailJob({ employer = false }) {
             to: '/',
         },
     ];
+
     var classesWrapper;
     if (employer) {
         classesWrapper = cx('wrapper_employer');
@@ -97,9 +169,7 @@ function DetailJob({ employer = false }) {
                         <img src={jobs.companyInfo?.logo} alt="logo_company" className={cx('logo')} />
                         <div className={cx('block_info')}>
                             <div className={cx('name_job')}>{jobs.title}</div>
-                            <Link 
-                            to={`/view-company?id=${jobs.companyInfo?.id}`}
-                            >
+                            <Link to={`/view-company?id=${jobs.companyInfo?.id}`}>
                                 <div className={cx('name_company')}>{jobs.companyInfo?.name}</div>
                             </Link>
 
@@ -143,17 +213,46 @@ function DetailJob({ employer = false }) {
                                     <div className={cx('line')}></div>
 
                                     <div className={cx('modal-body')}>
-                                        <div className={cx('text_fullname_CV')}>Họ và tên:</div>
-                                        <input type="text" name="name" className={cx('fullname_cv')} required />
-                                        <div className={cx('text_CV_me')}>
-                                            CV của bạn:
-                                            <input type="file" name="file_cv" className={cx('inputfile')} required />
+                                        <div className={cx('wrapper_name_CV')}>
+                                            <div className={cx('text_fullname_CV')}>Họ và tên:</div>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                value={apply.name}
+                                                onChange={handleChange}
+                                                className={cx('fullname_cv')}
+                                                required
+                                            />
                                         </div>
-                                        <p className={cx('note_cv')}>Chỉ nhận file .doc, .docx, .pdf, tối đa 3MB</p>
+                                        <div className={cx('wrapper_name_CV')}>
+                                            <div className={cx('text_CV_me')}>
+                                                CV của bạn:
+                                                <div className={cx('wrapper_cv')}>
+                                                    {' '}
+                                                    <input
+                                                        type="file"
+                                                        accept=".doc, .docx, .pdf"
+                                                        name="file_cv"
+                                                        enctype="multipart/form-data"
+                                                        onChange={handleChange}
+                                                        className={cx('inputfile')}
+                                                        required
+                                                    />
+                                                    <p className={cx('note_cv')}>
+                                                        Chỉ nhận file .doc, .docx, .pdf, tối đa 3MB
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div className={cx('text_introduce_CV')}>
                                             Giới thiệu một số kỹ năng, dự án của bạn:
                                         </div>
-                                        <textarea name="introduce" className={cx('introduce_cv')} required></textarea>
+                                        <textarea
+                                            name="introduce"
+                                            value={apply.introduce}
+                                            onChange={handleChange}
+                                            className={cx('introduce_cv')}
+                                        ></textarea>
                                     </div>
                                     <div className="modal-footer">
                                         <button className={cx('secondary-button')} onClick={handleClose}>
@@ -311,17 +410,11 @@ function DetailJob({ employer = false }) {
                         </div>
                     </div>
                     <div className={cx('text_job_description')}>Mô tả công việc</div>
-                    <ul className={cx('list_job_description')}>
-                        {jobs.jobDescription?.description}
-                    </ul>
+                    <ul className={cx('list_job_description')}>{jobs.jobDescription?.description}</ul>
                     <div className={cx('text_job_description')}>Yêu cầu ứng viên</div>
-                    <ul className={cx('list_job_description')}>
-                    {jobs.jobDescription?.requirement}
-                    </ul>
+                    <ul className={cx('list_job_description')}>{jobs.jobDescription?.requirement}</ul>
                     <div className={cx('text_job_description')}>Quyền lợi</div>
-                    <ul className={cx('list_job_description')}>
-                    {jobs.jobDescription?.benefits}
-                    </ul>
+                    <ul className={cx('list_job_description')}>{jobs.jobDescription?.benefits}</ul>
                 </div>
             </div>
         </div>
