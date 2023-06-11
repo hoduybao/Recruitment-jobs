@@ -12,8 +12,8 @@ import { Rate } from 'antd';
 import React, { useState, useEffect } from 'react';
 import UserService from '~/utils/request';
 import { useLocation } from 'react-router-dom';
-
-
+import Toast from '~/Layout/components/Toast';
+import notify from '~/utils/toast';
 import Modal from 'react-overlays/Modal';
 
 const cx = classNames.bind(styles);
@@ -32,29 +32,56 @@ function ViewCompany() {
     const [showModalReport, setShowModalReport] = useState(false);
     var handleCloseReport = () => setShowModalReport(false);
 
-    var handleSaveReport = () => {
-        console.log('success');
+    var handleSaveReport = (event) => {
+        event.preventDefault();
+
+        const fetch = async () => {
+            let response = await UserService.reportJob(`candidate/rating/${id_company}`, {
+                rate: review.rate,
+                content: review.content,
+            });
+            handleCloseReport();
+
+            if (response.status === 'ok') {
+                notify('success', 'Đánh giá thành công!');
+            }
+            else{
+                notify('success', 'Bạn đã đánh giá trước đó!');
+
+            }
+        };
+        fetch();
     };
     const renderBackdropReport = (props) => <div className={cx('backdrop')} {...props} />;
 
     const [companies, setCompanies] = useState([]);
 
-    // useEffect(() => {
-    //     UserService.GetCompany(`company/${id_company}`, {}).then((res) => {
-    //         setCompanies(res.data);
-    //     });
-    // }, [id_company]);
     useEffect(() => {
         const fetch = async () => {
             let response = await UserService.GetCompany(`company/${id_company}`);
+            console.log(response.data);
             setCompanies(response.data);
         };
         fetch();
     }, [id_company]);
-    
-    
+
+    const [review, setReview] = useState({
+        rate: 5,
+        content: '',
+    });
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+
+        setReview((prevInputs) => ({ ...prevInputs, [name]: value }));
+    };
+    const handleChangeRate = (value) => {
+        setReview((prevInputs) => ({ ...prevInputs, rate: value }));
+    };
+
     return (
         <div className={cx('wrapper')}>
+            <Toast />
             <div className={cx('inner')}>
                 <div className={cx('header_detail_job')}>
                     <div className={cx('header_left')}>
@@ -71,9 +98,7 @@ function ViewCompany() {
                             </div>
                             <div className={cx('item_header')}>
                                 <FontAwesomeIcon icon={faLocationDot} className={cx('icon_item_header')} />
-                                <div className={cx('deadline_submit')}>
-                                    {companies.address}
-                                </div>
+                                <div className={cx('deadline_submit')}>{companies.address}</div>
                             </div>
                         </div>
                     </div>
@@ -98,7 +123,7 @@ function ViewCompany() {
                             <div>
                                 <div className={cx('modal-header')}>
                                     <div className={cx('modal-title')}>
-                                        Đánh giá:&nbsp;<span className={cx('modal_name_job')}>Java</span>
+                                        Đánh giá:&nbsp;<span className={cx('modal_name_job')}>{companies.name}</span>
                                     </div>
                                     <span className={cx('btn-close')} onClick={handleCloseReport}>
                                         x
@@ -108,17 +133,22 @@ function ViewCompany() {
 
                                 <div className={cx('modal-body')}>
                                     <span className={cx('label_start')}>Đánh giá: </span>
-                                    <Rate className={cx('rating_company')} defaultValue={5} allowHalf />
+                                    <Rate
+                                        className={cx('rating_company')}
+                                        name="rate"
+                                        defaultValue={review.rate}
+                                        onChange={handleChangeRate}
+                                        allowHalf
+                                    />
 
-                                    <div className={cx('label_report')}>
-                                        Nội dung:
-                                    </div>
+                                    <div className={cx('label_report')}>Nội dung:</div>
                                     <textarea
-                                        name="introduce"
+                                        name="content"
+                                        value={review.content}
+                                        onChange={handleChange}
                                         className={cx('value_report')}
                                         required
                                     ></textarea>
-
                                 </div>
                                 <div className="modal-footer">
                                     <button className={cx('secondary-button')} onClick={handleCloseReport}>
@@ -133,47 +163,49 @@ function ViewCompany() {
                     </div>
                 </div>
                 <div className={cx('navigation')}>
-                    <Link
+                    <div
                         className={classesJob}
                         onClick={(e) => {
                             setClassJob(['active']);
                             setClassReview([]);
                             setIsListJob(true);
                         }}
-                        to=""
-
                     >
                         Việc làm
-                    </Link>
-                    <Link
+                    </div>
+                    <div
                         className={classesReview}
                         onClick={(e) => {
                             setClassReview(['active']);
                             setClassJob([]);
                             setIsListJob(false);
                         }}
-                        to=""
                     >
                         Đánh giá
-                    </Link>
+                    </div>
                 </div>
                 <div className={cx('content')}>
                     {classJob.length > 0 ? (
                         <div className={cx('side_left')}>
-                            {companies.jobPostingList != null &&<ListJobs companies={companies.jobPostingList}/>}
-                            <IntroCompany companies={companies.description}/>
+                            {companies.jobPostingList != null && <ListJobs companies={companies.jobPostingList} />}
+                            <IntroCompany companies={companies.description} />
                         </div>
                     ) : (
                         <div className={cx('side_left')}>
-                            <DetailReview />
+                            {companies.ratingCompanies != null && <DetailReview rating={companies.ratingCompanies} />}
+                            <IntroCompany companies={companies.description} />
                         </div>
                     )}
                     <div className={cx('side_right')}>
-                        <TotalReview isListJob={isListJob} onClick={() => {
-                            setClassReview(['active']);
-                            setClassJob([]);
-                            setIsListJob(false);
-                        }} />
+                        <TotalReview
+                            rate={companies.rate}
+                            isListJob={isListJob}
+                            onClick={() => {
+                                setClassReview(['active']);
+                                setClassJob([]);
+                                setIsListJob(false);
+                            }}
+                        />
                     </div>
                 </div>
             </div>

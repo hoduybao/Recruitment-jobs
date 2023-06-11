@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Menu from '~/Layout/components/Popper/Menu';
 import Modal from 'react-overlays/Modal';
 import React, { useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Toast from '~/Layout/components/Toast';
+import notify from '~/utils/toast';
 
 import {
     faAddressCard,
@@ -19,7 +19,6 @@ import {
     faMoneyBillWave,
     faPenToSquare,
     faTrashCan,
-    faUser,
     faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
@@ -42,12 +41,15 @@ function DetailJob({ employer = false }) {
         name: '',
         file_cv: null,
         introduce: '',
+        report: '',
     });
     const [errors, setErrors] = useState({
         name: '',
         file_cv: '',
         introduce: '',
+        report: '',
     });
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         if (name === 'file_cv') {
@@ -56,6 +58,7 @@ function DetailJob({ employer = false }) {
             if (!(value2.size > 3 * 1024 * 1024)) {
                 setApply((prevInputs) => ({ ...prevInputs, [name]: value2 }));
                 setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+<<<<<<< Updated upstream
             }
             else {
                 toast.error('File không được quá 3MB!', {
@@ -68,6 +71,10 @@ function DetailJob({ employer = false }) {
                     progress: undefined,
                     theme: 'light',
                 });
+=======
+            } else {
+                notify('error', 'File không được quá 3MB!');
+>>>>>>> Stashed changes
             }
         } else {
             setApply((prevInputs) => ({ ...prevInputs, [name]: value }));
@@ -90,57 +97,19 @@ function DetailJob({ employer = false }) {
         }
 
         if (success) {
-            // console.log(apply.file_cv);
-            // var formdata = new FormData();
-            // formdata.append('file', apply.file_cv);
-            // formdata.append('info', '{"introLetter": "Em muốn ứng tuyển vào công ty ạ", "name": "Dương Minh Hiếu"}');
-            // const fetch = async () => {
-            //     let response = await UserService.applyJob(`candidate/submitCV/${id_job}`, formdata);
-            //     console.log(response);
-            // };
-            // fetch();
+            var formdata = new FormData();
+            formdata.append('file', apply.file_cv);
+            formdata.append('name', apply.name);
 
-            const submitCV = () => {
-                const formData = new FormData();
-                formData.append('file', apply.file_cv);
-                formData.append('name', apply.name);
-
-                formData.append('introLetter', apply.introduce);
-
-                const requestOptions = {
-                    method: 'POST',
-                    headers: {
-                        Authorization:
-                            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob2R1eWJhb28yMDAyQGdtYWlsLmNvbSIsImlhdCI6MTY4NjQxNTExMywiZXhwIjoxNjg2NTAxNTEzfQ.E_Ru-1QOESYVvryesqT9lk51sIbAFHGQEX1O5KjAixI',
-                    },
-                    body: formData,
-                };
-
-                fetch('https://hiringweb.up.railway.app/candidate/submitCV/1', requestOptions)
-                    .then((response) => response.json())
-                    .then((data) => {
-                        // Xử lý kết quả trả về từ API
-                        if (data.status === 'ok') {
-                            toast.success('Ứng tuyển thành công!', {
-                                position: 'top-right',
-                                autoClose: 3000,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                                theme: 'light',
-                            });
-                        }
-                        handleClose();
-
-                    })
-                    .catch((error) => {
-                        // Xử lý lỗi
-                        console.error(error);
-                    });
+            formdata.append('introLetter', apply.introduce);
+            const fetch = async () => {
+                let response = await UserService.applyJob(`candidate/submitCV/${id_job}`, formdata);
+                if (response.status === 'ok') {
+                    notify('success', 'Ứng tuyển thành công!');
+                }
+                handleClose();
             };
-            submitCV();
+            fetch();
         } else {
             setErrors(newErrors);
         }
@@ -150,8 +119,43 @@ function DetailJob({ employer = false }) {
     const [showModalReport, setShowModalReport] = useState(false);
     var handleCloseReport = () => setShowModalReport(false);
 
-    var handleSaveReport = () => {
-        console.log('success');
+    var handleSaveReport = (event) => {
+        event.preventDefault();
+        let success = true;
+        // Validate inputs
+        const newErrors = {};
+        if (!apply.report) {
+            newErrors.report = 'Chưa nhập nội dung báo cáo';
+            success = false;
+        }
+
+        if (success) {
+            const fetch = async () => {
+                let response = await UserService.reportJob(`candidate/addReport/${id_job}`, {
+                    content: apply.report,
+                });
+                if (response.status === 'ok') {
+                    notify('success', 'Báo cáo thành công!');
+                }
+                handleCloseReport();
+            };
+            fetch();
+        } else {
+            setErrors(newErrors);
+        }
+    };
+
+    const handleSaveJob = (event) => {
+        event.preventDefault();
+
+        const fetch = async () => {
+            let response = await UserService.reportJob(`candidate/saveJobPosting/${id_job}`);
+            console.log(response);
+            if (response.status === 'ok') {
+                notify('success', 'Đã lưu công việc!');
+            }
+        };
+        fetch();
     };
 
     let title_status;
@@ -161,6 +165,7 @@ function DetailJob({ employer = false }) {
     useEffect(() => {
         const fetch = async () => {
             let response = await UserService.getJobPosting(`job/${id_job}`);
+            console.log(response.data);
             setJobs(response.data);
         };
         fetch();
@@ -196,7 +201,13 @@ function DetailJob({ employer = false }) {
             to: '/employer/jobs',
         },
     ];
-
+    const convertDate = (time) => {
+        const dateTime = new Date(time);
+        const date = dateTime.getDate();
+        const month = dateTime.getMonth() + 1; // Months are zero-based, so we add 1
+        const year = dateTime.getFullYear();
+        return date + '-' + month + '-' + year;
+    };
     var classesWrapper;
     if (employer) {
         classesWrapper = cx('wrapper_employer');
@@ -205,20 +216,8 @@ function DetailJob({ employer = false }) {
     }
     return (
         <div className={classesWrapper}>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
-            {/* Same as */}
-            <ToastContainer />
+            <Toast />
+
             <div className={cx('inner')}>
                 <div className={cx('header_detail_job')}>
                     <div className={cx('header_left')}>
@@ -230,8 +229,12 @@ function DetailJob({ employer = false }) {
                             </Link>
 
                             <div className={cx('deadline_submit')}>
-                                <FontAwesomeIcon icon={faClockRotateLeft} style={{ marginRight: 10 }} />
-                                Hạn nộp hồ sơ: {jobs.dueDate}
+                                <FontAwesomeIcon
+                                    icon={faClockRotateLeft}
+                                    style={{ marginRight: 6, fontSize: '1.4rem' }}
+                                />
+                                {}
+                                Hạn nộp hồ sơ: {convertDate(jobs.dueDate)}
                             </div>
                         </div>
                     </div>
@@ -247,7 +250,7 @@ function DetailJob({ employer = false }) {
                             >
                                 Ứng tuyển
                             </button>
-                            <button type="button" className={cx('btn_save_job')}>
+                            <button type="button" className={cx('btn_save_job')} onClick={handleSaveJob}>
                                 Lưu tin
                             </button>
                             <Modal
@@ -428,7 +431,8 @@ function DetailJob({ employer = false }) {
                                         <div>
                                             <div className={cx('modal-header')}>
                                                 <div className={cx('modal-title')}>
-                                                    Báo cáo:&nbsp;<span className={cx('modal_name_job')}>Java</span>
+                                                    Báo cáo:&nbsp;
+                                                    <span className={cx('modal_name_job')}>{jobs.title}</span>
                                                 </div>
                                                 <span className={cx('btn-close')} onClick={handleCloseReport}>
                                                     x
@@ -439,11 +443,14 @@ function DetailJob({ employer = false }) {
                                             <div className={cx('modal-body')}>
                                                 <div className={cx('label_report')}>Nội dung báo cáo:</div>
                                                 <textarea
-                                                    name="introduce"
+                                                    name="report"
                                                     className={cx('value_report')}
-                                                    required
+                                                    value={apply.report}
+                                                    onChange={handleChange}
                                                 ></textarea>
                                             </div>
+                                            {errors.report && <span className={cx('error')}>{errors.report}</span>}
+
                                             <div className="modal-footer">
                                                 <button className={cx('secondary-button')} onClick={handleCloseReport}>
                                                     Hủy

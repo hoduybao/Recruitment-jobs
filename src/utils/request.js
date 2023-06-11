@@ -44,13 +44,13 @@ class UserService {
     };
     applyJob = async (path, options = {}) => {
         const headers = authPost();
-        console.log(headers);
-        try {
-            const response = await request.post(path, options, { headers });
-            return response.data;
-        } catch (error) {
-            console.log("a"+ error);
-        }
+        const response = await request.post(path, options, { headers });
+        return response.data;
+    };
+    reportJob= async (path, options = {}) => {
+        const headers = authHeader();
+        const response = await request.post(path, options, { headers });
+        return response.data;
     };
 }
 

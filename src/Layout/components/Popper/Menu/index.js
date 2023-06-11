@@ -52,12 +52,16 @@ function Menu({ children, items = [] }) {
                         if (item.separate) {
                             handleLogout(item.employer);
                         }
+<<<<<<< Updated upstream
                         if (item.hide){
                             HideStatus(item.status, item.id_job);
                         }
                         if (item.delete){
                             DeleteJob(item.id_job);
                         }
+=======
+                     
+>>>>>>> Stashed changes
                     }}
                 />
             );

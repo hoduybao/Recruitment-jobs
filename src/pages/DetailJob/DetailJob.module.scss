@@ -76,6 +76,9 @@
 
     /* identical to box height */
     color: #58595b;
+    &:hover{
+        color: #242425;
+    }
 }
 .deadline_submit {
     color: #58595b;
@@ -84,8 +87,8 @@
 .btn_apply {
     width: 55%;
     height: 30%;
+    background: #198ecd;
 
-    background: #0077b6;
     border-radius: 10px;
     border: none;
 
@@ -95,6 +98,10 @@
     font-size: 1.6rem;
     /* identical to box height */
     color: #ffffff;
+    &:hover{
+        background: #0077b6;
+
+    }
 }
 .btn_save_job {
     width: 55%;
@@ -110,6 +117,10 @@
     /* identical to box height */
     background: #ffffff;
     color: #00b4d8;
+    &:hover{
+        background: #f1f0f0;
+
+    }
 }
 
 .body_detail_job {
@@ -288,6 +299,10 @@
     margin-left: 2rem;
     margin-top: 5%;
     color: #ea4335;
+    &:hover{
+        background: #f1f0f0;
+
+    }
 }
 .btn_view_CV {
     box-sizing: border-box;

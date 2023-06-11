@@ -14,8 +14,8 @@ function ListJobs({ companies }) {
                 </div>
                 <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
                     
-                {companies.map((company) => (
-                    <Link className={cx('item_recruit_candidate', 'p-2 m-2')} 
+                {companies.map((company,index) => (
+                    <Link className={cx('item_recruit_candidate', 'p-2 m-2')} key={index}
                     to={`/detail-job?id=${company.id}`}>
                         <img src={images.logo} alt="logo" className={cx('logo_company')} />
                         <div className={cx('name_recruit')} href="/">

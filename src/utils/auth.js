@@ -15,7 +15,6 @@ export function authPost() {
     const user = localStorage.getItem('user');
     if (user) {
         const headers = {
-            'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${user}`,
         };
         return headers;

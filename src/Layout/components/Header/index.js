@@ -7,7 +7,7 @@ import Menu from '../Popper/Menu';
 import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faBell, faKey, faMagnifyingGlassPlus, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faBell, faKey, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -31,7 +31,7 @@ function Header({ employer = false }) {
                 } else {
                     let response = await UserService.getUser(`candidate/myInfo
                     `);
-
+                    console.log(response.data);
                     setInfo(response.data);
                 }
             };
@@ -59,7 +59,7 @@ function Header({ employer = false }) {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Link className={cx('logo')}  to="/">
+                <Link className={cx('logo')} to="/">
                     <img src={images.logo} alt="logo" />
                 </Link>
                 {!user && (
@@ -107,13 +107,12 @@ function Header({ employer = false }) {
                 )}
                 {user && (
                     <div className={cx('actions')}>
-                        {employer && (
-                            <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
-                                <div>
-                                    <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
-                                </div>
-                            </Tippy>
-                        )}
+                        <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
+                            <div>
+                                <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
+                            </div>
+                        </Tippy>
+
                         <Menu items={userMenu}>
                             <Image src={info.avatar} className={cx('user-avatar')} alt="nguyenvana" />
                         </Menu>
