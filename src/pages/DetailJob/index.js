@@ -57,7 +57,7 @@ function DetailJob({ employer = false }) {
                 setApply((prevInputs) => ({ ...prevInputs, [name]: value2 }));
                 setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
             }
-            else{
+            else {
                 toast.error('File không được quá 3MB!', {
                     position: 'top-right',
                     autoClose: 3000,
@@ -154,6 +154,8 @@ function DetailJob({ employer = false }) {
         console.log('success');
     };
 
+    let title_status;
+
     const [jobs, setJobs] = useState([]);
 
     useEffect(() => {
@@ -164,7 +166,14 @@ function DetailJob({ employer = false }) {
         fetch();
     }, [id_job]);
 
+    if (jobs.status === 'hide') {
+        title_status = "Hiện bài đăng";
+    } else {
+        title_status = "Ẩn bài đăng";
+    }
+
     const renderBackdropReport = (props) => <div className={cx('backdrop')} {...props} />;
+    
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faPenToSquare} />,
@@ -173,13 +182,18 @@ function DetailJob({ employer = false }) {
         },
         {
             icon: <FontAwesomeIcon icon={faEyeSlash} />,
-            title: 'Ẩn bài đăng',
-            to: '/',
+            title: title_status,
+            status: jobs.status,
+            hide: true,
+            id_job: id_job,
+            to: '/employer/jobs',
         },
         {
             icon: <FontAwesomeIcon icon={faTrashCan} />,
             title: 'Xóa bài đăng',
-            to: '/',
+            delete: true,
+            id_job: id_job,
+            to: '/employer/jobs',
         },
     ];
 
@@ -310,7 +324,7 @@ function DetailJob({ employer = false }) {
                             </Modal>
                         </div>
                     ) : (
-                        <Menu items={userMenu}>
+                        <Menu items={userMenu} onClick={{userMenu}.onclick}>
                             <div className={cx('wrapper_setting')}>
                                 <FontAwesomeIcon icon={faBars} className={cx('icon_setting')} />
                             </div>
