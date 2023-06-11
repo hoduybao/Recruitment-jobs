@@ -58,23 +58,8 @@ function DetailJob({ employer = false }) {
             if (!(value2.size > 3 * 1024 * 1024)) {
                 setApply((prevInputs) => ({ ...prevInputs, [name]: value2 }));
                 setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
-<<<<<<< Updated upstream
-            }
-            else {
-                toast.error('File không được quá 3MB!', {
-                    position: 'top-right',
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: 'light',
-                });
-=======
             } else {
                 notify('error', 'File không được quá 3MB!');
->>>>>>> Stashed changes
             }
         } else {
             setApply((prevInputs) => ({ ...prevInputs, [name]: value }));
@@ -172,13 +157,13 @@ function DetailJob({ employer = false }) {
     }, [id_job]);
 
     if (jobs.status === 'hide') {
-        title_status = "Hiện bài đăng";
+        title_status = 'Hiện bài đăng';
     } else {
-        title_status = "Ẩn bài đăng";
+        title_status = 'Ẩn bài đăng';
     }
 
     const renderBackdropReport = (props) => <div className={cx('backdrop')} {...props} />;
-    
+
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faPenToSquare} />,
@@ -327,7 +312,7 @@ function DetailJob({ employer = false }) {
                             </Modal>
                         </div>
                     ) : (
-                        <Menu items={userMenu} onClick={{userMenu}.onclick}>
+                        <Menu items={userMenu} onClick={{ userMenu }.onclick}>
                             <div className={cx('wrapper_setting')}>
                                 <FontAwesomeIcon icon={faBars} className={cx('icon_setting')} />
                             </div>

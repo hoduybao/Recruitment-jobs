@@ -7,8 +7,6 @@ import UserService from '~/utils/request';
 
 const cx = classNames.bind(styles);
 
-
-
 function Menu({ children, items = [] }) {
     const handleLogout = (employer) => {
         localStorage.removeItem('user');
@@ -28,19 +26,19 @@ function Menu({ children, items = [] }) {
                 let response = await UserService.postJob(`employer/setJob/${id_job}?action=approved`);
                 console.log(response);
             }
-        }
+        };
 
         fetch();
-    }
+    };
 
     const DeleteJob = (id_job) => {
         const fetch = async () => {
             let response = await UserService.postJob(`employer/setJob/${id_job}?action=delete`);
             console.log(response);
-        }
+        };
 
         fetch();
-    }
+    };
 
     const renderItems = () => {
         return items.map((item, index) => {
@@ -52,16 +50,12 @@ function Menu({ children, items = [] }) {
                         if (item.separate) {
                             handleLogout(item.employer);
                         }
-<<<<<<< Updated upstream
-                        if (item.hide){
+                        if (item.hide) {
                             HideStatus(item.status, item.id_job);
                         }
-                        if (item.delete){
+                        if (item.delete) {
                             DeleteJob(item.id_job);
                         }
-=======
-                     
->>>>>>> Stashed changes
                     }}
                 />
             );
