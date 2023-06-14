@@ -47,6 +47,17 @@ function ManageJobs({ employer }) {
 
     }, [user, employer]);
 
+    const fetchListJobsSaved  = async () => {
+        let response1 = await UserService.getUser('candidate/getJobSaved');
+        setListJobsSaved(response1.data);
+    }
+
+
+    const fetchListJobs  = async () => {
+        let response = await UserService.getUser('candidate/JobSummited');
+        setListJobs(response.data);
+    }
+
 
 
 
@@ -209,6 +220,8 @@ function ManageJobs({ employer }) {
                                 onClick={(e) => {
                                     setClassJobSave(['active']);
                                     setClassJobApply([]);
+                                    setListJobs([]);
+                                    fetchListJobsSaved();
                                 }}
                             >
                                 {navi1}
@@ -219,6 +232,8 @@ function ManageJobs({ employer }) {
                                 onClick={(e) => {
                                     setClassJobApply(['active']);
                                     setClassJobSave([]);
+                                    setListJobsSaved([]);
+                                    fetchListJobs();
                                 }}
                             >
                                 {navi2}
