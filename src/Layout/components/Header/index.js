@@ -7,8 +7,9 @@ import Menu from '../Popper/Menu';
 import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faBell, faKey, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faBell, faBriefcase, faKey, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
+import React from 'react';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
@@ -27,7 +28,7 @@ function Header({ employer = false }) {
                     let response = await UserService.getUser(`employer/myInfo
                 `);
                     console.log(response.data);
-
+                    window.localStorage.setItem('id_company', response.data.company.id);
                     response.data.avatar = response.data.logo;
                     setInfo(response.data);
                 } else {
@@ -53,8 +54,9 @@ function Header({ employer = false }) {
             to: `${path}/change-password`,
         },
         {
-            icon: <FontAwesomeIcon icon={faKey} />,
+            icon: <FontAwesomeIcon icon={faBriefcase} />,
             title: 'Việc làm của tôi',
+            myjob: employer,
             to: `${path}/my-job`,
         },
         {
@@ -138,4 +140,4 @@ function Header({ employer = false }) {
     );
 }
 
-export default Header;
+export default React.memo(Header);

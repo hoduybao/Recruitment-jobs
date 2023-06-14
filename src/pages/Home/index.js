@@ -15,6 +15,7 @@ function Home() {
 
     useEffect(() => {
         const fetch = async () => {
+            console.log("zo")
             let response = await UserService.GetCompany('company/getTop');
             //let response1 = await UserService.GetCompany('company/getTop');
             console.log(response.data)

@@ -42,23 +42,25 @@ function Menu({ children, items = [] }) {
 
     const renderItems = () => {
         return items.map((item, index) => {
-            return (
-                <MenuItem
-                    key={index}
-                    data={item}
-                    onClick={() => {
-                        if (item.separate) {
-                            handleLogout(item.employer);
-                        }
-                        if (item.hide) {
-                            HideStatus(item.status, item.id_job);
-                        }
-                        if (item.delete) {
-                            DeleteJob(item.id_job);
-                        }
-                    }}
-                />
-            );
+            if (!item.myjob) {
+                return (
+                    <MenuItem
+                        key={index}
+                        data={item}
+                        onClick={() => {
+                            if (item.separate) {
+                                handleLogout(item.employer);
+                            }
+                            if (item.hide) {
+                                HideStatus(item.status, item.id_job);
+                            }
+                            if (item.delete) {
+                                DeleteJob(item.id_job);
+                            }
+                        }}
+                    />
+                );
+            }
         });
     };
 

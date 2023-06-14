@@ -105,7 +105,7 @@ const publicRoutes = [
         path: '/employer/profile',
         component: ViewCompany,
         employer:true,
-        layout: SignInLayout,
+        layout: SignInLayoutEmployer,
     },
 ];
 

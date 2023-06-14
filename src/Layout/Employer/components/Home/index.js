@@ -2,11 +2,22 @@ import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBullhorn, faCheckToSlot, faFileMedical } from '@fortawesome/free-solid-svg-icons';
+import { useEffect } from 'react';
+import UserService from "~/utils/request"
 const cx = classNames.bind(styles);
 
 function Home() {
     const user=localStorage.getItem('user');
     console.log(user)
+    useEffect(() => {
+        const fetch = async () => {
+            let response = await UserService.getUser('/employer/getCV?id=1');
+           //let response1 = await UserService.GetCompany('company/getTop');
+            console.log(response)
+           // setCompanies(response.data);
+        };
+        fetch();
+    },[user]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>

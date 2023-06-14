@@ -44,10 +44,8 @@ function ViewCompany() {
 
             if (response.status === 'ok') {
                 notify('success', 'Đánh giá thành công!');
-            }
-            else{
+            } else {
                 notify('success', 'Bạn đã đánh giá trước đó!');
-
             }
         };
         fetch();
@@ -58,14 +56,26 @@ function ViewCompany() {
     const [listJobs, setListJobs] = useState([]);
 
     useEffect(() => {
-        const fetch = async () => {
-            let response = await UserService.GetCompany(`company/${id_company}`);
-            let response1 = await UserService.GetCompany(`company/job/${id_company}`);
-            console.log(response.data);
-            setCompanies(response.data);
-            setListJobs(response1.data);
-        };
-        fetch();
+        if (id_company) {
+            const fetch = async () => {
+                let response = await UserService.GetCompany(`company/${id_company}`);
+                let response1 = await UserService.GetCompany(`company/job/${id_company}`);
+                console.log(response.data);
+                setCompanies(response.data);
+                setListJobs(response1.data);
+            };
+            fetch();
+        } else {
+            var id = localStorage.getItem('id_company');
+            const fetch = async () => {
+                let response = await UserService.GetCompany(`company/${id}`);
+                let response1 = await UserService.GetCompany(`company/job/${id}`);
+                console.log(response.data);
+                setCompanies(response.data);
+                setListJobs(response1.data);
+            };
+            fetch();
+        }
     }, [id_company]);
 
     const [review, setReview] = useState({
@@ -106,17 +116,20 @@ function ViewCompany() {
                         </div>
                     </div>
                     <div className={cx('header_right')}>
-                        <button
-                            type="button"
-                            className={cx('btn_apply')}
-                            data-bs-toggle="modal"
-                            data-bs-target="#modal_apply_company"
-                            onClick={() => {
-                                setShowModalReport(true);
-                            }}
-                        >
-                            Đánh giá
-                        </button>
+                        {id_company && (
+                            <button
+                                type="button"
+                                className={cx('btn_apply')}
+                                data-bs-toggle="modal"
+                                data-bs-target="#modal_apply_company"
+                                onClick={() => {
+                                    setShowModalReport(true);
+                                }}
+                            >
+                                Đánh giá
+                            </button>
+                        )}
+
                         <Modal
                             className={cx('modal')}
                             show={showModalReport}

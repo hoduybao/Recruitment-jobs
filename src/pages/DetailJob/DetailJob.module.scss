@@ -76,7 +76,7 @@
 
     /* identical to box height */
     color: #58595b;
-    &:hover{
+    &:hover {
         color: #242425;
     }
 }
@@ -98,9 +98,8 @@
     font-size: 1.6rem;
     /* identical to box height */
     color: #ffffff;
-    &:hover{
+    &:hover {
         background: #0077b6;
-
     }
 }
 .btn_save_job {
@@ -117,9 +116,8 @@
     /* identical to box height */
     background: #ffffff;
     color: #00b4d8;
-    &:hover{
+    &:hover {
         background: #f1f0f0;
-
     }
 }
 
@@ -275,6 +273,7 @@
     color: #0077b6;
 }
 .report {
+    width: 100%;
     height: 55%;
     box-sizing: border-box;
     background: #ffffff;
@@ -282,6 +281,12 @@
     border-radius: 10px;
 }
 .text_report {
+    font-size: 1.4rem;
+    margin-left: 2rem;
+    width: 90%;
+    height: 35%;
+}
+.text_list_cv {
     font-size: 1.4rem;
     margin-left: 2rem;
     width: 90%;
@@ -299,23 +304,26 @@
     margin-left: 2rem;
     margin-top: 5%;
     color: #ea4335;
-    &:hover{
+    &:hover {
         background: #f1f0f0;
-
     }
 }
-.btn_view_CV {
+.btn_CV {
     box-sizing: border-box;
 
     width: 85%;
     height: 22%;
     background-color: white;
     font-weight: 600;
+    font-size: 1.5rem;
     border: 1px solid #0077b6;
     border-radius: 10px;
     margin-left: 2rem;
     margin-top: 5%;
     color: #0077b6;
+    &:hover {
+        background: #f1f0f0;
+    }
 }
 .text_job_description {
     font-style: normal;

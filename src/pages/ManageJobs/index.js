@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './ManageJobs.module.scss';
 import { Link } from 'react-router-dom';
-import images from '~/assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import React, { useState, useEffect } from 'react';
@@ -9,18 +8,13 @@ import UserService from '~/utils/request';
 
 const cx = classNames.bind(styles);
 
-
 function ManageJobs({ employer }) {
-
     var user = localStorage.getItem('user');
     const [path_logo, setPathLogo] = useState('');
 
-
     const [listJobs, setListJobs] = useState([]);
 
-
     const [listJobsSaved, setListJobsSaved] = useState([]);
-    
 
     useEffect(() => {
         if (user) {
@@ -30,36 +24,33 @@ function ManageJobs({ employer }) {
                     let response1 = await UserService.getUser('employer/myInfoNew');
                     setListJobs(response.data);
                     setPathLogo(response1.data.logo);
-                }
+                };
                 fetch();
             } else {
                 const fetch = async () => {
-                    let response = await UserService.getUser('candidate/JobSummited');
-                    setListJobs(response.data);
                     let response1 = await UserService.getUser('candidate/getJobSaved');
+                    let response = await UserService.getUser('candidate/JobSummited');
                     setListJobsSaved(response1.data);
-                    //setPathLogo(response.data.logo);
-                }
+                    setListJobs(response.data);
+                };
                 fetch();
             }
-
-        };
-
+        }
     }, [user, employer]);
 
-    const fetchListJobsSaved  = async () => {
-        let response1 = await UserService.getUser('candidate/getJobSaved');
-        setListJobsSaved(response1.data);
-    }
-
-
-    const fetchListJobs  = async () => {
-        let response = await UserService.getUser('candidate/JobSummited');
-        setListJobs(response.data);
-    }
-
-
-
+    const convertDate = (time) => {
+        const dateTime = new Date(time);
+        var date = dateTime.getDate();
+        var month = dateTime.getMonth() + 1; // Months are zero-based, so we add 1
+        if (month.toString().length === 1) {
+            month = '0' + month;
+        }
+        if (date.toString().length === 1) {
+            date = '0' + date;
+        }
+        const year = dateTime.getFullYear();
+        return date + '-' + month + '-' + year;
+    };
 
     const [classJobSave, setClassJobSave] = useState(['active']);
     const [classJobApply, setClassJobApply] = useState([]);
@@ -130,15 +121,24 @@ function ManageJobs({ employer }) {
                                                         {job?.title}
                                                     </div>
                                                     <div className={cx('name_company')}>{job?.companyInfo?.name}</div>
-                                                    <ul className={cx('require')}>
+                                                    <ul className={cx('require_employer')}>
                                                         <li className={cx('label')}>
-                                                            Mức lương: <span className={cx('value')}>{job?.jobDescription?.salary}</span>
+                                                            Mức lương:{' '}
+                                                            <span className={cx('value')}>
+                                                                {job?.jobDescription?.salary}
+                                                            </span>
                                                         </li>
                                                         <li className={cx('label')}>
-                                                            Kinh nghiệm: <span className={cx('value')}>{job?.jobDescription?.experience}</span>
+                                                            Kinh nghiệm:{' '}
+                                                            <span className={cx('value')}>
+                                                                {job?.jobDescription?.experience}
+                                                            </span>
                                                         </li>
                                                         <li className={cx('label')}>
-                                                            Địa điểm: <span className={cx('value')}>{job?.jobDescription?.address_work}</span>
+                                                            Địa điểm:{' '}
+                                                            <span className={cx('value')}>
+                                                                {job?.jobDescription?.address_work}
+                                                            </span>
                                                         </li>
                                                     </ul>
                                                     <div className={cx('time_update')}>
@@ -146,16 +146,15 @@ function ManageJobs({ employer }) {
                                                             icon={faClockRotateLeft}
                                                             style={{ color: '#21c2e2', marginRight: 5 }}
                                                         />
-                                                        Cập nhật gần nhất: <span className={cx('value')}>{job?.dueDate}</span>
+                                                        Cập nhật gần nhất:{' '}
+                                                        <span className={cx('value')}>{convertDate(job?.dueDate)}</span>
                                                     </div>
                                                 </Link>
-                                            )
+                                            );
                                         } else {
                                             return null;
                                         }
-
                                     })}
-
                                 </div>
                             </div>
                         ) : (
@@ -175,15 +174,24 @@ function ManageJobs({ employer }) {
                                                         {job?.title}
                                                     </div>
                                                     <div className={cx('name_company')}>{job?.companyInfo?.name}</div>
-                                                    <ul className={cx('require')}>
+                                                    <ul className={cx('require_employer')}>
                                                         <li className={cx('label')}>
-                                                            Mức lương: <span className={cx('value')}>{job?.jobDescription?.salary}</span>
+                                                            Mức lương:{' '}
+                                                            <span className={cx('value')}>
+                                                                {job?.jobDescription?.salary}
+                                                            </span>
                                                         </li>
                                                         <li className={cx('label')}>
-                                                            Kinh nghiệm: <span className={cx('value')}>{job?.jobDescription?.experience}</span>
+                                                            Kinh nghiệm:{' '}
+                                                            <span className={cx('value')}>
+                                                                {job?.jobDescription?.experience}
+                                                            </span>
                                                         </li>
                                                         <li className={cx('label')}>
-                                                            Địa điểm: <span className={cx('value')}>{job?.jobDescription?.address_work}</span>
+                                                            Địa điểm:{' '}
+                                                            <span className={cx('value')}>
+                                                                {job?.jobDescription?.address_work}
+                                                            </span>
                                                         </li>
                                                     </ul>
                                                     <div className={cx('time_update')}>
@@ -191,15 +199,14 @@ function ManageJobs({ employer }) {
                                                             icon={faClockRotateLeft}
                                                             style={{ color: '#21c2e2', marginRight: 5 }}
                                                         />
-                                                        Cập nhật gần nhất: <span className={cx('value')}>{job?.dueDate}</span>
+                                                        Cập nhật gần nhất:{' '}
+                                                        <span className={cx('value')}>{convertDate(job?.dueDate)}</span>
                                                     </div>
                                                 </Link>
-                                            )
-
+                                            );
                                         } else {
                                             return null;
                                         }
-
                                     })}
                                 </div>
                             </div>
@@ -220,8 +227,6 @@ function ManageJobs({ employer }) {
                                 onClick={(e) => {
                                     setClassJobSave(['active']);
                                     setClassJobApply([]);
-                                    setListJobs([]);
-                                    fetchListJobsSaved();
                                 }}
                             >
                                 {navi1}
@@ -232,8 +237,6 @@ function ManageJobs({ employer }) {
                                 onClick={(e) => {
                                     setClassJobApply(['active']);
                                     setClassJobSave([]);
-                                    setListJobsSaved([]);
-                                    fetchListJobs();
                                 }}
                             >
                                 {navi2}
@@ -247,26 +250,37 @@ function ManageJobs({ employer }) {
                             <div>
                                 <div className={cx('text_title')}>{text_navi1}</div>
                                 <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
-                                    {listJobsSaved.map((job) => (
+                                    {listJobsSaved.map((job, index) => (
                                         <Link
-                                            key={job?.id}
+                                            key={index}
                                             to={`/detail-job?id=${job?.id}`}
                                             className={cx('item_recruit_candidate', 'p-2 m-2')}
                                         >
-                                            <img src={job?.companyInfo?.logo} alt="logo" className={cx('logo_company')} />
+                                            <img
+                                                src={job?.companyInfo?.logo}
+                                                alt="logo"
+                                                className={cx('logo_company')}
+                                            />
                                             <div className={cx('name_recruit')} href="/">
                                                 {job?.infoJobPosting?.title}
                                             </div>
                                             <div className={cx('name_company')}>{job?.companyInfo?.name}</div>
                                             <ul className={cx('require')}>
                                                 <li className={cx('label')}>
-                                                    Mức lương: <span className={cx('value')}>{job?.infoJobPosting?.salary}</span>
+                                                    Mức lương:{' '}
+                                                    <span className={cx('value')}>{job?.infoJobPosting?.salary}</span>
                                                 </li>
                                                 <li className={cx('label')}>
-                                                    Kinh nghiệm: <span className={cx('value')}>{job?.infoJobPosting?.experience}</span>
+                                                    Kinh nghiệm:{' '}
+                                                    <span className={cx('value')}>
+                                                        {job?.infoJobPosting?.experience}
+                                                    </span>
                                                 </li>
                                                 <li className={cx('label')}>
-                                                    Địa điểm: <span className={cx('value')}>{job?.infoJobPosting?.address_work}</span>
+                                                    Địa điểm:{' '}
+                                                    <span className={cx('value')}>
+                                                        {job?.infoJobPosting?.address_work}
+                                                    </span>
                                                 </li>
                                             </ul>
                                             <div className={cx('time_update')}>
@@ -274,22 +288,22 @@ function ManageJobs({ employer }) {
                                                     icon={faClockRotateLeft}
                                                     style={{ color: '#21c2e2', marginRight: 5 }}
                                                 />
-                                                Cập nhật gần nhất: <span className={cx('value')}>{job?.infoJobPosting?.dueDate}</span>
+                                                Cập nhật gần nhất:{' '}
+                                                <span className={cx('value')}>
+                                                    {convertDate(job?.infoJobPosting?.dueDate)}
+                                                </span>
                                             </div>
                                         </Link>
-
                                     ))}
                                 </div>
                             </div>
-
-
                         ) : (
                             <div className={cx('list_item')}>
                                 <div className={cx('text_title')}>{text_navi2}</div>
                                 <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
-                                    {listJobs.map((job) => (
+                                    {listJobs.map((job, index) => (
                                         <Link
-                                            key={job?.infoJobPosting?.id}
+                                            key={index}
                                             to={`/detail-job?id=${job?.infoJobPosting?.id}`}
                                             className={cx('item_recruit_candidate', 'p-2 m-2')}
                                         >
@@ -300,13 +314,20 @@ function ManageJobs({ employer }) {
                                             <div className={cx('name_company')}>{job?.company?.name}</div>
                                             <ul className={cx('require')}>
                                                 <li className={cx('label')}>
-                                                    Mức lương: <span className={cx('value')}>{job?.infoJobPosting?.salary}</span>
+                                                    Mức lương:{' '}
+                                                    <span className={cx('value')}>{job?.infoJobPosting?.salary}</span>
                                                 </li>
                                                 <li className={cx('label')}>
-                                                    Kinh nghiệm: <span className={cx('value')}>{job?.infoJobPosting?.experience}</span>
+                                                    Kinh nghiệm:{' '}
+                                                    <span className={cx('value')}>
+                                                        {job?.infoJobPosting?.experience}
+                                                    </span>
                                                 </li>
                                                 <li className={cx('label')}>
-                                                    Địa điểm: <span className={cx('value')}>{job?.infoJobPosting?.address_work}</span>
+                                                    Địa điểm:{' '}
+                                                    <span className={cx('value')}>
+                                                        {job?.infoJobPosting?.address_work}
+                                                    </span>
                                                 </li>
                                             </ul>
                                             <div className={cx('time_update')}>
@@ -314,11 +335,13 @@ function ManageJobs({ employer }) {
                                                     icon={faClockRotateLeft}
                                                     style={{ color: '#21c2e2', marginRight: 5 }}
                                                 />
-                                                Cập nhật gần nhất: <span className={cx('value')}>{job?.infoJobPosting?.dueDate}</span>
+                                                Cập nhật gần nhất:{' '}
+                                                <span className={cx('value')}>
+                                                    {convertDate(job?.infoJobPosting?.dueDate)}
+                                                </span>
                                             </div>
                                         </Link>
                                     ))}
-
                                 </div>
                             </div>
                         )}
@@ -327,8 +350,6 @@ function ManageJobs({ employer }) {
             </div>
         );
     }
-
-
 }
 
 export default ManageJobs;

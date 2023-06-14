@@ -31,18 +31,33 @@ function ResultSearch() {
         let newResult = result.filter((job) => {
             if (experience === '') {
                 return (
-                    job.jobDescription.working_form.includes(working_form) &&
-                    collator.compare(job.jobDescription.salary, salary)
+                    job.working_form.includes(working_form) &&
+                    collator.compare(job.salary, salary)
                 );
             } else {
                 return (
-                    job.jobDescription.working_form.includes(working_form) &&
-                    collator.compare(job.jobDescription.experience, experience) === 0 &&
-                    collator.compare(job.jobDescription.salary, salary)
+                    job.working_form.includes(working_form) &&
+                    collator.compare(job.experience, experience) === 0 &&
+                    collator.compare(job.salary, salary)
                 );
             }
         });
         setResultFilter(newResult);
+    };
+    const convertDate = (time) => {
+        const dateTime = new Date(time);
+        var date = dateTime.getDate();
+        var month = dateTime.getMonth() + 1; // Months are zero-based, so we add 1
+        if(month.toString().length===1)
+        {
+            month="0"+month;
+        }
+        if(date.toString().length===1)
+        {
+            date="0"+date;
+        }
+        const year = dateTime.getFullYear();
+        return date + '-' + month + '-' + year;
     };
     return (
         <div className={cx('wrapper')}>
@@ -62,28 +77,28 @@ function ResultSearch() {
                             <Link
                                 key={index}
                                 className={cx('item_recruit_candidate', 'p-2 m-2')}
-                                to={`/detail-job?id=${job.id}`}
+                                to={`/detail-job?id=${job.id_JobPosting}`}
                             >
-                                <img src={job.companyInfo.logo} alt="logo" className={cx('logo_company')} />
+                                <img src={job.companyLogo} alt="logo" className={cx('logo_company')} />
                                 <div className={cx('name_recruit')} href="/">
                                     {job.title}
                                 </div>
-                                <div className={cx('name_company')}>{job.companyInfo.name}</div>
+                                <div className={cx('name_company')}>{job.companyName}</div>
                                 <ul className={cx('require')}>
                                     <li className={cx('label')}>
-                                        Mức lương: <span className={cx('value')}>{job.jobDescription.salary}</span>
+                                        Mức lương: <span className={cx('value')}>{job.salary}</span>
                                     </li>
                                     <li className={cx('label')}>
                                         Kinh nghiệm:{' '}
-                                        <span className={cx('value')}>{job.jobDescription.experience}</span>
+                                        <span className={cx('value')}>{job.experience}</span>
                                     </li>
                                     <li className={cx('label')}>
-                                        Địa điểm: <span className={cx('value')}>{job.jobDescription.address_work}</span>
+                                        Địa điểm: <span className={cx('value')}>{job.addressWork}</span>
                                     </li>
                                 </ul>
                                 <div className={cx('time_update')}>
                                     <FontAwesomeIcon icon={faClockRotateLeft} style={{ marginRight: 5 }} />
-                                    Cập nhật gần nhất: <span className={cx('value')}>{job.postDate}</span>
+                                    Cập nhật gần nhất: <span className={cx('value')}>{convertDate(job.postDate)}</span>
                                 </div>
                             </Link>
                         ))}

@@ -91,7 +91,7 @@ function Search() {
                                         <Link
                                             key={index}
                                             className={cx('item_result')}
-                                            to={`/detail-job?id=${result.id}`}
+                                            to={`/detail-job?id=${result.id_JobPosting}`}
                                         >
                                             {result.title}
                                         </Link>

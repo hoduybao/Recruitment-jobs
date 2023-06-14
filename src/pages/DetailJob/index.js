@@ -191,8 +191,16 @@ function DetailJob({ employer = false }) {
     ];
     const convertDate = (time) => {
         const dateTime = new Date(time);
-        const date = dateTime.getDate();
-        const month = dateTime.getMonth() + 1; // Months are zero-based, so we add 1
+        var date = dateTime.getDate();
+        var month = dateTime.getMonth() + 1; // Months are zero-based, so we add 1
+        if(month.toString().length===1)
+        {
+            month="0"+month;
+        }
+        if(date.toString().length===1)
+        {
+            date="0"+date;
+        }
         const year = dateTime.getFullYear();
         return date + '-' + month + '-' + year;
     };
@@ -465,11 +473,11 @@ function DetailJob({ employer = false }) {
                             ) : (
                                 <div className={cx('report')}>
                                     <div className={cx('text_share')}>Quản lý hồ sơ ứng tuyển</div>
-                                    <div className={cx('text_report')}>
+                                    <div className={cx('text_list_cv')}>
                                         Danh sách hồ sơ ứng viên đã ứng tuyển vào công việc này đang chờ bạn xem xét
                                         đấy.
                                     </div>
-                                    <button className={cx('btn_view_CV')}>Xem danh sách</button>
+                                    <Link  to={`/employer/list-candidate?id_job=${id_job}`}><button className={cx('btn_CV')}>Xem danh sách</button></Link>
                                 </div>
                             )}
                         </div>
