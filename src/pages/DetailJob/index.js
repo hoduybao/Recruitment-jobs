@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Menu from '~/Layout/components/Popper/Menu';
 import Modal from 'react-overlays/Modal';
 import React, { useState, useEffect } from 'react';
+
+
+
 import Toast from '~/Layout/components/Toast';
 import notify from '~/utils/toast';
 
@@ -168,7 +171,7 @@ function DetailJob({ employer = false }) {
         {
             icon: <FontAwesomeIcon icon={faPenToSquare} />,
             title: 'Chỉnh sửa bài đăng',
-            to: '/',
+            to: `/employer/update-job?id=${id_job}`,
         },
         {
             icon: <FontAwesomeIcon icon={faEyeSlash} />,
@@ -312,7 +315,7 @@ function DetailJob({ employer = false }) {
                             </Modal>
                         </div>
                     ) : (
-                        <Menu items={userMenu} onClick={{ userMenu }.onclick}>
+                        <Menu items={userMenu} >
                             <div className={cx('wrapper_setting')}>
                                 <FontAwesomeIcon icon={faBars} className={cx('icon_setting')} />
                             </div>

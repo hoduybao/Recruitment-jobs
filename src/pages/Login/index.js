@@ -17,7 +17,6 @@ function Login({ employer = false }) {
         email: '',
         password: '',
     });
-    let success = true;
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -26,6 +25,7 @@ function Login({ employer = false }) {
     };
     const handleRegister = (event) => {
         event.preventDefault();
+        let success = true;
 
         // Validate inputs
         const newErrors = {};
@@ -107,12 +107,7 @@ function Login({ employer = false }) {
         </div>
         {{/if}} */}
                     <form method="post" action="/sing-in">
-                        <div className={cx('label_email_password')}>
-                            <div className={cx('label_email')}>Email</div>
-                            <Link to="/" className={cx('forget_password')}>
-                                Quên mật khẩu
-                            </Link>
-                        </div>
+                        <div className={cx('label_email')}>Email</div>
                         <div className={cx('email')}>
                             <input
                                 value={signin.email}
@@ -125,8 +120,18 @@ function Login({ employer = false }) {
                             <FontAwesomeIcon icon={faEnvelope} className={cx('icon_email')} />
                         </div>
                         {errors.email && <span className={cx('error')}>{errors.email}</span>}
-
-                        <div className={cx('label_password')}>Mật khẩu</div>
+                        <div className={cx('label_email_password')}>
+                            <div className={cx('label_password')}>Mật khẩu</div>
+                            {employer === false ? (
+                                <Link to="/forget-password" className={cx('forget_password')}>
+                                    Quên mật khẩu
+                                </Link>
+                            ) : (
+                                <Link to="/employer/forget-password" className={cx('forget_password')}>
+                                    Quên mật khẩu
+                                </Link>
+                            )}
+                        </div>
 
                         <div className={cx('password')}>
                             <input

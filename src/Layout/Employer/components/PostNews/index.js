@@ -3,16 +3,17 @@ import styles from './PostNews.module.scss';
 import { useEffect, useState } from 'react';
 import UserService from '~/utils/request';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function PostNews({ update = false }) {
-    // var result = string1.localeCompare(string2);
     const [hidenSalary, setHidenSalary] = useState(true);
     const [selectedSalary, setSelectedSalary] = useState('0');
     var today = new Date();
     var dateString = today.toISOString().split('T')[0];
-
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const id_job = params.get('id');
     const handleChangeSalary = (e) => {
         var value = e.target.value;
         setSelectedSalary(value);
@@ -23,7 +24,16 @@ function PostNews({ update = false }) {
             setHidenSalary(false);
         }
     };
-
+    const convertDate = (time) => {
+        const dateTime = new Date(time);
+        const date = dateTime.getDate();
+        const month = dateTime.getMonth()  // Months are zero-based, so we add 1
+        
+        const year = dateTime.getFullYear();
+        const d=new Date(year,month,date);
+        const newDate=d.toISOString().split('T')[0];
+        return newDate;
+    };
     const [post, setPost] = useState({
         tittle: '',
         quantity: '1',
@@ -37,6 +47,47 @@ function PostNews({ update = false }) {
         benefits: '',
         dueDate: dateString,
     });
+
+    useEffect(() => {
+        if (id_job) {
+            const fetch = async () => {
+                let response = await UserService.getJobPosting(`job/${id_job}`);
+                if (response.status === 'ok') {
+                    response = response.data;
+
+                    let collator = new Intl.Collator('vi');
+                    var splitSalary = '';
+                    if (collator.compare(response.jobDescription.salary, 'Thỏa thuận')) {
+                        setSelectedSalary(0);
+                        setHidenSalary(true);
+                    } else {
+                        splitSalary = response.jobDescription.salary.split(' ')[0];
+                        setSelectedSalary(1);
+                        setHidenSalary(false);
+                    }
+                    console.log(response);
+
+                    setPost({
+                        tittle: response.title,
+                        quantity: response.jobDescription.number_candidates,
+                        gender: response.jobDescription.gender,
+                        experience: response.jobDescription.experience,
+                        salary: splitSalary,
+                        working_form: response.jobDescription.working_form,
+                        address_work: response.jobDescription.address_work,
+                        description: response.jobDescription.description,
+                        requirement: response.jobDescription.requirement,
+                        benefits: response.jobDescription.benefits,
+                        dueDate: convertDate(response.dueDate), 
+                    });
+
+                    //   setLoad(false);
+                }
+            };
+            fetch();
+        }
+    }, [id_job]);
+
     const [errors, setErrors] = useState({
         tittle: '',
         quantity: '',
@@ -163,6 +214,7 @@ function PostNews({ update = false }) {
                         <div className={cx('introduce')}>Vui lòng nhập thông tin chỉnh sửa</div>
                     </>
                 )}
+
                 <div className={cx('label_title')}>Tiêu đề</div>
                 <input
                     type="text"
@@ -329,7 +381,7 @@ function PostNews({ update = false }) {
                 ) : (
                     <button className={cx('submit_recruits')}>Cập nhật</button>
                 )}
-                <Link className={cx('cancle')} to="/employer">
+                <Link className={cx('cancle')} to="/employer/jobs">
                     Hủy bỏ
                 </Link>
             </div>

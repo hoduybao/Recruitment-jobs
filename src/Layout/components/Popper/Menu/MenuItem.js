@@ -6,6 +6,7 @@ const cx = classNames.bind(styles);
 
 
 function MenuItem({data,onClick}) {
+    console.log(data.to)
     const classes=cx('menu-item',{
         separate:data.separate
     })

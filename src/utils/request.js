@@ -52,6 +52,15 @@ class UserService {
         const response = await request.post(path, options, { headers });
         return response.data;
     };
+    changePassword= async (path, options = {}) => {
+        const headers = authHeader();
+        const response = await request.post(path, options, { headers });
+        return response.data;
+    };
+    forgetPassword= async (path, options = {}) => {
+        const response = await request.post(path, options);
+        return response.data;
+    };
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

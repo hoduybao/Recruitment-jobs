@@ -26,6 +26,8 @@ function Header({ employer = false }) {
                 if (employer) {
                     let response = await UserService.getUser(`employer/myInfo
                 `);
+                    console.log(response.data);
+
                     response.data.avatar = response.data.logo;
                     setInfo(response.data);
                 } else {
@@ -48,6 +50,7 @@ function Header({ employer = false }) {
         {
             icon: <FontAwesomeIcon icon={faKey} />,
             title: 'Đổi mật khẩu',
+            to: `${path}/change-password`,
         },
         {
             separate: true,
@@ -59,9 +62,16 @@ function Header({ employer = false }) {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Link className={cx('logo')} to="/">
-                    <img src={images.logo} alt="logo" />
-                </Link>
+                {employer === false ? (
+                    <Link className={cx('logo')} to="/">
+                        <img src={images.logo} alt="logo" />
+                    </Link>
+                ) : (
+                    <Link className={cx('logo')} to="/employer">
+                        <img src={images.logo} alt="logo" />
+                    </Link>
+                )}
+
                 {!user && (
                     <div className={cx('actions')}>
                         {employer === false ? (

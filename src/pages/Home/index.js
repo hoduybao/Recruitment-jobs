@@ -37,7 +37,7 @@ function Home() {
                             <img src={images.logo} alt="logo" className={cx('logo_company_home')} />
                             <div className={cx('name_company_home')}>{company.name}</div>
                             <div className={cx('number_recruit_company_home')}>
-                                <span className={cx('number_job')}>{company.jobPostingList.length} việc làm</span>&nbsp;- {company.address}
+                               {company.address}
                             </div>
                         </Link>
                     ))}

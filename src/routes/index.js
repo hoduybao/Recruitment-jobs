@@ -14,6 +14,8 @@ import { SignInLayout } from '~/Layout';
 import Profile from '~/pages/Profile';
 import PostNews from '~/Layout/Employer/components/PostNews';
 import ListCandidate from '~/Layout/Employer/components/ListCandidate';
+import ChangePassWord from '~/pages/ChangePassWord';
+import ForgetPassword from '~/pages/ForgetPassword';
 const publicRoutes = [
     {
         path: '/',
@@ -53,7 +55,17 @@ const publicRoutes = [
         component: ManageJobs,
         layout: SignInLayout,
     },
-
+    {
+        path: '/change-password',
+        component: ChangePassWord,
+        layout: SignInLayout,
+    },
+    {
+        path: '/forget-password',
+        component: ForgetPassword,
+        layout: SignInLayout,
+    },
+    
     {
         path: '/employer/sign-in',
         component: Login,
@@ -77,8 +89,24 @@ const publicRoutes = [
     { path: '/employer/post-job', component: PostNews, layout: DefaultLayout },
     { path: '/employer/update-job', component: PostNews, layout: DefaultLayout ,update:true},
     { path: '/employer/list-candidate', component: ListCandidate, layout: DefaultLayout},
-
-
+    {
+        path: '/employer/change-password',
+        component: ChangePassWord,
+        employer: true,
+        layout: SignInLayoutEmployer,
+    },
+    {
+        path: '/employer/forget-password',
+        component: ForgetPassword,
+        employer: true,
+        layout: SignInLayoutEmployer,
+    },
+    {
+        path: '/employer/profile',
+        component: ViewCompany,
+        employer:true,
+        layout: SignInLayout,
+    },
 ];
 
 const privateRoutes = [];

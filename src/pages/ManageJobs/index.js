@@ -16,12 +16,14 @@ function ManageJobs({ employer }) {
     const [path_logo, setPathLogo] = useState('');
 
     const [listJobs, setListJobs] = useState([]);
+
     useEffect(() => {
         if (user) {
             const fetch = async () => {
-                let response = await UserService.getUser('employer/myInfo');
-                setListJobs(response.data.company.jobPostingList);
-                setPathLogo(response.data.logo);
+                let response = await UserService.getUser('employer/getMyJob');
+                console.log(response.data)
+                // setListJobs(response.data.company.jobPostingList);
+                // setPathLogo(response.data.logo);
             }
             fetch();
         };
