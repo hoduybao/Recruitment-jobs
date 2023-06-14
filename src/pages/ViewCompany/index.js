@@ -55,12 +55,15 @@ function ViewCompany() {
     const renderBackdropReport = (props) => <div className={cx('backdrop')} {...props} />;
 
     const [companies, setCompanies] = useState([]);
+    const [listJobs, setListJobs] = useState([]);
 
     useEffect(() => {
         const fetch = async () => {
             let response = await UserService.GetCompany(`company/${id_company}`);
+            let response1 = await UserService.GetCompany(`company/job/${id_company}`);
             console.log(response.data);
             setCompanies(response.data);
+            setListJobs(response1.data);
         };
         fetch();
     }, [id_company]);
@@ -90,11 +93,11 @@ function ViewCompany() {
                             <div className={cx('name_company')}>{companies.name}</div>
                             <div className={cx('item_header')}>
                                 <FontAwesomeIcon icon={faUserGroup} className={cx('icon_item_header')} />
-                                <div className={cx('deadline_submit')}>10-20 người</div>
+                                <div className={cx('deadline_submit')}>{companies.companySize}</div>
                             </div>
                             <div className={cx('item_header')}>
                                 <FontAwesomeIcon icon={faCalendarDays} className={cx('icon_item_header')} />
-                                <div className={cx('deadline_submit')}>Thứ 2 - Thứ 7</div>
+                                <div className={cx('deadline_submit')}>{companies.workTime}</div>
                             </div>
                             <div className={cx('item_header')}>
                                 <FontAwesomeIcon icon={faLocationDot} className={cx('icon_item_header')} />
@@ -187,7 +190,7 @@ function ViewCompany() {
                 <div className={cx('content')}>
                     {classJob.length > 0 ? (
                         <div className={cx('side_left')}>
-                            {companies.jobPostingList != null && <ListJobs companies={companies.jobPostingList} />}
+                            {listJobs != null && <ListJobs ListJobs={listJobs} />}
                             <IntroCompany companies={companies.description} />
                         </div>
                     ) : (

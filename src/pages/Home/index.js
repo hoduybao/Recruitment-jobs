@@ -11,10 +11,12 @@ function Home() {
 
     const user=localStorage.getItem('user');
     const [companies, setCompanies] = useState([]);
+    //const [listJobs, setListJobs] = useState([]);
 
     useEffect(() => {
         const fetch = async () => {
             let response = await UserService.GetCompany('company/getTop');
+            //let response1 = await UserService.GetCompany('company/getTop');
             console.log(response.data)
             setCompanies(response.data);
         };

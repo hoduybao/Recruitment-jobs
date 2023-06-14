@@ -53,6 +53,11 @@ function Header({ employer = false }) {
             to: `${path}/change-password`,
         },
         {
+            icon: <FontAwesomeIcon icon={faKey} />,
+            title: 'Việc làm của tôi',
+            to: `${path}/my-job`,
+        },
+        {
             separate: true,
             icon: <FontAwesomeIcon icon={faSignOut} />,
             title: 'Log out',

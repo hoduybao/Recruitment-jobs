@@ -202,6 +202,18 @@ function DetailJob({ employer = false }) {
     } else {
         classesWrapper = cx('wrapper');
     }
+
+    const handleCopy = async () => {
+        try {
+            await navigator.clipboard.writeText(currentPath);
+            notify('success', 'Copy đường dẫn thành công!');
+        } catch (error) {
+            notify('success', 'Lỗi copy!');
+        }
+    };
+
+
+
     return (
         <div className={classesWrapper}>
             <Toast />
@@ -221,7 +233,7 @@ function DetailJob({ employer = false }) {
                                     icon={faClockRotateLeft}
                                     style={{ marginRight: 6, fontSize: '1.4rem' }}
                                 />
-                                {}
+                                { }
                                 Hạn nộp hồ sơ: {convertDate(jobs.dueDate)}
                             </div>
                         </div>
@@ -390,7 +402,7 @@ function DetailJob({ employer = false }) {
                                         name="link_job"
                                         className={cx('link_job')}
                                     />
-                                    <div className={cx('circle_copy')}>
+                                    <div className={cx('circle_copy')} onClick={handleCopy}>
                                         <FontAwesomeIcon icon={faCopy} className={cx('icon_copy')} />
                                     </div>
                                 </div>
