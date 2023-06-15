@@ -3,145 +3,16 @@
     padding: 1.2rem 1.2rem;
 }
 .content {
+    padding-left: 20%;
+    padding-top: 7%;
     height: 100%;
     background-color: white;
 }
-.text_efficiency {
-    padding-top: 3rem;
-    padding-left: 7rem;
-
-    font-style: normal;
-    font-weight: 600;
-    font-size: 2rem;
-    /* identical to box height */
-
-    color: #3d3d3d;
+.chart{
+  font-size: 1.5rem;
 }
-.list_result {
-    margin-top: 2rem;
-    margin-left: 7rem;
-    height: 85%;
-    display: flex;
-    align-content: flex-start;
-    column-gap: 7%;
-    row-gap: 12%;
-}
-.rectangle_news_posted {
-    position: relative;
-    width: 40%;
-    height: 35%;
-
-    background: #caf0f8;
-    border-radius: 10px;
-}
-.rectangle_quantity_candidate {
-  position: relative;
-  width: 40%;
-  height: 35%;
-
-  background: #E5F7ED;
-  border-radius: 10px;
-}
-.rectangle_accepted {
-  position: relative;
-  width: 40%;
-  height: 35%;
-
-  background: #FCECEB;
-  border-radius: 10px;
-}
-.quantity_news_posted {
-    position: absolute;
-
-    left: 8%;
-    top: 22%;
-
-    font-style: normal;
-    font-weight: 500;
-    font-size: 2.6rem;
-    /* identical to box height */
-
-    color: #0077b6;
-}
-.quantity_candidate {
-    position: absolute;
-
-    left: 8%;
-    top: 22%;
-
-    font-style: normal;
-    font-weight: 500;
-    font-size: 2.6rem;
-    /* identical to box height */
-    color:#2EAC66;
-}
-.quantity_accepted {
-  position: absolute;
-
-  left: 8%;
-  top: 22%;
-
-  font-style: normal;
+.title_chart{
+  margin-left: 17%;
+  margin-top: 2rem;
   font-weight: 500;
-  font-size: 2.6rem;
-  /* identical to box height */
-  color:#DC554D;
-}
-.text_news_posted {
-    position: absolute;
-
-    left: 8%;
-    top: 55%;
-
-    font-style: normal;
-    font-weight: 500;
-    font-size: 2.2rem;
-    /* identical to box height */
-
-    color: #0077b6;
-}
-.text_quantity_candidates{
-  position: absolute;
-  left: 8%;
-  top: 55%;
-
-  font-style: normal;
-  font-weight: 500;
-  font-size: 2.2rem;
-  /* identical to box height */
-
-  color: #2EAC66;
-}
-.text_accepted{
-  position: absolute;
-  left: 8%;
-  top: 55%;
-
-  font-style: normal;
-  font-weight: 500;
-  font-size: 2.2rem;
-  /* identical to box height */
-
-  color: #DC554D;
-}
-.ic_megaphone {
-    position: absolute;
-    left: 80%;
-    top: 35%;
-    font-size: 4rem;
-    color: #0077b6;
-}
-.ic_candidate {
-  position: absolute;
-  left: 80%;
-  top: 35%;
-  font-size: 4rem;
-  color:#2EAC66
-}
-.ic_accepted {
-  position: absolute;
-  left: 80%;
-  top: 35%;
-  font-size: 4rem;
-  color:#DC554D;
 }

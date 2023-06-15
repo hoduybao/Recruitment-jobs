@@ -7,7 +7,6 @@ import UserService from '~/utils/request';
 import { useEffect, useRef, useState } from 'react';
 import { useDebounce } from '../hooks';
 import { Wrapper as PopperWrapper } from '~/Layout/components/Popper';
-import { error } from 'jquery';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/shift-away.css';
 import { Link } from 'react-router-dom';

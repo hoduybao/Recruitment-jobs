@@ -4,6 +4,15 @@
     display: flex;
     justify-content: center;
 }
+.employer {
+    padding-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .inner {
+        width: 98%;
+    }
+}
 .inner {
     width: var(--default-layout-width);
 }
@@ -32,6 +41,21 @@
     margin-left: 3rem;
     margin-top: 2rem;
 }
+.wrapper_logo {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+.btn_edit {
+    background-color: #e4e6eb;
+    border: none;
+    padding: 4px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+.icon_edit {
+    margin-right: 4px;
+}
 .logo {
     width: 15rem;
     height: 15rem;
@@ -51,6 +75,7 @@
 .item_header {
     display: flex;
     column-gap: 1rem;
+    margin-bottom: 0.7rem;
 }
 .icon_item_header {
     color: #2995cf;
@@ -100,30 +125,28 @@
     /* identical to box height */
     cursor: pointer;
     color: #58595b;
-    
 }
 .active {
     color: #0077b6;
     border-bottom: 3px solid #0077b6;
 }
-.content{
+.content {
     width: 100%;
     display: flex;
     justify-content: space-between;
     border-radius: 10px;
     margin-bottom: 3rem;
 }
-.side_left{
+.side_left {
     width: 60%;
 }
-.side_right{
+.side_right {
     width: 39%;
 }
 
-
 .modal {
     position: fixed;
-    width:35%;
+    width: 35%;
     z-index: 1040;
     top: 20%;
     left: 30%;
@@ -154,7 +177,7 @@
 .modal_name_job {
     font-style: normal;
     font-weight: 500;
-    color:  #0077b6;
+    color: #0077b6;
 }
 .label_report {
     margin-left: 7rem;
@@ -163,7 +186,7 @@
     font-weight: 500;
     font-size: 1.8rem;
 }
-.label_start{
+.label_start {
     margin-left: 7rem;
     margin-top: 1rem;
     font-style: normal;
@@ -201,7 +224,7 @@
     color: white;
     border: none;
     font-weight: 500;
-    background: #6D6E71;
+    background: #6d6e71;
     margin-right: 0.5rem;
 }
 .primary-button {
@@ -216,7 +239,6 @@
     border: none;
     font-weight: 500;
     margin-right: 5rem;
-
 }
 .btn-close {
     font-size: 1.8rem;
@@ -233,7 +255,7 @@
     cursor: pointer;
     margin-right: 0.6rem;
 }
-.rating_company{
+.rating_company {
     margin-left: 2rem;
     color: red;
     font-size: 2.5rem;

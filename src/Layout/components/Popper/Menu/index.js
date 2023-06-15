@@ -8,13 +8,9 @@ import UserService from '~/utils/request';
 const cx = classNames.bind(styles);
 
 function Menu({ children, items = [] }) {
-    const handleLogout = (employer) => {
+    const handleLogout = () => {
         localStorage.removeItem('user');
-        if (employer) {
-            window.location.href = 'http://localhost:3001/employer/sign-in';
-        } else {
-            window.location.href = 'http://localhost:3001/sign-in';
-        }
+        window.location.href = 'http://localhost:3001/sign-in';
     };
 
     const HideStatus = (status, id_job) => {
@@ -42,25 +38,23 @@ function Menu({ children, items = [] }) {
 
     const renderItems = () => {
         return items.map((item, index) => {
-            if (!item.myjob) {
-                return (
-                    <MenuItem
-                        key={index}
-                        data={item}
-                        onClick={() => {
-                            if (item.separate) {
-                                handleLogout(item.employer);
-                            }
-                            if (item.hide) {
-                                HideStatus(item.status, item.id_job);
-                            }
-                            if (item.delete) {
-                                DeleteJob(item.id_job);
-                            }
-                        }}
-                    />
-                );
-            }
+            return (
+                <MenuItem
+                    key={index}
+                    data={item}
+                    onClick={() => {
+                        if (item.separate) {
+                            handleLogout();
+                        }
+                        if (item.hide) {
+                            HideStatus(item.status, item.id_job);
+                        }
+                        if (item.delete) {
+                            DeleteJob(item.id_job);
+                        }
+                    }}
+                />
+            );
         });
     };
 

@@ -20,6 +20,11 @@ function ChangePassWord({ employer }) {
         new: '',
         re_new: '',
     });
+
+    var classes = cx('wrapper');
+    if (employer) {
+        classes = cx('employer');
+    }
     const handleChange = (event) => {
         const { name, value } = event.target;
         setNewPassword((prevInputs) => ({ ...prevInputs, [name]: value }));
@@ -59,7 +64,7 @@ function ChangePassWord({ employer }) {
 
                     if (response.status === 'ok') {
                         notify('success', response.message);
-                        window.location.href="/"
+                        window.location.href = '/';
                     } else {
                         notify('error', response.message);
                     }
@@ -70,7 +75,7 @@ function ChangePassWord({ employer }) {
                     console.log(response);
                     if (response.status === 'ok') {
                         notify('success', response.message);
-                        window.location.href="/employer"
+                        window.location.href = '/employer';
                     } else {
                         notify('error', response.message);
                     }
@@ -83,7 +88,7 @@ function ChangePassWord({ employer }) {
     };
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={classes}>
             <Toast />
             <div className={cx('inner')}>
                 <div className={cx('side-left')}>

@@ -3,8 +3,9 @@ import styles from './ViewCompany.module.scss';
 import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarDays, faLocationDot, faUserGroup } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faLocationDot, faPenToSquare, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import ListJobs from '~/Layout/components/ListJobs';
+import InfoEmployer from '~/Layout/Employer/components/InfoEmloyer';
 import IntroCompany from '~/Layout/components/IntroCompany';
 import DetailReview from '~/Layout/components/DetailReview';
 import TotalReview from '~/Layout/components/TotalReview';
@@ -22,6 +23,12 @@ function ViewCompany() {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const id_company = params.get('id');
+    var navi1 = 'Việc làm';
+    var classWrapper = cx('wrapper');
+    if (!id_company) {
+        classWrapper = cx('employer');
+        navi1 = 'Thông tin';
+    }
 
     const [classJob, setClassJob] = useState(['active']);
     const [classReview, setClassReview] = useState([]);
@@ -66,12 +73,13 @@ function ViewCompany() {
             };
             fetch();
         } else {
-            var id = localStorage.getItem('id_company');
             const fetch = async () => {
-                let response = await UserService.GetCompany(`company/${id}`);
-                let response1 = await UserService.GetCompany(`company/job/${id}`);
-                console.log(response.data);
-                setCompanies(response.data);
+                let response1 = await UserService.getUser(`employer/myInfo`);
+                console.log(response1.data);
+                response1.data.domain = response1.data.company.domain;
+
+                setCompanies(response1.data.company);
+
                 setListJobs(response1.data);
             };
             fetch();
@@ -93,12 +101,21 @@ function ViewCompany() {
     };
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={classWrapper}>
             <Toast />
             <div className={cx('inner')}>
                 <div className={cx('header_detail_job')}>
                     <div className={cx('header_left')}>
-                        <img src={images.logo} alt="logo_company" className={cx('logo')} />
+                        <div className={cx('wrapper_logo')}>
+                            <img src={images.logo} alt="logo_company" className={cx('logo')} />
+                            {!id_company && (
+                                <button className={cx('btn_edit')}>
+                                    <FontAwesomeIcon icon={faPenToSquare} className={cx('icon_edit')} />
+                                    Chỉnh sửa
+                                </button>
+                            )}
+                        </div>
+
                         <div className={cx('block_info')}>
                             <div className={cx('name_company')}>{companies.name}</div>
                             <div className={cx('item_header')}>
@@ -187,7 +204,7 @@ function ViewCompany() {
                             setIsListJob(true);
                         }}
                     >
-                        Việc làm
+                        {navi1}
                     </div>
                     <div
                         className={classesReview}
@@ -203,7 +220,8 @@ function ViewCompany() {
                 <div className={cx('content')}>
                     {classJob.length > 0 ? (
                         <div className={cx('side_left')}>
-                            {listJobs != null && <ListJobs ListJobs={listJobs} />}
+                            {listJobs != null && id_company && <ListJobs ListJobs={listJobs} />}
+                            {listJobs != null && !id_company && <InfoEmployer info={listJobs} />}
                             <IntroCompany companies={companies.description} />
                         </div>
                     ) : (

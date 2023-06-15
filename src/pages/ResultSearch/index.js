@@ -15,6 +15,8 @@ function ResultSearch() {
     const address = params.get('address');
     const [result, setResult] = useState([]);
     const [resultFilter, setResultFilter] = useState([]);
+    const [visibleItems, setVisibleItems] = useState(10);
+  
     useEffect(() => {
         const fetch = async () => {
             const response = await UserService.searchJob(`job/search?text=${text}&address=${address}`, {});
@@ -24,16 +26,15 @@ function ResultSearch() {
         };
         fetch();
     }, [text, address]);
-
+    const handleShowMore = () => {
+        setVisibleItems((prevVisibleItems) => prevVisibleItems + 6);
+    };
     const handleFilter = (working_form = '', experience = '', salary = '0 triệu') => {
         console.log(working_form);
         let collator = new Intl.Collator('vi');
         let newResult = result.filter((job) => {
             if (experience === '') {
-                return (
-                    job.working_form.includes(working_form) &&
-                    collator.compare(job.salary, salary)
-                );
+                return job.working_form.includes(working_form) && collator.compare(job.salary, salary);
             } else {
                 return (
                     job.working_form.includes(working_form) &&
@@ -48,13 +49,11 @@ function ResultSearch() {
         const dateTime = new Date(time);
         var date = dateTime.getDate();
         var month = dateTime.getMonth() + 1; // Months are zero-based, so we add 1
-        if(month.toString().length===1)
-        {
-            month="0"+month;
+        if (month.toString().length === 1) {
+            month = '0' + month;
         }
-        if(date.toString().length===1)
-        {
-            date="0"+date;
+        if (date.toString().length === 1) {
+            date = '0' + date;
         }
         const year = dateTime.getFullYear();
         return date + '-' + month + '-' + year;
@@ -73,7 +72,7 @@ function ResultSearch() {
                     )}
 
                     <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
-                        {resultFilter.map((job, index) => (
+                        {resultFilter.slice(0, visibleItems).map((job, index) => (
                             <Link
                                 key={index}
                                 className={cx('item_recruit_candidate', 'p-2 m-2')}
@@ -89,8 +88,7 @@ function ResultSearch() {
                                         Mức lương: <span className={cx('value')}>{job.salary}</span>
                                     </li>
                                     <li className={cx('label')}>
-                                        Kinh nghiệm:{' '}
-                                        <span className={cx('value')}>{job.experience}</span>
+                                        Kinh nghiệm: <span className={cx('value')}>{job.experience}</span>
                                     </li>
                                     <li className={cx('label')}>
                                         Địa điểm: <span className={cx('value')}>{job.addressWork}</span>
@@ -103,37 +101,7 @@ function ResultSearch() {
                             </Link>
                         ))}
                     </div>
-                    <div className={cx('navigation-home')}>
-                        <nav aria-label="Page navigation example">
-                            <ul className="pagination">
-                                <li className={cx('page-item', 'pagination-lg')}>
-                                    <a className="page-link" href="/">
-                                        Trang trước
-                                    </a>
-                                </li>
-                                <li className={cx('page-item', 'pagination-lg')}>
-                                    <a className="page-link" href="/">
-                                        1
-                                    </a>
-                                </li>
-                                <li className={cx('page-item', 'pagination-lg')}>
-                                    <a className="page-link" href="/">
-                                        2
-                                    </a>
-                                </li>
-                                <li className={cx('page-item', 'pagination-lg')}>
-                                    <a className="page-link" href="/">
-                                        3
-                                    </a>
-                                </li>
-                                <li className={cx('page-item', 'pagination-lg')}>
-                                    <a className="page-link" href="/">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+                    {visibleItems < resultFilter.length && <button onClick={handleShowMore} className={cx("show_more")}>Xem thêm</button>}
                 </div>
             </div>
         </div>

@@ -1,15 +1,25 @@
 .inner {
-    margin-top: 1rem;
     padding-top: 2rem;
-    padding-left: 2rem;
-
     background: white;
     width: 100%;
     border-radius: 5px;
     padding-bottom: 2rem;
 }
+.email{
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-left: 4%;
+    margin-bottom: 1rem;
+}
+
+.icon_infor {
+    margin-right: 7px;
+}
 .text_intro_company {
     font-style: normal;
     font-weight: 600;
     font-size: 1.8rem;
+    margin-left: 4%;
+    margin-bottom: 1rem;
+
 }

@@ -24,14 +24,7 @@ function Header({ employer = false }) {
     useEffect(() => {
         if (user) {
             const fetch = async () => {
-                if (employer) {
-                    let response = await UserService.getUser(`employer/myInfo
-                `);
-                    console.log(response.data);
-                    window.localStorage.setItem('id_company', response.data.company.id);
-                    response.data.avatar = response.data.logo;
-                    setInfo(response.data);
-                } else {
+                if (!employer) {
                     let response = await UserService.getUser(`candidate/myInfo
                     `);
                     console.log(response.data);
@@ -46,24 +39,22 @@ function Header({ employer = false }) {
         {
             icon: <FontAwesomeIcon icon={faUser} />,
             title: 'Trang cá nhân',
-            to: `${path}/profile`,
+            to: `/profile`,
         },
         {
             icon: <FontAwesomeIcon icon={faKey} />,
             title: 'Đổi mật khẩu',
-            to: `${path}/change-password`,
+            to: `/change-password`,
         },
         {
             icon: <FontAwesomeIcon icon={faBriefcase} />,
             title: 'Việc làm của tôi',
-            myjob: employer,
-            to: `${path}/my-job`,
+            to: `/my-job`,
         },
         {
             separate: true,
             icon: <FontAwesomeIcon icon={faSignOut} />,
             title: 'Log out',
-            employer: employer,
         },
     ];
     return (
@@ -122,7 +113,7 @@ function Header({ employer = false }) {
                         )}
                     </div>
                 )}
-                {user && (
+                {user && !employer && (
                     <div className={cx('actions')}>
                         <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
                             <div>
@@ -133,6 +124,15 @@ function Header({ employer = false }) {
                         <Menu items={userMenu}>
                             <Image src={info.avatar} className={cx('user-avatar')} alt="nguyenvana" />
                         </Menu>
+                    </div>
+                )}
+                {user&&employer && (
+                    <div className={cx('actions')}>
+                        <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
+                            <div>
+                                <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
+                            </div>
+                        </Tippy>
                     </div>
                 )}
             </div>

@@ -28,6 +28,13 @@
     font-size: 1.2rem;
     color: #a1a7ae;
 }
+.text_version{
+    font-style: normal;
+    font-size: 1.2rem;
+    color: #a1a7ae;
+    margin-left:2rem ;
+    margin-top: 2rem;
+}
 .menu {
     color: #6d6e71;
     padding-left: 2rem;
@@ -37,16 +44,18 @@
     display: flex;
     flex-direction: column;
     row-gap: 2rem;
+    border-bottom: 0.5px solid rgba(192, 199, 206, 0.7);
+
 }
 .item {
     position: relative;
 
     &:hover {
         .name_item {
-            font-size: 1.8rem;
+            color:black
         }
         .icon_menu {
-            font-size: 3.1rem;
+            color: black
         }
     }
 }
@@ -71,6 +80,7 @@
     transform: translateY(-50%);
 }
 .icon_menu {
-    font-size: 3rem;
+    font-size: 2.6rem;
     width: 4rem;
+    margin-right: 15px;
 }

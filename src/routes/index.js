@@ -93,7 +93,7 @@ const publicRoutes = [
         path: '/employer/change-password',
         component: ChangePassWord,
         employer: true,
-        layout: SignInLayoutEmployer,
+        layout: DefaultLayout,
     },
     {
         path: '/employer/forget-password',
@@ -105,7 +105,7 @@ const publicRoutes = [
         path: '/employer/profile',
         component: ViewCompany,
         employer:true,
-        layout: SignInLayoutEmployer,
+        layout: DefaultLayout,
     },
 ];
 

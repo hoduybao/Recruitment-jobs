@@ -4,21 +4,26 @@ import images from '~/assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 const cx = classNames.bind(styles);
 
 function ListJobs({ ListJobs }) {
+    const [visibleItems, setVisibleItems] = useState(5);
+    const handleShowMore = () => {
+        setVisibleItems((prevVisibleItems) => prevVisibleItems + 5);
+    };
     return (
         <div className={cx('inner')}>
-            <div className={cx('text_top_job')}>
-                Tất cả việc làm
-            </div>
+            <div className={cx('text_top_job')}>Tất cả việc làm</div>
             <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
-
-                {ListJobs.map((job, index) => {
+                {ListJobs.slice(0,visibleItems).map((job, index) => {
                     if (job.status === 'approved') {
                         return (
-                            <Link className={cx('item_recruit_candidate', 'p-2 m-2')} key={index}
-                                to={`/detail-job?id=${job.id}`}>
+                            <Link
+                                className={cx('item_recruit_candidate', 'p-2 m-2')}
+                                key={index}
+                                to={`/detail-job?id=${job.id}`}
+                            >
                                 <img src={images.logo} alt="logo" className={cx('logo_company')} />
                                 <div className={cx('name_recruit')} href="/">
                                     {job.title}
@@ -28,7 +33,8 @@ function ListJobs({ ListJobs }) {
                                         Mức lương: <span className={cx('value')}>{job.jobDescription.salary}</span>
                                     </li>
                                     <li className={cx('label')}>
-                                        Kinh nghiệm: <span className={cx('value')}>{job.jobDescription.experience}</span>
+                                        Kinh nghiệm:{' '}
+                                        <span className={cx('value')}>{job.jobDescription.experience}</span>
                                     </li>
                                     <li className={cx('label')}>
                                         Địa điểm: <span className={cx('value')}>{job.jobDescription.address_work}</span>
@@ -39,13 +45,15 @@ function ListJobs({ ListJobs }) {
                                     Cập nhật gần nhất: {job.dueDate}
                                 </div>
                             </Link>
-                        )
+                        );
                     } else {
                         return null;
                     }
-                }
-
-
+                })}
+                {visibleItems < ListJobs.length && (
+                    <button onClick={handleShowMore} className={cx('show_more')}>
+                        Xem thêm
+                    </button>
                 )}
             </div>
         </div>

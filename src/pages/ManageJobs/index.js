@@ -15,7 +15,15 @@ function ManageJobs({ employer }) {
     const [listJobs, setListJobs] = useState([]);
 
     const [listJobsSaved, setListJobsSaved] = useState([]);
+    const [visibleItems, setVisibleItems] = useState(6);
+    const [visibleItemsEmployer, setVisibleItemsEmployer] = useState(8);
 
+    const handleShowMore = () => {
+        setVisibleItems((prevVisibleItems) => prevVisibleItems + 6);
+    };
+    const handleShowMoreEmployer = () => {
+        setVisibleItemsEmployer((prevVisibleItems) => prevVisibleItems + 4);
+    };
     useEffect(() => {
         if (user) {
             if (employer) {
@@ -85,6 +93,7 @@ function ManageJobs({ employer }) {
                                 onClick={(e) => {
                                     setClassJobSave(['active']);
                                     setClassJobApply([]);
+                                    setVisibleItemsEmployer(8);
                                 }}
                             >
                                 {navi1}
@@ -95,6 +104,7 @@ function ManageJobs({ employer }) {
                                 onClick={(e) => {
                                     setClassJobApply(['active']);
                                     setClassJobSave([]);
+                                    setVisibleItemsEmployer(8);
                                 }}
                             >
                                 {navi2}
@@ -155,6 +165,7 @@ function ManageJobs({ employer }) {
                                             return null;
                                         }
                                     })}
+                                 
                                 </div>
                             </div>
                         ) : (
@@ -227,6 +238,7 @@ function ManageJobs({ employer }) {
                                 onClick={(e) => {
                                     setClassJobSave(['active']);
                                     setClassJobApply([]);
+                                    setVisibleItems(6);
                                 }}
                             >
                                 {navi1}
@@ -237,6 +249,7 @@ function ManageJobs({ employer }) {
                                 onClick={(e) => {
                                     setClassJobApply(['active']);
                                     setClassJobSave([]);
+                                    setVisibleItems(6);
                                 }}
                             >
                                 {navi2}
@@ -250,7 +263,7 @@ function ManageJobs({ employer }) {
                             <div>
                                 <div className={cx('text_title')}>{text_navi1}</div>
                                 <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
-                                    {listJobsSaved.map((job, index) => (
+                                    {listJobsSaved.slice(0, visibleItems).map((job, index) => (
                                         <Link
                                             key={index}
                                             to={`/detail-job?id=${job?.id}`}
@@ -295,13 +308,18 @@ function ManageJobs({ employer }) {
                                             </div>
                                         </Link>
                                     ))}
+                                    {visibleItems < listJobsSaved.length && (
+                                        <button onClick={handleShowMore} className={cx('show_more')}>
+                                            Xem thêm
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         ) : (
                             <div className={cx('list_item')}>
                                 <div className={cx('text_title')}>{text_navi2}</div>
                                 <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
-                                    {listJobs.map((job, index) => (
+                                    {listJobs.slice(0, visibleItems).map((job, index) => (
                                         <Link
                                             key={index}
                                             to={`/detail-job?id=${job?.infoJobPosting?.id}`}
@@ -342,6 +360,11 @@ function ManageJobs({ employer }) {
                                             </div>
                                         </Link>
                                     ))}
+                                    {visibleItems < listJobs.length && (
+                                        <button onClick={handleShowMore} className={cx('show_more')}>
+                                            Xem thêm
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         )}
