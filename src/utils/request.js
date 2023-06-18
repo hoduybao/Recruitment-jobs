@@ -47,18 +47,23 @@ class UserService {
         const response = await request.post(path, options, { headers });
         return response.data;
     };
-    reportJob= async (path, options = {}) => {
+    reportJob = async (path, options = {}) => {
         const headers = authHeader();
         const response = await request.post(path, options, { headers });
         return response.data;
     };
-    changePassword= async (path, options = {}) => {
+    changePassword = async (path, options = {}) => {
         const headers = authHeader();
         const response = await request.post(path, options, { headers });
         return response.data;
     };
-    forgetPassword= async (path, options = {}) => {
+    forgetPassword = async (path, options = {}) => {
         const response = await request.post(path, options);
+        return response.data;
+    };
+    updateCandidate = async (path, options = {}) => {
+        const headers = authPost();
+        const response = await request.put(path, options, { headers });
         return response.data;
     };
 }

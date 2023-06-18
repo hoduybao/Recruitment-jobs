@@ -25,7 +25,7 @@ function Header({ employer = false }) {
         if (user) {
             const fetch = async () => {
                 if (!employer) {
-                    let response = await UserService.getUser(`candidate/myInfo
+                    let response = await UserService.getUser(`candidate/myInfoNew
                     `);
                     console.log(response.data);
                     setInfo(response.data);

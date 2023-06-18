@@ -3,6 +3,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    min-height: 75vh;
 
 }
 
@@ -10,6 +11,7 @@
     flex: 1;
     display: flex;
     justify-content: center;
+    min-height: 75vh;
     .inner {
         margin-top: 0rem;
         row-gap: 0.1rem;
@@ -35,6 +37,7 @@
     display: flex;
     row-gap: 0.3rem;
     flex-direction: column;
+
 }
 .head_profie {
     background: white;
@@ -45,7 +48,6 @@
     padding-left: 3rem;
     padding-bottom: 2rem;
     column-gap: 3rem;
-
 }
 .general_infor {
     border-radius: 5px;
@@ -55,14 +57,14 @@
     padding-bottom: 2rem;
     padding-left: 3rem;
 }
-.bottom{
+.bottom {
     flex: 1;
     border-radius: 5px;
     background: white;
     width: 100%;
     padding-top: 2rem;
     padding-bottom: 2rem;
-    padding-left: 3rem; 
+    padding-left: 3rem;
 }
 
 .wrapper_avatar {
@@ -76,6 +78,42 @@
 
     border: 1px solid #d7e4e8;
     border-radius: 50%;
+}
+.wrapper_update_avatar{
+    position: relative;
+}
+.avatar_update{
+    width: 10rem;
+    height: 10rem;
+
+    border: 1px solid #d7e4e8;
+    border-radius: 50%;
+    margin-left: 50%;
+    transform: translate(-50%);
+
+}
+.input_avatar{
+    visibility: hidden;
+}
+.label_update_camera{
+    position: absolute;
+    top: 63%;
+    left: 52%;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid transparent;
+    background-color: #E4E6EB;
+    border-radius: 50%;
+    padding: 4px 4px;
+    cursor: pointer;
+    &:hover{
+        background-color: #c3c5c8;
+
+    }
+}
+.icon_camera{
+    font-size: 2rem;
+    
 }
 
 .btn_edit {
@@ -108,7 +146,7 @@
     color: rgb(58, 56, 56);
 }
 
-.title_introduce{
+.title_introduce {
     margin-bottom: 0rem;
     font-style: normal;
     font-weight: 700;
@@ -126,7 +164,7 @@
 
     color: #3d3d3d;
 }
-.record{
+.record {
     margin-bottom: 2rem;
     font-style: normal;
     font-weight: 700;
@@ -150,6 +188,7 @@
     font-weight: 500;
 }
 .icon_infor {
+    width: 2rem;
     margin-right: 7px;
 }
 .dob,
@@ -173,7 +212,7 @@
     font-size: 2.5rem;
     font-weight: 600;
     &:hover {
-        color:black;
+        color: black;
         font-weight: 700;
         cursor: pointer;
     }
@@ -183,7 +222,184 @@
     margin-right: 10px;
     margin-top: 4px;
 }
-.text_introduce{
+.text_introduce {
     width: 90%;
-    word-wrap:break-word;
+    word-wrap: break-word;
+}
+
+.modal {
+    font-family: arial;
+}
+
+.modal {
+    position: fixed;
+    width: 40%;
+    z-index: 1040;
+    top: 8%;
+    left: 30%;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    overflow-y: scroll;
+    height: 80%;
+}
+.backdrop {
+    position: fixed;
+    z-index: 1040;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    opacity: 0.5;
+ 
+
+}
+.modal-title {
+    margin-left: 3rem;
+    margin-top: 2rem;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
+    /* identical to box height */
+}
+.modal_name_job {
+    font-style: normal;
+    font-weight: 500;
+    color: #00b4d8;
+}
+.text_fullname_CV {
+    width: 22%;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    display: inline;
+    /* identical to box height */
+}
+.btn-close {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    padding-left: 6px;
+    padding-right: 5px;
+    padding-bottom: 2px;
+
+    border: none;
+    background-color: #000;
+    opacity: 0.7;
+    cursor: pointer;
+    margin-right: 0.6rem;
+}
+.modal-body {
+    width: 100%;
+}
+.line {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    height: 0;
+    border: 0.2px solid #adadad;
+}
+.secondary-button {
+    margin-top: 1rem;
+    width: 6rem;
+    height: 3.5rem;
+    margin-bottom: 5rem;
+
+    border-radius: 6px;
+    color: white;
+    border: none;
+    font-weight: 500;
+    background: #6d6e71;
+    margin-right: 0.5rem;
+}
+.primary-button {
+    margin-top: 1rem;
+    width: 10rem;
+    height: 3.5rem;
+    margin-bottom: 5rem;
+
+    background: #00b4d8;
+    border-radius: 6px;
+    color: white;
+    border: none;
+    font-weight: 500;
+    margin-right: 6rem;
+}
+
+.wrapper_name_CV {
+    display: flex;
+    margin-top: 1rem;
+    margin-left: 7%;
+}
+.fullname_cv {
+    width: 67%;
+    height: 3.3rem;
+
+    border: 0.5px solid black;
+    background: #ffffff;
+    border-radius: 4px;
+    padding-left: 1rem;
+    line-height: 3.5rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.8rem;
+    /* identical to box height */
+
+    color: #494848;
+}
+.skill {
+    width: 55%;
+    height: 3.3rem;
+
+    border: 0.5px solid black;
+    background: #ffffff;
+    border-radius: 4px;
+    padding-left: 1rem;
+    line-height: 3.5rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.8rem;
+    /* identical to box height */
+
+    color: #494848;
+}
+.btn_add_skill {
+    flex: 1;
+    margin-left: 0.4rem;
+    height: 3.3rem;
+
+    background: #aaacb1;
+    border-radius: 4px;
+    color: white;
+    border: none;
+    font-weight: 500;
+    margin-right: 6rem;
+    &:hover {
+        background: #6d6e71;
+    }
+}
+.sex_select {
+    width: 67%;
+    height: 3.3rem;
+    padding-left: 1rem;
+    background: #ffffff;
+    border: 1px solid #939598;
+    border-radius: 4px;
+    font-size: 1.6rem;
+}
+
+.list_skill{
+
+    font-size: 1.6rem;
+    word-wrap: break-word;
+}
+.error {
+    margin-left: 28%;
+
+    color: red;
+    word-wrap: break-word;
+    margin-top: 0.4rem;
 }
