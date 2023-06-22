@@ -50,7 +50,7 @@ function Login({ employer = false }) {
                     console.log(response);
                     if (response.status === 'ok') {
                         window.localStorage.setItem('user', response.data);
-                        window.location.href = 'http://localhost:3001/employer';
+                        window.location.href = '/employer';
                     } else {
                         newErrors.email = response.message;
                         setErrors(newErrors);
@@ -63,7 +63,7 @@ function Login({ employer = false }) {
                     console.log(response);
                     if (response.status === 'ok') {
                         window.localStorage.setItem('user', response.data);
-                        window.location.href = 'http://localhost:3001';
+                        window.location.href = '/';
                     } else {
                         newErrors.email = response.message;
                         setErrors(newErrors);

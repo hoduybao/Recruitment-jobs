@@ -63,7 +63,7 @@ function SignUp() {
                 console.log(response);
                 if(response.status==="ok")
                 {
-                    window.location.href = 'http://localhost:3001/sign-in';
+                    window.location.href = '/sign-in';
                 }
                 else{
                     newErrors.email = response.message;
