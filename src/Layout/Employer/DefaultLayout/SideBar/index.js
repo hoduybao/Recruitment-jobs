@@ -119,7 +119,7 @@ function SideBar() {
                         handleLinkClick(6);
                         handleLogout();
                     }}
-                    to="/employer/change-password"
+                    to="/employer/sign-in"
                 >
                     <FontAwesomeIcon icon={faSignOut} className={cx('icon_menu')} />
                     <span className={cx('name_item')}>Đăng xuất</span>

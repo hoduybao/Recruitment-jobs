@@ -3,6 +3,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    min-height: 90vh;
 }
 .employer {
     padding-top: 1rem;
@@ -12,6 +13,8 @@
     .inner {
         width: 98%;
     }
+    min-height: 82vh;
+
 }
 .inner {
     width: var(--default-layout-width);
@@ -155,6 +158,82 @@
     border-radius: 3px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
+.modal_update {
+    position: fixed;
+    width: 40%;
+    z-index: 1040;
+    top: 8%;
+    left: 30%;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    overflow-y: scroll;
+    height: 80%;
+}
+.wrapper_update_avatar {
+    margin-top: 1rem;
+    position: relative;
+}
+.avatar_update {
+    width: 10rem;
+    height: 10rem;
+
+    border: 1px solid #d7e4e8;
+    border-radius: 50%;
+    margin-left: 50%;
+    transform: translate(-50%);
+}
+.input_avatar {
+    visibility: hidden;
+}
+.label_update_camera {
+    position: absolute;
+    top: 63%;
+    left: 52%;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid transparent;
+    background-color: #e4e6eb;
+    border-radius: 50%;
+    padding: 4px 4px;
+    cursor: pointer;
+    &:hover {
+        background-color: #c3c5c8;
+    }
+}
+.icon_camera {
+    font-size: 2rem;
+}
+.wrapper_name_CV {
+    display: flex;
+    margin-top: 1rem;
+    margin-left: 7%;
+}
+.text_fullname_CV {
+    width: 22%;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.7rem;
+    display: inline;
+    /* identical to box height */
+}
+.fullname_cv {
+    width: 67%;
+    height: 3.3rem;
+
+    border: 0.5px solid black;
+    background: #ffffff;
+    border-radius: 4px;
+    padding-left: 1rem;
+    line-height: 3.5rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.7rem;
+    /* identical to box height */
+
+    color: #494848;
+}
 .backdrop {
     position: fixed;
     z-index: 1040;
@@ -173,6 +252,9 @@
     font-weight: 600;
     font-size: 2rem;
     /* identical to box height */
+}
+.modal-body {
+    width: 100%;
 }
 .modal_name_job {
     font-style: normal;
@@ -259,4 +341,27 @@
     margin-left: 2rem;
     color: red;
     font-size: 2.5rem;
+}
+.introduce_update{
+   
+    width: 67%;
+    height: 15rem;
+    border: 0.5px solid black;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.7rem;
+    overflow-wrap: break-word;
+    /* identical to box height */
+    resize: none;
+    color: #494848;
+  }
+  .error {
+    margin-left: 28%;
+
+    color: red;
+    word-wrap: break-word;
+    margin-top: 0.4rem;
 }

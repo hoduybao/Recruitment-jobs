@@ -9,9 +9,7 @@
     padding-top: 4rem;
     padding-left: 10rem;
     width: var(--default-layout-width);
-   
 }
-
 
 .text_welcome_signup {
     width: 100%;
@@ -33,20 +31,19 @@
     color: #939598;
 }
 .text_jore {
-    color: #2E3192;
+    color: #2e3192;
     font-weight: 500;
 }
-.title_login{
+.title_login {
     margin-top: 3rem;
     margin-bottom: 1rem;
-font-style: normal;
-font-weight: 600;
-font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
 
-color: #00B4D8;
+    color: #00b4d8;
 }
-.label_name{
-
+.label_name {
     margin-bottom: 0.5rem;
     font-weight: 500;
 }
@@ -55,16 +52,22 @@ color: #00B4D8;
     margin-bottom: 0.5rem;
     font-weight: 500;
 }
-.forget_password{
-    color: #00B4D8;
+.forget_password {
+    color: #00b4d8;
     font-weight: 600;
 }
-.email,.fullname,.hotline,
-.password {
+.email,
+.fullname,
+.hotline,
+.password,
+.wrapper_address {
     position: relative;
+    display: inline;
 }
 .email_login,
-.password_login,.name_company {
+.password_login,
+.name_company,
+.input_address {
     box-sizing: border-box;
     width: 80%;
     height: 4rem;
@@ -77,28 +80,48 @@ color: #00B4D8;
     font-style: normal;
     font-weight: 400;
 }
-
+.input_address {
+    padding-left: 4.9rem;
+}
+.time1{
+    box-sizing: border-box;
+    width: 16rem;
+    height: 4rem;
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #939598;
+    border-radius: 10px;
+    padding-left: 4rem;
+    line-height: 4rem;
+    font-style: normal;
+    font-weight: 400;
+}
+.between_time{
+    margin:0 15px;
+}
 .icon_email,
-.icon_password,.icon_name{
+.icon_password,
+.icon_name {
     position: absolute;
     left: 1.5rem;
-    top: 20%;
-    font-size: 2.2rem;
+    top: 3%;
+    font-size: 2.1rem;
     color: #00b4d8;
 }
+
 .label_password {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
     font-weight: 500;
 }
-.label_location{
+.label_location {
     margin-top: 2rem;
     margin-bottom: 0.5rem;
     font-weight: 500;
 }
-.phone{
+.phone {
     box-sizing: border-box;
-    width: 40%;
+    width: 80%;
     height: 4rem;
 
     background: #ffffff;
@@ -110,7 +133,7 @@ color: #00B4D8;
     font-weight: 400;
 }
 .submit_form_login {
-    width: 40%;
+    width: 80%;
     height: 4rem;
     margin-top: 2rem;
     border: none;
@@ -124,11 +147,11 @@ color: #00B4D8;
     font-size: 1.8rem;
     color: white;
 }
-.location{
+.location {
     display: flex;
     column-gap: 3%;
 }
-.value_location{
+.value_location {
     margin-right: 0.6rem;
 }
 
@@ -139,9 +162,8 @@ color: #00B4D8;
 .signup-now {
     color: #00b4d8;
     font-weight: 600;
-    
 }
-.error{
+.error {
     color: red;
     margin-top: 0.4rem;
 }

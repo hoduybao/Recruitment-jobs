@@ -28,7 +28,7 @@ function ListCandidate() {
                 });
             } else {
                 setListCV([]);
-                setCandidate();
+                setCandidate({});
             }
         };
         fetch();
@@ -42,11 +42,17 @@ function ListCandidate() {
             introduce: data.introLetter,
         });
     };
+    const handleAccept=()=>{
+        
+    }
+    const handleReject=()=>{
+        console.log("b");
+    }
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <Candidate list={listCV} click={handleClick} />
-                <Profile employer={true} inforCV={candidate} />
+                <Profile employer={true} inforCV={candidate} accept={handleAccept} reject={handleReject}/>
             </div>
         </div>
     );

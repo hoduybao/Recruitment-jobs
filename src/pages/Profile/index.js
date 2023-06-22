@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Profile.module.scss';
 import UserService from '~/utils/request';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Loading from '~/Layout/components/Loading';
 import {
     faCakeCandles,
     faEnvelope,
@@ -19,7 +20,7 @@ import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
 
-function Profile({ employer = false, inforCV }) {
+function Profile({ employer = false, inforCV, accept, reject }) {
     const user = localStorage.getItem('user');
     const [info, setInfo] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -51,14 +52,16 @@ function Profile({ employer = false, inforCV }) {
                         response.data.skill = [];
                     }
                     if (response.data.gender === null) {
-                        response.data.gender = "Nam";
+                        response.data.gender = 'Nam';
                     }
-                    setAvatar(response.data.avatar)
+                    setAvatar(response.data.avatar);
                     setProfile(response.data);
                 };
                 fetch();
             }
         } else {
+            setProfile(inforCV);
+
             setInfo(inforCV);
         }
     }, [inforCV, user, employer]);
@@ -70,7 +73,7 @@ function Profile({ employer = false, inforCV }) {
             setSkill(value);
         } else if (name === 'avatar') {
             let value2 = event.target.files[0];
-            setAvatar(URL.createObjectURL(value2))
+            setAvatar(URL.createObjectURL(value2));
             setProfile((prevInputs) => ({ ...prevInputs, [name]: value2 }));
         } else {
             setProfile((prevInputs) => ({ ...prevInputs, [name]: value }));
@@ -94,36 +97,29 @@ function Profile({ employer = false, inforCV }) {
             success = false;
         }
 
-        if(success)
-        {
+        if (success) {
+            var formdata = new FormData();
+            formdata.append('file', profile.avatar);
+            formdata.append('fullName', profile.fullName);
+            formdata.append('gender', profile.gender);
+            formdata.append('phone', profile.phone);
+            formdata.append('address', profile.address);
+            formdata.append('dob', profile.dob);
+            formdata.append('skill', profile.skill);
+            formdata.append('experience', profile.experience);
+
             const fetch = async () => {
-                let response = await UserService.updateCandidate(`candidate/updateInfoCandidate`, {
-                    file:profile.avatar,
-                    candidate:{
-                        fullName:profile.fullName,
-                        gender:profile.gender,
-                        phone:profile.phone,
-                        address:profile.address,
-                        dob:profile.dob,
-                        skill: profile.skill,
-                        experience:profile.experience
-                    }
-                });
-                console.log(response)
+                let response = await UserService.updateCandidate('candidate/updateInfoCandidate', formdata);
+                console.log(response);
                 // if (response.status === 'ok') {
                 //   //  notify('success', 'Báo cáo thành công!');
                 // }
-              //  handleClose();
+                //  handleClose();
             };
             fetch();
-        }
-        else{
+        } else {
             setErrors(newErrors);
         }
-
-
-
-
     };
     var classes = cx('wrapper');
     if (employer) {
@@ -134,12 +130,13 @@ function Profile({ employer = false, inforCV }) {
 
     return (
         <div className={classes}>
-            {profile !== null && info !== null && (
+            {profile === null || info === null ? (
+                <Loading />
+            ) : (
                 <div className={cx('inner')}>
                     <div className={cx('head_profie')}>
                         <div className={cx('wrapper_avatar')}>
                             <img src={info.avatar} className={cx('avatar')} alt="avatar" />
-
                             {!employer && (
                                 <button
                                     className={cx('btn_edit')}
@@ -268,7 +265,8 @@ function Profile({ employer = false, inforCV }) {
                                         <div className={cx('wrapper_name_CV')}>
                                             <div className={cx('text_fullname_CV')}></div>
                                             <ul className={cx('list_skill')}>
-                                                {profile.skill && profile.skill.map((item, index) => <li key={index}>{item}</li>)}
+                                                {profile.skill &&
+                                                    profile.skill.map((item, index) => <li key={index}>{item}</li>)}
                                             </ul>
                                         </div>
                                     </div>
@@ -285,12 +283,29 @@ function Profile({ employer = false, inforCV }) {
                         </div>
                         <div className={cx('wrapper_infor')}>
                             <div className={cx('name_my_profile')}>{info.fullName}</div>
+
                             {!employer && (
                                 <div className={cx('email')}>
                                     <FontAwesomeIcon icon={faEnvelope} className={cx('icon_email')} /> {info.email}
                                 </div>
                             )}
                         </div>
+                        {employer && (
+                            <div className={cx('wrapper_apply')}>
+                                <button type="button" className={cx('btn_accept')} onClick={() => accept()}>
+                                    Chấp nhận
+                                </button>
+                                <button
+                                    type="button"
+                                    className={cx('btn_reject')}
+                                    onClick={() => {
+                                        reject();
+                                    }}
+                                >
+                                    Từ chối
+                                </button>
+                            </div>
+                        )}
                     </div>
                     {employer && (
                         <div className={cx('general_infor')}>
@@ -333,7 +348,7 @@ function Profile({ employer = false, inforCV }) {
                             {info.skill.length > 0 && (
                                 <ul className={cx('list_skills')}>
                                     {info.skill.map((item, index) => (
-                                        <li key={index}>item</li>
+                                        <li key={index}>{item}</li>
                                     ))}
                                 </ul>
                             )}

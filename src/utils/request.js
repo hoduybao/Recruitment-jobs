@@ -63,7 +63,7 @@ class UserService {
     };
     updateCandidate = async (path, options = {}) => {
         const headers = authPost();
-        const response = await request.put(path, options, { headers });
+        const response = await request.post(path, options, { headers });
         return response.data;
     };
 }

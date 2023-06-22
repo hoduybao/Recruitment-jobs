@@ -3,6 +3,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    min-height: 90vh;
 }
 .wrapper_employer {
     padding-top: 1rem;
@@ -12,6 +13,7 @@
     .inner {
         width: 97%;
     }
+    min-height: 80vh;
 }
 .inner {
     width: var(--default-layout-width);

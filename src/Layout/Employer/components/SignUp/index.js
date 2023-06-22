@@ -2,9 +2,18 @@ import classNames from 'classnames/bind';
 import styles from './SignUp.module.scss';
 import UserService from '~/utils/request';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBuilding, faEnvelope, faLink, faLock, faPhone } from '@fortawesome/free-solid-svg-icons';
+import {
+    faBuilding,
+    faCalendarDays,
+    faEnvelope,
+    faLink,
+    faLocationDot,
+    faLock,
+    faPhone,
+    faUserGroup,
+} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 const cx = classNames.bind(styles);
 
 function SignUp() {
@@ -13,8 +22,11 @@ function SignUp() {
         email: '',
         password: '',
         confirm: '',
-        address: '',
+        address: 'Thành phố Hà Nội',
         phone: '',
+        size: '',
+        time1: 'Thứ Hai',
+        time2: 'Thứ Bảy',
         web: '',
     });
     const [errors, setErrors] = useState({
@@ -24,6 +36,7 @@ function SignUp() {
         confirm: '',
         address: '',
         phone: '',
+        size: '',
         web: '',
     });
 
@@ -64,6 +77,10 @@ function SignUp() {
             newErrors.phone = 'Chưa nhập số điện thoại';
             success = false;
         }
+        if (!signup.size) {
+            newErrors.size = 'Chưa nhập quy mô công ty';
+            success = false;
+        }
 
         // Handle form submission logic
         if (success) {
@@ -90,6 +107,20 @@ function SignUp() {
             setErrors(newErrors);
         }
     };
+    const urlProvice = 'https://provinces.open-api.vn/api/';
+    const [provinces, setProvinces] = useState([]);
+    useEffect(() => {
+        fetch(urlProvice)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                setProvinces(data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    });
 
     return (
         <div className={cx('wrapper')}>
@@ -101,17 +132,6 @@ function SignUp() {
                     Hãy đăng ký tài khoản để tiếp cận các ứng viên bạn không thể tìm thấy ở bất cứ nơi nào khác
                 </div>
 
-                {/* {{#if message}}
-        <div class="alert alert-success mt-2">
-            {{message}}
-        </div>
-        {{/if}}
-
-        {{#if messageDanger}}
-        <div class="alert alert-danger mt-2">
-            {{messageDanger}}
-        </div>
-        {{/if}} */}
                 <div className={cx('title_login')}>Tài khoản đăng nhập</div>
                 <form method="post" action="/sing-up">
                     <div className={cx('label_email')}>Email làm việc</div>
@@ -177,7 +197,22 @@ function SignUp() {
                     {errors.fullname && <span className={cx('error')}>{errors.fullname}</span>}
 
                     <div className={cx('label_location')}>Địa điểm làm việc</div>
-                    <div className={cx('location')}>
+                    <div className={cx('wrapper_address')}>
+                        <select
+                            name="address"
+                            value={signup.address}
+                            onChange={handleChange}
+                            className={cx('input_address')}
+                            required=""
+                        >
+                            {provinces.map((province) => (
+                                <option value={province.name}>{province.name}</option>
+                            ))}
+                        </select>
+                        <FontAwesomeIcon icon={faLocationDot} className={cx('icon_name')} />
+                    </div>
+
+                    {/* <div className={cx('location')}>
                         <div>
                             <input
                                 type="radio"
@@ -224,8 +259,23 @@ function SignUp() {
                             />
                             <label for="Other">Khác</label>
                         </div>
-                    </div>
+                    </div> */}
                     {errors.address && <span className={cx('error')}>{errors.address}</span>}
+
+                    <div className={cx('label_location')}>Quy mô công ty</div>
+
+                    <div className={cx('hotline')}>
+                        <input
+                            type="text"
+                            name="size"
+                            className={cx('phone')}
+                            value={signup.size}
+                            onChange={handleChange}
+                            placeholder="20-50 nhân viên"
+                        />
+                        <FontAwesomeIcon icon={faUserGroup} className={cx('icon_name')} />
+                    </div>
+                    {errors.size && <span className={cx('error')}>{errors.size}</span>}
 
                     <div className={cx('label_location')}>Số điện thoại</div>
 
@@ -254,6 +304,47 @@ function SignUp() {
                             onChange={handleChange}
                         />
                         <FontAwesomeIcon icon={faLink} className={cx('icon_name')} />
+                    </div>
+                    <div className={cx('label_location')}>Thời gian làm việc</div>
+                    <div>
+                        <div className={cx('wrapper_address')}>
+                            <select
+                                name="time1"
+                                value={signup.time1}
+                                onChange={handleChange}
+                                className={cx('time1')}
+                                required=""
+                            >
+                                <option value="Thứ Hai">Thứ Hai</option>
+                                <option value="Thứ Ba">Thứ Ba</option>
+                                <option value="Thứ Tư">Thứ Tư</option>
+                                <option value="Thứ Năm">Thứ Năm</option>
+                                <option value="Thứ Sáu">Thứ Sáu</option>
+                                <option value="Thứ Bảy">Thứ Bảy</option>
+                                <option value="Chủ Nhật">Chủ Nhật</option>
+                            </select>
+                            <FontAwesomeIcon icon={faCalendarDays} className={cx('icon_name')} />
+                        </div>
+
+                        <span className={cx('between_time')}>đến</span>
+                        <div className={cx('wrapper_address')}>
+                            <select
+                                name="time2"
+                                value={signup.time2}
+                                onChange={handleChange}
+                                className={cx('time1')}
+                                required=""
+                            >
+                                <option value="Thứ Hai">Thứ Hai</option>
+                                <option value="Thứ Ba">Thứ Ba</option>
+                                <option value="Thứ Tư">Thứ Tư</option>
+                                <option value="Thứ Năm">Thứ Năm</option>
+                                <option value="Thứ Sáu">Thứ Sáu</option>
+                                <option value="Thứ Bảy">Thứ Bảy</option>
+                                <option value="Chủ Nhật">Chủ Nhật</option>
+                            </select>
+                            <FontAwesomeIcon icon={faCalendarDays} className={cx('icon_name')} />
+                        </div>
                     </div>
 
                     <button type="button" onClick={handleRegister} className={cx('submit_form_login')}>

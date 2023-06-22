@@ -1,8 +1,10 @@
 .wrapper {
     width: 100%;
     padding-top: 6.1rem;
+    min-height: 90vh;
 }
 .wrapper_employer {
+    min-height: 90vh;
     width: 100%;
     .content {
         padding-left: 3%;
@@ -14,6 +16,8 @@
         width: 500px;
     }
 }
+
+
 .wrapper_inner {
     background: white;
     width: 100%;

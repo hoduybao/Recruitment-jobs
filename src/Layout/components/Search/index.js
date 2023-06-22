@@ -3,16 +3,14 @@ import styles from './Search.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import HeadlessTippy from '@tippyjs/react/headless';
-import UserService from '~/utils/request';
 import { useEffect, useRef, useState } from 'react';
 import { useDebounce } from '../hooks';
 import { Wrapper as PopperWrapper } from '~/Layout/components/Popper';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/shift-away.css';
-import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
-function Search() {
+function Search({ lang }) {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(true);
@@ -25,13 +23,12 @@ function Search() {
             return;
         } else {
             var text = debounced.trim();
-            console.log(text);
-            UserService.searchJob(`job/search?text=${text}&address=`, {}).then((res) => {
-                console.log(res.data);
-                setSearchResult(res.data);
-            });
+            let suggestion = [];
+            suggestion = lang.sort().filter((e) => e.toLowerCase().includes(text.toLowerCase()));
+
+            setSearchResult(suggestion.slice(0, 5));
         }
-    }, [debounced, address]);
+    }, [debounced, lang]);
 
     const handleHideResult = () => {
         setShowResult(false);
@@ -63,13 +60,30 @@ function Search() {
     }, []);
     const search = () => {
         var text = debounced.trim();
-        window.location.href = `http://localhost:3001/search-job?text=${text}&address=${address}`;
+        window.location.href = `/search-job?text=${text}&address=${address}`;
+    };
+    const handleClickSearch = (value) => {
+        window.location.href = `/search-job?text=${value}&address=${address}`;
     };
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
-          search();
+            search();
         }
-      };
+    };
+    const urlProvice = 'https://provinces.open-api.vn/api/';
+    const [provinces, setProvinces] = useState([]);
+    useEffect(() => {
+        fetch(urlProvice)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                setProvinces(data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    });
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -87,13 +101,13 @@ function Search() {
                                 <PopperWrapper>
                                     <h3 className={cx('search-title')}>Việc làm</h3>
                                     {searchResult.map((result, index) => (
-                                        <Link
+                                        <div
                                             key={index}
                                             className={cx('item_result')}
-                                            to={`/detail-job?id=${result.id_JobPosting}`}
+                                            onClick={() => handleClickSearch(result)}
                                         >
-                                            {result.title}
-                                        </Link>
+                                            {result}
+                                        </div>
                                     ))}
                                 </PopperWrapper>
                             </div>
@@ -101,23 +115,22 @@ function Search() {
                         onClickOutside={handleHideResult}
                     >
                         <div className={cx('search-input')} ref={contentRef}>
-                                <input
-                                    type="search"
-                                    placeholder="Tìm công việc"
-                                    spellCheck={false}
-                                    value={searchValue}
-                                    onChange={(e) => setSearchValue(e.target.value)}
-                                    onFocus={(e) => {
-                                        setShowResult(true);
-                                    }}
-                                    onKeyPress={handleKeyPress}
-                                />
+                            <input
+                                type="search"
+                                placeholder="Tìm công việc"
+                                spellCheck={false}
+                                value={searchValue}
+                                onChange={(e) => setSearchValue(e.target.value)}
+                                onFocus={(e) => {
+                                    setShowResult(true);
+                                }}
+                                onKeyPress={handleKeyPress}
+                            />
 
                             <div className={cx('search-btn')}>
                                 <FontAwesomeIcon icon={faMagnifyingGlass} />
                             </div>
                         </div>
-                        
                     </HeadlessTippy>
 
                     <div className={cx('search-province')}>
@@ -129,9 +142,10 @@ function Search() {
                             className={cx('select_province_candidate')}
                         >
                             <option value="">Tất cả</option>
-                            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-                            <option value="Hà Nội">Hà Nội</option>
-                            <option value="Đà Nẵng">Đà Nẵng</option>
+
+                            {provinces.map((province) => (
+                                <option value={province.name}>{province.name}</option>
+                            ))}
                         </select>
                     </div>
                     <button className={cx('btn_search_candidate')} onClick={search}>
