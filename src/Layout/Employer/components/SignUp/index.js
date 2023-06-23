@@ -96,7 +96,7 @@ function SignUp() {
 
                 console.log(response);
                 if (response.status === 'ok') {
-                    window.location.href = 'http://localhost:3001/employer/sign-in';
+                    window.location.href = '/employer/sign-in';
                 } else {
                     newErrors.email = response.message;
                     setErrors(newErrors);

@@ -29,6 +29,7 @@ function SideBar() {
     };
     const handleLogout = () => {
         localStorage.removeItem('user');
+        localStorage.removeItem('is_employer');
         window.location.href = '/employer/sign-in';
     };
     const [infor, setInfo] = useState({});

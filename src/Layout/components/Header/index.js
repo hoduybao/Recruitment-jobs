@@ -17,6 +17,7 @@ const cx = classNames.bind(styles);
 
 function Header({ employer = false }) {
     var user = localStorage.getItem('user');
+    var em = localStorage.getItem('is_employer');
     console.log(user);
     var path = employer === false ? '' : '/employer';
     const [info, setInfo] = useState({});
@@ -60,14 +61,22 @@ function Header({ employer = false }) {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                {employer === false ? (
-                    <Link className={cx('logo')} to="/">
-                        <img src={images.logo} alt="logo" />
-                    </Link>
+                {employer === false && !em ? (
+                    <img
+                        src={images.logo}
+                        alt="logo"
+                        onClick={() => {
+                            window.location.href = '/';
+                        }}
+                    />
                 ) : (
-                    <Link className={cx('logo')} to="/employer">
-                        <img src={images.logo} alt="logo" />
-                    </Link>
+                    <img
+                        src={images.logo}
+                        alt="logo"
+                        onClick={() => {
+                            window.location.href = '/employer';
+                        }}
+                    />
                 )}
 
                 {!user && (
@@ -80,7 +89,18 @@ function Header({ employer = false }) {
                                 <Link className={cx('btn_signin_candidate')} to="/sign-up">
                                     Đăng ký
                                 </Link>
-                                <Link className={cx('btn_switch_recruiter')} to="/employer">
+                                <button
+                                    className={cx('btn_switch_recruiter')}
+                                    onClick={() => {
+                                        var em = localStorage.getItem('is_employer');
+
+                                        if (em) {
+                                            window.location.href = '/employer';
+                                        } else {
+                                            window.location.href = '/employer/sign-in';
+                                        }
+                                    }}
+                                >
                                     <span>Dành cho nhà tuyển dụng</span>
                                     <div style={{ display: 'inline-block', marginLeft: 10, marginTop: 2 }}>
                                         <FontAwesomeIcon
@@ -89,7 +109,7 @@ function Header({ employer = false }) {
                                             style={{ color: '#ffffff' }}
                                         />
                                     </div>
-                                </Link>
+                                </button>
                             </>
                         ) : (
                             <>
@@ -99,7 +119,18 @@ function Header({ employer = false }) {
                                 <Link className={cx('btn_signin_candidate')} to="/employer/sign-up">
                                     Đăng ký
                                 </Link>
-                                <Link className={cx('btn_switch_recruiter')} to="/">
+                                <button
+                                    className={cx('btn_switch_recruiter')}
+                                    onClick={() => {
+                                        var em = localStorage.getItem('is_employer');
+
+                                        if (em) {
+                                            window.location.href = '/sign-in';
+                                        } else {
+                                            window.location.href = '/';
+                                        }
+                                    }}
+                                >
                                     <span>Dành cho người tìm việc</span>
                                     <div style={{ display: 'inline-block', marginLeft: 10, marginTop: 2 }}>
                                         <FontAwesomeIcon
@@ -108,33 +139,97 @@ function Header({ employer = false }) {
                                             style={{ color: '#ffffff' }}
                                         />
                                     </div>
-                                </Link>
+                                </button>
                             </>
                         )}
                     </div>
                 )}
-                {user && !employer && (
-                    <div className={cx('actions')}>
-                        <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
-                            <div>
-                                <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
-                            </div>
-                        </Tippy>
+                {user &&
+                    !em &&
+                    (employer === false ? (
+                        <div className={cx('actions')}>
+                            <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
+                                <div>
+                                    <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
+                                </div>
+                            </Tippy>
 
-                        <Menu items={userMenu}>
-                            <Image src={info.avatar} className={cx('user-avatar')} alt="nguyenvana" />
-                        </Menu>
-                    </div>
-                )}
-                {user&&employer && (
-                    <div className={cx('actions')}>
-                        <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
-                            <div>
-                                <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
-                            </div>
-                        </Tippy>
-                    </div>
-                )}
+                            <Menu items={userMenu}>
+                                <Image src={info.avatar} className={cx('user-avatar')} alt="nguyenvana" />
+                            </Menu>
+                        </div>
+                    ) : (
+                        <div className={cx('actions')}>
+                            <Link className={cx('btn_login_candidate')} to="/employer/sign-in">
+                                Đăng nhập
+                            </Link>
+                            <Link className={cx('btn_signin_candidate')} to="/employer/sign-up">
+                                Đăng ký
+                            </Link>
+                            <button
+                                className={cx('btn_switch_recruiter')}
+                                onClick={() => {
+                                    var em = localStorage.getItem('is_employer');
+
+                                    if (em) {
+                                        window.location.href = '/sign-in';
+                                    } else {
+                                        window.location.href = '/';
+                                    }
+                                }}
+                            >
+                                <span>Dành cho người tìm việc</span>
+                                <div style={{ display: 'inline-block', marginLeft: 10, marginTop: 2 }}>
+                                    <FontAwesomeIcon
+                                        className={cx('icon_arrow')}
+                                        icon={faArrowRight}
+                                        style={{ color: '#ffffff' }}
+                                    />
+                                </div>
+                            </button>
+                        </div>
+                    ))}
+                {user &&
+                    em &&
+                    (employer === false ? (
+                        <div className={cx('actions')}>
+                            <Link className={cx('btn_login_candidate')} to="/sign-in">
+                                Đăng nhập
+                            </Link>
+                            <Link className={cx('btn_signin_candidate')} to="/sign-up">
+                                Đăng ký
+                            </Link>
+                            <button
+                                className={cx('btn_switch_recruiter')}
+                                onClick={() => {
+                                    var em = localStorage.getItem('is_employer');
+
+                                    if (em) {
+                                        window.location.href = '/employer';
+                                    } else {
+                                        window.location.href = '/employer/sign-in';
+                                    }
+                                }}
+                            >
+                                <span>Dành cho nhà tuyển dụng</span>
+                                <div style={{ display: 'inline-block', marginLeft: 10, marginTop: 2 }}>
+                                    <FontAwesomeIcon
+                                        className={cx('icon_arrow')}
+                                        icon={faArrowRight}
+                                        style={{ color: '#ffffff' }}
+                                    />
+                                </div>
+                            </button>
+                        </div>
+                    ) : (
+                        <div className={cx('actions')}>
+                            <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
+                                <div>
+                                    <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
+                                </div>
+                            </Tippy>
+                        </div>
+                    ))}
             </div>
         </header>
     );

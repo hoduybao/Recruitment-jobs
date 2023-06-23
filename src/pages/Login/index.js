@@ -49,7 +49,10 @@ function Login({ employer = false }) {
                     });
                     console.log(response);
                     if (response.status === 'ok') {
+                        window.localStorage.removeItem('user');
                         window.localStorage.setItem('user', response.data);
+                        window.localStorage.setItem('is_employer', '1');
+
                         window.location.href = '/employer';
                     } else {
                         newErrors.email = response.message;
@@ -62,6 +65,7 @@ function Login({ employer = false }) {
                     });
                     console.log(response);
                     if (response.status === 'ok') {
+                        window.localStorage.removeItem('user');
                         window.localStorage.setItem('user', response.data);
                         window.location.href = '/';
                     } else {
