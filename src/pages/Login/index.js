@@ -2,6 +2,8 @@ import classNames from 'classnames/bind';
 import styles from './Login.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+
 import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -9,6 +11,8 @@ import UserService from '~/utils/request';
 const cx = classNames.bind(styles);
 
 function Login({ employer = false }) {
+    const navigate = useNavigate();
+    const back = localStorage.getItem('back');
     const [signin, setSignin] = useState({
         email: '',
         password: '',
@@ -66,8 +70,15 @@ function Login({ employer = false }) {
                     console.log(response);
                     if (response.status === 'ok') {
                         window.localStorage.removeItem('user');
+                        window.localStorage.removeItem('is_employer');
+
                         window.localStorage.setItem('user', response.data);
-                        window.location.href = '/';
+                        if (back) {
+                            window.localStorage.removeItem('back');
+                            navigate(-1);
+                        } else {
+                            window.location.href = '/';
+                        }
                     } else {
                         newErrors.email = response.message;
                         setErrors(newErrors);

@@ -12,6 +12,19 @@ function ListJobs({ ListJobs }) {
     const handleShowMore = () => {
         setVisibleItems((prevVisibleItems) => prevVisibleItems + 5);
     };
+    const convertDate = (time) => {
+        const dateTime = new Date(time);
+        var date = dateTime.getDate();
+        var month = dateTime.getMonth() + 1; // Months are zero-based, so we add 1
+        if (month.toString().length === 1) {
+            month = '0' + month;
+        }
+        if (date.toString().length === 1) {
+            date = '0' + date;
+        }
+        const year = dateTime.getFullYear();
+        return date + '-' + month + '-' + year;
+    };
     return (
         <div className={cx('inner')}>
             <div className={cx('text_top_job')}>Tất cả việc làm</div>
@@ -42,7 +55,7 @@ function ListJobs({ ListJobs }) {
                                 </ul>
                                 <div className={cx('time_update')}>
                                     <FontAwesomeIcon icon={faClockRotateLeft} style={{ marginRight: 5 }} />
-                                    Cập nhật gần nhất: {job.dueDate}
+                                    Cập nhật gần nhất: {convertDate(job.dueDate)}
                                 </div>
                             </Link>
                         );

@@ -20,6 +20,8 @@ import Modal from 'react-overlays/Modal';
 const cx = classNames.bind(styles);
 
 function ViewCompany() {
+    const user = localStorage.getItem('user');
+    const em = localStorage.getItem('is_employer');
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const id_company = params.get('id');
@@ -164,30 +166,30 @@ function ViewCompany() {
         }
         setErrors(newErrors);
 
-        // if (success) {
-        //     var formdata = new FormData();
-        //     formdata.append('file', update.file);
-        //     formdata.append('name', update.name);
-        //     formdata.append('phone', update.phone);
-        //     formdata.append('taxCode', update.taxCode);
-        //     formdata.append('address', update.address);
-        //     formdata.append('domain', update.domain);
-        //     formdata.append('companySize', update.companySize);
-        //     formdata.append('workTime', update.workTime);
-        //     formdata.append('description', update.description);
+        if (success) {
+            var formdata = new FormData();
+            formdata.append('file', update.file);
+            formdata.append('name', update.name);
+            formdata.append('phone', update.phone);
+            formdata.append('taxCode', update.taxCode);
+            formdata.append('address', update.address);
+            formdata.append('domain', update.domain);
+            formdata.append('companySize', update.companySize);
+            formdata.append('workTime', update.workTime);
+            formdata.append('description', update.description);
 
-        //     const fetch = async () => {
-        //         let response = await UserService.updateCandidate('employer/updateInfoEmployer', formdata);
-        //         console.log(response);
-        //         // if (response.status === 'ok') {
-        //         //   //  notify('success', 'Báo cáo thành công!');
-        //         // }
-        //         //  handleClose();
-        //     };
-        //     fetch();
-        // } else {
-        //     setErrors(newErrors);
-        // }
+            const fetch = async () => {
+                let response = await UserService.updateCandidate('employer/updateInfoEmployer', formdata);
+                console.log(response);
+                // if (response.status === 'ok') {
+                //   //  notify('success', 'Báo cáo thành công!');
+                // }
+                //  handleClose();
+            };
+            fetch();
+        } else {
+            setErrors(newErrors);
+        }
     };
     const renderBackdrop = (props) => <div className={cx('backdrop')} {...props} />;
 
@@ -215,7 +217,7 @@ function ViewCompany() {
                     <div className={cx('header_detail_job')}>
                         <div className={cx('header_left')}>
                             <div className={cx('wrapper_logo')}>
-                                <img src={images.logo} alt="logo_company" className={cx('logo')} />
+                                <img src={listJobs.logo} alt="logo_company" className={cx('logo')} />
                                 {!id_company && (
                                     <button
                                         className={cx('btn_edit')}
@@ -360,7 +362,9 @@ function ViewCompany() {
                                                 <button className={cx('secondary-button')} onClick={handleClose}>
                                                     Đóng
                                                 </button>
-                                                <button className={cx('primary-button')} onClick={handleSubmitInfo}>Hoàn thành</button>
+                                                <button className={cx('primary-button')} onClick={handleSubmitInfo}>
+                                                    Hoàn thành
+                                                </button>
                                             </div>
                                         </div>
                                     </Modal>
@@ -391,7 +395,12 @@ function ViewCompany() {
                                     data-bs-toggle="modal"
                                     data-bs-target="#modal_apply_company"
                                     onClick={() => {
-                                        setShowModalReport(true);
+                                        if (user && !em) {
+                                            setShowModalReport(true);
+                                        } else {
+                                            window.localStorage.setItem('back', 'back');
+                                            window.location.href = '/sign-in';
+                                        }
                                     }}
                                 >
                                     Đánh giá

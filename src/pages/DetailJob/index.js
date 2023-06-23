@@ -29,6 +29,9 @@ import UserService from '~/utils/request';
 const cx = classNames.bind(styles);
 
 function DetailJob({ employer = false }) {
+    const user = localStorage.getItem('user');
+    const em = localStorage.getItem('is_employer');
+
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const id_job = params.get('id');
@@ -251,7 +254,12 @@ function DetailJob({ employer = false }) {
                                     type="button"
                                     className={cx('btn_apply')}
                                     onClick={() => {
-                                        setShowModal(true);
+                                        if (user && !em) {
+                                            setShowModal(true);
+                                        } else {
+                                            window.localStorage.setItem('back', 'back');
+                                            window.location.href = '/sign-in';
+                                        }
                                     }}
                                 >
                                     Ứng tuyển

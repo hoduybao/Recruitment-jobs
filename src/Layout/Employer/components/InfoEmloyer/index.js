@@ -17,10 +17,10 @@ function InfoEmployer({ info }) {
                 <FontAwesomeIcon icon={faPhone} className={cx('icon_infor')} />
                 {info.phone}
             </div>
-            {info.domain && (
+            {info.company.domain && (
                 <div className={cx('email')}>
                     <FontAwesomeIcon icon={faGlobe} className={cx('icon_infor')} />
-                    {info.domain}
+                    {info.company.domain}
                 </div>
             )}
         </div>

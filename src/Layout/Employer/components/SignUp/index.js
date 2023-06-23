@@ -92,6 +92,7 @@ function SignUp() {
                     address: signup.address,
                     phone: signup.phone,
                     domain: signup.web,
+                    
                 });
 
                 console.log(response);

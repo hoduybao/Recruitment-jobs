@@ -107,7 +107,7 @@ function Profile({ employer = false, inforCV, accept, reject }) {
             formdata.append('dob', profile.dob);
             formdata.append('skill', profile.skill);
             formdata.append('experience', profile.experience);
-
+            
             const fetch = async () => {
                 let response = await UserService.updateCandidate('candidate/updateInfoCandidate', formdata);
                 console.log(response);

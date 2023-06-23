@@ -5,6 +5,7 @@ import Image from '../Images';
 import UserService from '~/utils/request';
 import Menu from '../Popper/Menu';
 import { Link } from 'react-router-dom';
+import { w3cwebsocket as WebSocket } from 'websocket';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faBell, faBriefcase, faKey, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -16,6 +17,7 @@ import 'tippy.js/dist/tippy.css'; // optional
 const cx = classNames.bind(styles);
 
 function Header({ employer = false }) {
+    console.log(employer);
     var user = localStorage.getItem('user');
     var em = localStorage.getItem('is_employer');
     console.log(user);
@@ -58,10 +60,28 @@ function Header({ employer = false }) {
             title: 'Log out',
         },
     ];
+
+    // useEffect(() => {
+    //     const socket = new WebSocket('ws://https://hiringweb.up.railway.app/notify');
+
+    //     socket.onopen = () => {
+    //         console.log('WebSocket connected');
+    //     };
+
+    //     socket.onmessage = (event) => {
+    //         const message = event.data;
+    //         console.log('Received message from WebSocket server:', message);
+    //     };
+
+    //     return () => {
+    //         socket.close();
+    //     };
+    // }, []);
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                {employer === false && !em ? (
+                {employer === false ? (
                     <img
                         src={images.logo}
                         alt="logo"
