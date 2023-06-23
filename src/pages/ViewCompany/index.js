@@ -179,7 +179,11 @@ function ViewCompany() {
 
             const fetch = async () => {
                 let response = await UserService.updateCandidate('employer/updateInfoEmployer', formdata);
-                console.log(response);
+                if (response.status === 'ok') {
+                    notify('success', 'Cập nhật thành công!');
+
+                    window.location.href = '/employer/profile';
+                }
                 // if (response.status === 'ok') {
                 //   //  notify('success', 'Báo cáo thành công!');
                 // }

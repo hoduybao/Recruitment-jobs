@@ -3,6 +3,8 @@ import styles from './Profile.module.scss';
 import UserService from '~/utils/request';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Loading from '~/Layout/components/Loading';
+import Toast from '~/Layout/components/Toast';
+import notify from '~/utils/toast';
 import {
     faCakeCandles,
     faEnvelope,
@@ -54,7 +56,7 @@ function Profile({ employer = false, inforCV, accept, reject }) {
                     if (response.data.gender === null) {
                         response.data.gender = 'Nam';
                     }
-                    setAvatar(response.data.avatar);
+                    setAvatar(response.data.avatar);                    
                     setProfile(response.data);
                 };
                 fetch();
@@ -107,10 +109,13 @@ function Profile({ employer = false, inforCV, accept, reject }) {
             formdata.append('dob', profile.dob);
             formdata.append('skill', profile.skill);
             formdata.append('experience', profile.experience);
-            
+
             const fetch = async () => {
                 let response = await UserService.updateCandidate('candidate/updateInfoCandidate', formdata);
-                console.log(response);
+                if (response.status === 'ok') {
+                    notify('success', 'Cập nhật thành công!');
+                    window.location.href = '/profile';
+                }
                 // if (response.status === 'ok') {
                 //   //  notify('success', 'Báo cáo thành công!');
                 // }
@@ -127,9 +132,23 @@ function Profile({ employer = false, inforCV, accept, reject }) {
     } else {
         classes = cx('wrapper');
     }
+    const convertDate = (time) => {
+        const dateTime = new Date(time);
+        var date = dateTime.getDate();
+        var month = dateTime.getMonth() + 1; // Months are zero-based, so we add 1
+        if (month.toString().length === 1) {
+            month = '0' + month;
+        }
+        if (date.toString().length === 1) {
+            date = '0' + date;
+        }
+        const year = dateTime.getFullYear();
+        return date + '-' + month + '-' + year;
+    };
 
     return (
         <div className={classes}>
+            <Toast />
             {profile === null || info === null ? (
                 <Loading />
             ) : (
@@ -321,7 +340,7 @@ function Profile({ employer = false, inforCV, accept, reject }) {
 
                             <div className={cx('dob')}>
                                 <FontAwesomeIcon icon={faCakeCandles} className={cx('icon_infor')} />
-                                {info.dob === null ? 'Chưa có' : info.dob}
+                                {info.dob === null ? 'Chưa có' : convertDate(info.dob)}
                             </div>
                             <div className={cx('gender')}>
                                 <FontAwesomeIcon icon={faMarsAndVenus} className={cx('icon_infor')} />
@@ -354,9 +373,9 @@ function Profile({ employer = false, inforCV, accept, reject }) {
                             )}
 
                             <div className={cx('title_experience')}>
-                                Kinh nghiệm làm việc:{' '}
+                                Kinh nghiệm làm việc:
                                 <span className={cx('experience')}>
-                                    {info.experience === null ? 'Chưa có' : info.experience}
+                                    {info.experience === null || info.experience === '' ? ' Chưa có' : info.experience}
                                 </span>
                             </div>
                         </div>
