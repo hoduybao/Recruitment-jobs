@@ -96,9 +96,8 @@ function ViewCompany() {
             const fetch = async () => {
                 let response1 = await UserService.getUser(`employer/myInfo`);
                 console.log(response1.data);
-
-                setCompanies(response1.data.company);
                 setListJobs(response1.data);
+                setCompanies(response1.data.company);
                 setAvatar(response1.data.logo);
                 response1 = response1.data;
                 setUpdate({
