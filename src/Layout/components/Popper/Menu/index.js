@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 function Menu({ children, items = [] }) {
     const handleLogout = () => {
         localStorage.removeItem('user');
-        window.location.href = '/signnn-in';
+        window.location.href = '/sign-in';
     };
 
     const HideStatus = (status, id_job) => {

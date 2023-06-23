@@ -5,7 +5,6 @@ import Image from '../Images';
 import UserService from '~/utils/request';
 import Menu from '../Popper/Menu';
 import { Link } from 'react-router-dom';
-import { w3cwebsocket as WebSocket } from 'websocket';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faBell, faBriefcase, faKey, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
