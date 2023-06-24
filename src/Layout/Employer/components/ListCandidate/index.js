@@ -23,6 +23,7 @@ function ListCandidate() {
             if (response.status === 'ok') {
                 setListCV(response.data);
                 setCandidate({
+                    id: response.data[0].id,
                     avatar: response.data[0].avatarCandidate,
                     fullName: response.data[0].name,
                     cv: response.data[0].fileCV,
@@ -40,16 +41,26 @@ function ListCandidate() {
     const handleClick = (id) => {
         const data = listCV[id];
         setCandidate({
+            id: data.id,
             avatar: data.avatarCandidate,
             fullName: data.name,
             cv: data.fileCV,
             introduce: data.introLetter,
         });
     };
-    const handleAccept = () => {};
-    const handleReject = () => {
-        console.log('b');
+    const handleAccept = () => {
+        const fetch = async () => {
+            let response = await UserService.postJob(`employer/setStatusCV?status=pass&id=${candidate.id}`);
+            console.log(response.data);
+        };
+        fetch();
     };
+    const handleReject = () => {
+        const fetch = async () => {
+            let response = await UserService.postJob(`employer/setStatusCV?status=reject&id=${candidate.id}`);
+            console.log(response.data);
+        };
+        fetch();    };
     return (
         <div className={cx('wrapper')}>
             {isLoading ? (
