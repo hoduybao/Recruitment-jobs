@@ -60,22 +60,7 @@ function Header({ employer = false }) {
         },
     ];
 
-    // useEffect(() => {
-    //     const socket = new WebSocket('ws://https://hiringweb.up.railway.app/notify');
-
-    //     socket.onopen = () => {
-    //         console.log('WebSocket connected');
-    //     };
-
-    //     socket.onmessage = (event) => {
-    //         const message = event.data;
-    //         console.log('Received message from WebSocket server:', message);
-    //     };
-
-    //     return () => {
-    //         socket.close();
-    //     };
-    // }, []);
+  
 
     return (
         <header className={cx('wrapper')}>
