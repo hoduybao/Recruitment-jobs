@@ -351,7 +351,7 @@ function ManageJobs({ employer }) {
                                     <div className={cx('list_item')}>
                                         <div className={cx('text_title')}>{text_navi2}</div>
                                         <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
-                                            {listJobs.slice(0, visibleItems).map((job, index) => (
+                                            {listJobs!==undefined&&listJobs.slice(0, visibleItems).map((job, index) => (
                                                 <Link
                                                     key={index}
                                                     to={`/detail-job?id=${job?.infoJobPosting?.id}`}
@@ -398,7 +398,7 @@ function ManageJobs({ employer }) {
                                                     </div>
                                                 </Link>
                                             ))}
-                                            {visibleItems < listJobs.length && (
+                                            {listJobs!==undefined&& visibleItems < listJobs.length && (
                                                 <button onClick={handleShowMore} className={cx('show_more')}>
                                                     Xem thêm
                                                 </button>
