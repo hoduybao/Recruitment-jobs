@@ -5,6 +5,7 @@ import Profile from '~/pages/Profile';
 import { useEffect, useState } from 'react';
 import UserService from '~/utils/request';
 import { useLocation } from 'react-router-dom';
+import Loading from '~/Layout/components/Loading';
 const cx = classNames.bind(styles);
 
 function ListCandidate() {
@@ -14,6 +15,7 @@ function ListCandidate() {
 
     const [listCV, setListCV] = useState([]);
     const [candidate, setCandidate] = useState({});
+    const [isLoading, setLoading] = useState(true);
     useEffect(() => {
         const fetch = async () => {
             let response = await UserService.getUser(`/employer/getCV?id=${id_job}`);
@@ -26,9 +28,11 @@ function ListCandidate() {
                     cv: response.data[0].fileCV,
                     introduce: response.data[0].introLetter,
                 });
+                setLoading(false);
             } else {
                 setListCV([]);
                 setCandidate({});
+                setLoading(false);
             }
         };
         fetch();
@@ -42,18 +46,22 @@ function ListCandidate() {
             introduce: data.introLetter,
         });
     };
-    const handleAccept=()=>{
-        
-    }
-    const handleReject=()=>{
-        console.log("b");
-    }
+    const handleAccept = () => {};
+    const handleReject = () => {
+        console.log('b');
+    };
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('inner')}>
-                <Candidate list={listCV} click={handleClick} />
-                <Profile employer={true} inforCV={candidate} accept={handleAccept} reject={handleReject}/>
-            </div>
+            {isLoading ? (
+                <Loading name="load" />
+            ) : listCV.length > 0 ? (
+                <div className={cx('inner')}>
+                    <Candidate list={listCV} click={handleClick} />
+                    <Profile employer={true} inforCV={candidate} accept={handleAccept} reject={handleReject} />
+                </div>
+            ) : (
+                <div className={cx('not_cv')}>Chưa có ứng viên nào ứng tuyển</div>
+            )}
         </div>
     );
 }

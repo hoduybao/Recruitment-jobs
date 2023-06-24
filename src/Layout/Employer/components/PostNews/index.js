@@ -56,8 +56,9 @@ function PostNews({ update = false }) {
                     response = response.data;
 
                     let collator = new Intl.Collator('vi');
-                    var splitSalary = '';
-                    if (collator.compare(response.jobDescription.salary, 'Thỏa thuận')) {
+                    var splitSalary = '0';
+                    if (!collator.compare(response.jobDescription.salary, 'Thỏa thuận')) {
+                        
                         setSelectedSalary(0);
                         setHidenSalary(true);
                     } else {
@@ -66,19 +67,20 @@ function PostNews({ update = false }) {
                         setHidenSalary(false);
                     }
                     console.log(response);
-
+                    var due = new Date(response.dueDate);
+                    var newDue = due.toISOString().split('T')[0];
                     setPost({
                         tittle: response.title,
-                        quantity: response.jobDescription.number_candidates,
+                        quantity: response.jobDescription.number_candidates ,
                         gender: response.jobDescription.gender,
                         experience: response.jobDescription.experience,
-                        salary: splitSalary,
+                        salary:splitSalary,
                         working_form: response.jobDescription.working_form,
                         address_work: response.jobDescription.address_work,
                         description: response.jobDescription.description,
                         requirement: response.jobDescription.requirement,
                         benefits: response.jobDescription.benefits,
-                        dueDate: convertDate(response.dueDate), 
+                        dueDate: newDue, 
                     });
 
                     //   setLoad(false);
@@ -159,26 +161,52 @@ function PostNews({ update = false }) {
         // Handle form submission logic
         if (success) {
             const fetch = async () => {
-                let response = await UserService.postJob(`employer/addJobPosting`, {
-                    title: post.tittle,
-                    postDate: dateString,
-                    dueDate: post.dueDate,
-                    description: post.description,
-                    benefits: post.benefits,
-                    requirement: post.requirement,
-                    gender: post.gender,
-                    experience: post.experience,
-                    salary: newSalary,
-                    number_candidates: post.quantity,
-                    working_form: post.working_form,
-                    address_work: post.address_work,
-                });
-                console.log(response);
-                if (response.status === 'ok') {
-                    console.log('success');
-                } else {
-                    console.log('no_success');
+                if(!update)
+                {
+                    let response = await UserService.postJob(`employer/addJobPosting`, {
+                        title: post.tittle,
+                        postDate: dateString,
+                        dueDate: post.dueDate,
+                        description: post.description,
+                        benefits: post.benefits,
+                        requirement: post.requirement,
+                        gender: post.gender,
+                        experience: post.experience,
+                        salary: newSalary,
+                        number_candidates: post.quantity,
+                        working_form: post.working_form,
+                        address_work: post.address_work,
+                    });
+                    console.log(response);
+                    if (response.status === 'ok') {
+                        console.log('success');
+                    } else {
+                        console.log('no_success');
+                    }
                 }
+                else{
+                    let response = await UserService.postJob(`employer/updateJobPosting/${id_job}`, {
+                        title: post.tittle,
+                        postDate: dateString,
+                        dueDate: post.dueDate,
+                        description: post.description,
+                        benefits: post.benefits,
+                        requirement: post.requirement,
+                        gender: post.gender,
+                        experience: post.experience,
+                        salary: newSalary,
+                        number_candidates: post.quantity,
+                        working_form: post.working_form,
+                        address_work: post.address_work,
+                    });
+                    console.log(response);
+                    if (response.status === 'ok') {
+                        console.log('success');
+                    } else {
+                        console.log('no_success');
+                    }
+                }
+                
             };
             fetch();
         } else {
@@ -379,7 +407,7 @@ function PostNews({ update = false }) {
                         Đăng tin
                     </button>
                 ) : (
-                    <button className={cx('submit_recruits')}>Cập nhật</button>
+                    <button className={cx('submit_recruits')} onClick={handleRegister}>Cập nhật</button>
                 )}
                 <Link className={cx('cancle')} to="/employer/jobs">
                     Hủy bỏ
