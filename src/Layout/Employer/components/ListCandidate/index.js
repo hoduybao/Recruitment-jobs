@@ -49,16 +49,17 @@ function ListCandidate() {
         });
     };
     const handleAccept = () => {
+        console.log(candidate.id);
         const fetch = async () => {
-            let response = await UserService.postJob(`employer/setStatusCV?status=pass&id=${candidate.id}`);
-            console.log(response.data);
+            let response = await UserService.setStatusCV(`employer/setStatusCV?status=pass&id=${candidate.id}`);
+            console.log(response);
         };
         fetch();
     };
     const handleReject = () => {
         const fetch = async () => {
-            let response = await UserService.postJob(`employer/setStatusCV?status=reject&id=${candidate.id}`);
-            console.log(response.data);
+            let response = await UserService.setStatusCV(`employer/setStatusCV?status=reject&id=${candidate.id}`);
+            console.log(response);
         };
         fetch();    };
     return (

@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
-import images from '~/assets/images';
 import UserService from '~/utils/request';
 import { Link } from 'react-router-dom';
 import Loading from '~/Layout/components/Loading';
@@ -41,7 +40,7 @@ function Home() {
                                 to={`/view-company?id=${company.id}`}
                                 className={cx('item_company_candidate', 'p-2 m-2')}
                             >
-                                <img src={images.logo} alt="logo" className={cx('logo_company_home')} />
+                                <img src={company.logo} alt="logo" className={cx('logo_company_home')} />
                                 <div className={cx('name_company_home')}>{company.name}</div>
                                 <div className={cx('number_recruit_company_home')}>{company.address}</div>
                             </Link>

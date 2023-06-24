@@ -9,8 +9,8 @@ const cx = classNames.bind(styles);
 function Filter({ handleFilter }) {
     const [filter, setFilter] = useState({
         working_form: 't',
-        experience: '',
-        salary: '0 triệu',
+        experience: '0',
+        salary: 'triệu',
     });
 
     const handleChange = (event) => {
@@ -34,7 +34,7 @@ function Filter({ handleFilter }) {
                     <option value="t" disabled>
                         Hình thức làm việc
                     </option>
-                    <option value="">Tất cả</option>
+                    <option value="e">Tất cả</option>
                     <option value="Full time">Full time</option>
                     <option value="Part time">Part time </option>
                     <option value="Remote">Remote</option>
@@ -48,10 +48,10 @@ function Filter({ handleFilter }) {
                     onChange={handleChange}
                     className={cx('select_experience')}
                 >
-                    <option value="" disabled>
+                    <option value="0" disabled>
                         Kinh nghiệm
                     </option>
-                    <option value="Không yêu cầu">Chưa có</option>
+                    <option value="00">Không yêu cầu</option>
                     <option value="1 năm">1 năm</option>
                     <option value="2 năm">2 năm</option>
                     <option value="3 năm">3 năm</option>

@@ -220,7 +220,7 @@ function ViewCompany() {
                     <div className={cx('header_detail_job')}>
                         <div className={cx('header_left')}>
                             <div className={cx('wrapper_logo')}>
-                                <img src={listJobs.logo} alt="logo_company" className={cx('logo')} />
+                                <img src={listJobs.logo||companies.logo} alt="logo_company" className={cx('logo')} />
                                 {!id_company && (
                                     <button
                                         className={cx('btn_edit')}

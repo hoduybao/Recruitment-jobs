@@ -16,7 +16,7 @@ function ResultSearch() {
     const [result, setResult] = useState([]);
     const [resultFilter, setResultFilter] = useState([]);
     const [visibleItems, setVisibleItems] = useState(10);
-  
+
     useEffect(() => {
         const fetch = async () => {
             const response = await UserService.searchJob(`job/search?text=${text}&address=${address}`, {});
@@ -31,15 +31,16 @@ function ResultSearch() {
     };
     const handleFilter = (working_form = '', experience = '', salary = '0 triệu') => {
         console.log(working_form);
+        console.log(salary);
         let collator = new Intl.Collator('vi');
         let newResult = result.filter((job) => {
-            if (experience === '') {
-                return job.working_form.includes(working_form) && collator.compare(job.salary, salary);
+            if (experience === '00') {
+                return job.working_form.includes(working_form) && collator.compare(job.salary, salary)>=0;
             } else {
                 return (
                     job.working_form.includes(working_form) &&
-                    collator.compare(job.experience, experience) === 0 &&
-                    collator.compare(job.salary, salary)
+                    collator.compare(job.experience, experience) >= 0 &&
+                    collator.compare(job.salary, salary)>=0
                 );
             }
         });
@@ -101,7 +102,11 @@ function ResultSearch() {
                             </Link>
                         ))}
                     </div>
-                    {visibleItems < resultFilter.length && <button onClick={handleShowMore} className={cx("show_more")}>Xem thêm</button>}
+                    {visibleItems < resultFilter.length && (
+                        <button onClick={handleShowMore} className={cx('show_more')}>
+                            Xem thêm
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
