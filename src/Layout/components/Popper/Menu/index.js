@@ -3,11 +3,16 @@ import classNames from 'classnames/bind';
 import { Wrapper as PopperWrapper } from '~/Layout/components/Popper';
 import styles from './Menu.module.scss';
 import MenuItem from './MenuItem';
+import MenuNotify from './MenuNotify';
 import UserService from '~/utils/request';
 
 const cx = classNames.bind(styles);
 
-function Menu({ children, items = [] }) {
+function Menu({ children, items = null, notifies = null ,handleHide}) {
+    var classList = cx('menu-list');
+    if (items === null) {
+        classList = cx('menu-list-notify');
+    }
     const handleLogout = () => {
         localStorage.removeItem('user');
         window.location.href = '/sign-in';
@@ -37,25 +42,36 @@ function Menu({ children, items = [] }) {
     };
 
     const renderItems = () => {
-        return items.map((item, index) => {
-            return (
-                <MenuItem
-                    key={index}
-                    data={item}
-                    onClick={() => {
-                        if (item.separate) {
-                            handleLogout();
-                        }
-                        if (item.hide) {
-                            HideStatus(item.status, item.id_job);
-                        }
-                        if (item.delete) {
-                            DeleteJob(item.id_job);
-                        }
-                    }}
-                />
-            );
-        });
+        if (items !== null) {
+            return items.map((item, index) => {
+                return (
+                    <MenuItem
+                        key={index}
+                        data={item}
+                        onClick={() => {
+                            if (item.separate) {
+                                handleLogout();
+                            }
+                            if (item.hide) {
+                                HideStatus(item.status, item.id_job);
+                            }
+                            if (item.delete) {
+                                DeleteJob(item.id_job);
+                            }
+                        }}
+                    />
+                );
+            });
+        } else {
+            if (notifies) {
+                console.log(notifies);
+                return notifies.map((item, index) => {
+                    return <MenuNotify key={index} data={item} />;
+                });
+            } else {
+                return <div className={cx("not_notify")}>Không có thông báo nào</div>;
+            }
+        }
     };
 
     return (
@@ -63,10 +79,12 @@ function Menu({ children, items = [] }) {
             interactive
             delay={[0, 200]}
             offset={[12, 8]}
-            hideOnClick={false}
+            hideOnClick={true}
             placement="bottom-end"
+            trigger="click"
+            onHide={handleHide}
             render={(attrs) => (
-                <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
+                <div className={classList} tabIndex="-1" {...attrs}>
                     <PopperWrapper className={cx('menu-popper')}>{renderItems()}</PopperWrapper>
                 </div>
             )}

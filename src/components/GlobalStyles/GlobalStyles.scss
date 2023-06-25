@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
 :root {
-    --search-border-radius:10px;
+    --search-border-radius: 10px;
     --primary: #fe2c55;
     --default-layout-header-height: 60px;
     --default-layout-width: 81%;
@@ -11,7 +11,7 @@
     --white: #fff;
     --text-color: #333;
 }
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -20,7 +20,7 @@ html {
     font-size: 62.5%;
 }
 body {
-    background: #F2F2F2;
+    background: #f2f2f2;
     font-family: 'Poppins', sans-serif;
     font-size: 1.6rem;
     line-height: 1.5;
@@ -34,4 +34,22 @@ input,
 
 a[href] {
     text-decoration: none;
+}
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #c5c2c2;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #807e7e;
 }

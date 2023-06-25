@@ -1,0 +1,50 @@
+.wrapper {
+    height: 8rem;
+    width: 100%;
+    display: inline-flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: 500;
+    min-width: 100px;
+    padding: 9px 10px;
+    column-gap: 10px;
+    cursor: pointer;
+    background-color: var(--white);
+    border-bottom: 1px solid #d2cdcd;
+
+    border: 1px solid transparent;
+
+    user-select: none;
+
+    &.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+}
+.logo {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    border: 0.5px solid rgb(229, 224, 224);
+}
+.content {
+    flex: 1;
+    height: 100%;
+}
+.tittle {
+    font-weight: 500;
+}
+.message {
+    width: 265px;
+    height: 5.5rem;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    font-weight: 400;
+    font-size: 1.5rem;
+}

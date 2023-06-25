@@ -16,12 +16,16 @@ import 'tippy.js/dist/tippy.css'; // optional
 const cx = classNames.bind(styles);
 
 function Header({ employer = false }) {
-    console.log(employer);
+    var classEmployer = cx('inner');
+    if (employer) {
+        classEmployer = cx('inner_employer');
+    }
+
     var user = localStorage.getItem('user');
     var em = localStorage.getItem('is_employer');
     console.log(user);
-    var path = employer === false ? '' : '/employer';
     const [info, setInfo] = useState({});
+    const [notifies, setNotify] = useState([]);
 
     useEffect(() => {
         if (user) {
@@ -31,12 +35,108 @@ function Header({ employer = false }) {
                     `);
                     console.log(response.data);
                     setInfo(response.data);
+
+                    var eventSource;
+
+                    function reconnect() {
+                        // Đóng kết nối hiện tại
+                        eventSource.close();
+
+                        // Tái kết nối sau 3 giây
+                        setTimeout(connect, 3000);
+                    }
+                    function connect() {
+                        // Tạo một EventSource kết nối đến endpoint SSE
+                        eventSource = new EventSource(
+                            `https://hiringweb.up.railway.app/notification/subscribe/${response.data.email}`,
+                        );
+
+                        // Xử lý sự kiện nhận thông báo
+                        eventSource.onmessage = function (event) {
+                            var data = JSON.parse(event.data);
+                            console.log(data);
+
+                            // var notificationDiv = document.getElementById('notification');
+                            //notificationDiv.innerHTML += event.data.content + '<br>';
+                            //  console.log(data);
+                        };
+
+                        // Xử lý sự kiện lỗi kết nối SSE
+                        eventSource.onerror = function () {
+                            console.log('Error occurred in SSE connection.');
+                            reconnect();
+                        };
+                    }
+
+                    // Kết nối lần đầu
+                    connect();
+
+                    // console.log(response1.data);
+                    //  setInfo(response.data);
+                } else {
+                    let response = await UserService.getUser(`employer/myInfo`);
+                    console.log(response.data);
+
+                    var eventSource;
+
+                    function reconnect() {
+                        // Đóng kết nối hiện tại
+                        eventSource.close();
+
+                        // Tái kết nối sau 3 giây
+                        setTimeout(connect, 3000);
+                    }
+                    function connect() {
+                        // Tạo một EventSource kết nối đến endpoint SSE
+                        eventSource = new EventSource(
+                            `https://hiringweb.up.railway.app/notification/subscribe/${response.data.companyId}`,
+                        );
+
+                        // Xử lý sự kiện nhận thông báo
+                        eventSource.onmessage = function (event) {
+                            var data = JSON.parse(event.data);
+                            console.log(data);
+
+                            // var notificationDiv = document.getElementById('notification');
+                            //notificationDiv.innerHTML += event.data.content + '<br>';
+                            //  console.log(data);
+                        };
+
+                        // Xử lý sự kiện lỗi kết nối SSE
+                        eventSource.onerror = function () {
+                            console.log('Error occurred in SSE connection.');
+                            reconnect();
+                        };
+                    }
+
+                    // Kết nối lần đầu
+                    connect();
                 }
             };
             fetch();
         }
     }, [employer, user]);
 
+    const handleClickNotify = () => {
+        if (employer) {
+            const fetchNotify = async () => {
+                let response1 = await UserService.getUser(`employer/getAllNotification
+                `);
+                setNotify(response1.data);
+            };
+            fetchNotify();
+        } else {
+            const fetchNotify = async () => {
+                let response1 = await UserService.getUser(`candidate/getAllNotification
+                `);
+                setNotify(response1.data);
+            };
+            fetchNotify();
+        }
+    };
+    const handleHide = () => {
+        setNotify([]);
+    };
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faUser} />,
@@ -60,11 +160,9 @@ function Header({ employer = false }) {
         },
     ];
 
-  
-
     return (
         <header className={cx('wrapper')}>
-            <div className={cx('inner')}>
+            <div className={classEmployer}>
                 {employer === false ? (
                     <img
                         src={images.logo}
@@ -152,11 +250,11 @@ function Header({ employer = false }) {
                     !em &&
                     (employer === false ? (
                         <div className={cx('actions')}>
-                            <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
-                                <div>
+                            <Menu notifies={notifies} handleHide={handleHide}>
+                                <div onClick={handleClickNotify}>
                                     <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
                                 </div>
-                            </Tippy>
+                            </Menu>
 
                             <Menu items={userMenu}>
                                 <Image src={info.avatar} className={cx('user-avatar')} alt="nguyenvana" />
@@ -227,11 +325,16 @@ function Header({ employer = false }) {
                         </div>
                     ) : (
                         <div className={cx('actions')}>
-                            <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
+                            <Menu notifies={notifies} handleHide={handleHide}>
+                                <div onClick={handleClickNotify}>
+                                    <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
+                                </div>
+                            </Menu>
+                            {/* <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
                                 <div>
                                     <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
                                 </div>
-                            </Tippy>
+                            </Tippy> */}
                         </div>
                     ))}
             </div>

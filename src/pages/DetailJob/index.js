@@ -233,9 +233,13 @@ function DetailJob({ employer = false }) {
                             <img src={jobs.companyInfo?.logo} alt="logo_company" className={cx('logo')} />
                             <div className={cx('block_info')}>
                                 <div className={cx('name_job')}>{jobs.title}</div>
-                                <Link to={`/view-company?id=${jobs.companyInfo?.id}`}>
-                                    <div className={cx('name_company')}>{jobs.companyInfo?.name}</div>
-                                </Link>
+                                {employer === false ? (
+                                    <Link to={`/view-company?id=${jobs.companyInfo?.id}`}>
+                                        <div className={cx('name_company')}>{jobs.companyInfo?.name}</div>
+                                    </Link>
+                                ) : (
+                                        <div className={cx('name_company')}>{jobs.companyInfo?.name}</div>
+                                )}
 
                                 <div className={cx('deadline_submit')}>
                                     <FontAwesomeIcon
