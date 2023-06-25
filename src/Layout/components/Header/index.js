@@ -23,8 +23,10 @@ function Header({ employer = false }) {
 
     var user = localStorage.getItem('user');
     var em = localStorage.getItem('is_employer');
+
     console.log(user);
     const [info, setInfo] = useState({});
+    const [numberNotify, setNumberNotify] = useState(0);
     const [notifies, setNotify] = useState([]);
 
     useEffect(() => {
@@ -33,7 +35,6 @@ function Header({ employer = false }) {
                 if (!employer) {
                     let response = await UserService.getUser(`candidate/myInfoNew
                     `);
-                    console.log(response.data);
                     setInfo(response.data);
 
                     var eventSource;
@@ -54,7 +55,6 @@ function Header({ employer = false }) {
                         // Xử lý sự kiện nhận thông báo
                         eventSource.onmessage = function (event) {
                             var data = JSON.parse(event.data);
-                            console.log(data);
 
                             // var notificationDiv = document.getElementById('notification');
                             //notificationDiv.innerHTML += event.data.content + '<br>';
@@ -97,6 +97,10 @@ function Header({ employer = false }) {
                             var data = JSON.parse(event.data);
                             console.log(data);
 
+                            setNumberNotify((pre) => {
+                                return pre + 1;
+                            });
+
                             // var notificationDiv = document.getElementById('notification');
                             //notificationDiv.innerHTML += event.data.content + '<br>';
                             //  console.log(data);
@@ -123,13 +127,17 @@ function Header({ employer = false }) {
                 let response1 = await UserService.getUser(`employer/getAllNotification
                 `);
                 setNotify(response1.data);
+                setNumberNotify(0);
             };
             fetchNotify();
         } else {
+            console.log('Zo');
             const fetchNotify = async () => {
                 let response1 = await UserService.getUser(`candidate/getAllNotification
                 `);
+                console.log(response1.data);
                 setNotify(response1.data);
+                setNumberNotify(0);
             };
             fetchNotify();
         }
@@ -326,8 +334,9 @@ function Header({ employer = false }) {
                     ) : (
                         <div className={cx('actions')}>
                             <Menu notifies={notifies} handleHide={handleHide}>
-                                <div onClick={handleClickNotify}>
+                                <div onClick={handleClickNotify} className={cx('wrapper_notify')}>
                                     <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
+                                    {numberNotify > 0 && <div className={cx('number_notify')}>{numberNotify}</div>}
                                 </div>
                             </Menu>
                             {/* <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
