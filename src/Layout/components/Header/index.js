@@ -32,7 +32,16 @@ function Header({ employer = false }) {
     const [info, setInfo] = useState({});
     // const [numberNotify, setNumberNotify] = useState(0);
     const [notifies, setNotify] = useState([]);
-
+    const countNotify = (array) => {
+        return array.data.reduce((count, num) => {
+            console.log(num.status);
+            if (num.status === 'new') {
+                return count + 1;
+            } else {
+                return count;
+            }
+        }, 0);
+    };
     useEffect(() => {
         if (user) {
             const fetch = async () => {
@@ -40,7 +49,10 @@ function Header({ employer = false }) {
                     let response = await UserService.getUser(`candidate/myInfoNew
                     `);
                     setInfo(response.data);
+                    let response1 = await UserService.getUser(`candidate/getAllNotification
+                    `);
 
+                    globalNotify.toggleNotify(countNotify(response1));
                     var eventSource;
 
                     function reconnect() {
@@ -81,6 +93,14 @@ function Header({ employer = false }) {
                 } else {
                     let response = await UserService.getUser(`employer/myInfo`);
                     console.log(response.data);
+
+                    let response1 = await UserService.getUser(`employer/getAllNotification
+                    `);
+                    console.log(response1.data);
+
+                    globalNotify.toggleNotify(countNotify(response1));
+                    //setNotify(response1.data);
+                    //globalNotify.toggleNotify(0);
 
                     var eventSource;
 
@@ -134,7 +154,8 @@ function Header({ employer = false }) {
                 `);
                 setNotify(response1.data);
                 globalNotify.toggleNotify(0);
-
+                // let postSeen = await UserService.getUser(`employer/setSentNotification
+                // `);
                 //setNumberNotify(0);
             };
             fetchNotify();

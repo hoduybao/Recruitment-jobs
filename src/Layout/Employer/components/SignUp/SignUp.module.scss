@@ -71,7 +71,7 @@
     box-sizing: border-box;
     width: 80%;
     height: 4rem;
-
+    display: block;
     background: #ffffff;
     border: 1px solid #939598;
     border-radius: 10px;
@@ -104,9 +104,10 @@
 .icon_name {
     position: absolute;
     left: 1.5rem;
-    top: 3%;
+    top: 50%;
     font-size: 2.1rem;
     color: #00b4d8;
+    transform: translate(0,-50%);
 }
 
 .label_password {
@@ -123,7 +124,7 @@
     box-sizing: border-box;
     width: 80%;
     height: 4rem;
-
+    display: block;
     background: #ffffff;
     border: 1px solid #939598;
     border-radius: 10px;

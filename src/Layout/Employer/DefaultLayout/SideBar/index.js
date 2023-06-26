@@ -17,19 +17,21 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import React from 'react';
-
+import { ThemeContext } from '~/utils/context';
+import { useContext } from 'react';
 import UserService from '~/utils/request';
 const cx = classNames.bind(styles);
 
 function SideBar() {
-    const [activeLink, setActiveLink] = useState(1);
+    const globalSidebar = useContext(ThemeContext);
+    console.log(globalSidebar.sidebar);
     const user = localStorage.getItem('user');
-    const handleLinkClick = (linkId) => {
-        setActiveLink(linkId);
-    };
+
     const handleLogout = () => {
         localStorage.removeItem('user');
         localStorage.removeItem('is_employer');
+        localStorage.removeItem('back');
+        localStorage.removeItem('sidebar');
         window.location.href = '/employer/sign-in';
     };
     const [infor, setInfo] = useState({});
@@ -62,19 +64,19 @@ function SideBar() {
             </div>
             <div className={cx('menu')}>
                 <Link
-                    className={cx('item', activeLink === 1 ? 'selected' : 'not_selected')}
+                    className={cx('item', globalSidebar.sidebar == 1 ? 'selected' : 'not_selected')}
                     to="/employer"
                     onClick={() => {
-                        handleLinkClick(1);
+                        globalSidebar.handleSideBar(1);
                     }}
                 >
                     <FontAwesomeIcon icon={faSquarePollVertical} className={cx('icon_menu')} />
                     <span className={cx('name_item')}>Bảng tin</span>
                 </Link>
                 <Link
-                    className={cx('item', activeLink === 2 ? 'selected' : 'not_selected')}
+                    className={cx('item', globalSidebar.sidebar == 2 ? 'selected' : 'not_selected')}
                     onClick={() => {
-                        handleLinkClick(2);
+                        globalSidebar.handleSideBar(2);
                     }}
                     to="/employer/jobs"
                 >
@@ -82,9 +84,9 @@ function SideBar() {
                     <span className={cx('name_item')}>Quản lý tin tuyển dụng</span>
                 </Link>
                 <Link
-                    className={cx('item', activeLink === 3 ? 'selected' : 'not_selected')}
+                    className={cx('item', globalSidebar.sidebar == 3 ? 'selected' : 'not_selected')}
                     onClick={() => {
-                        handleLinkClick(3);
+                        globalSidebar.handleSideBar(3);
                     }}
                     to="/employer/post-job"
                 >
@@ -93,9 +95,9 @@ function SideBar() {
                 </Link>
 
                 <Link
-                    className={cx('item', activeLink === 4 ? 'selected' : 'not_selected')}
+                    className={cx('item', globalSidebar.sidebar == 4 ? 'selected' : 'not_selected')}
                     onClick={() => {
-                        handleLinkClick(4);
+                        globalSidebar.handleSideBar(4);
                     }}
                     to="/employer/profile"
                 >
@@ -105,9 +107,9 @@ function SideBar() {
             </div>
             <div className={cx('menu')}>
                 <Link
-                    className={cx('item', activeLink === 5 ? 'selected' : 'not_selected')}
+                    className={cx('item', globalSidebar.sidebar == 5 ? 'selected' : 'not_selected')}
                     onClick={() => {
-                        handleLinkClick(5);
+                        globalSidebar.handleSideBar(5);
                     }}
                     to="/employer/change-password"
                 >
@@ -115,9 +117,9 @@ function SideBar() {
                     <span className={cx('name_item')}>Đổi mật khẩu</span>
                 </Link>
                 <Link
-                    className={cx('item', activeLink === 6 ? 'selected' : 'not_selected')}
+                    className={cx('item', globalSidebar.sidebar == 6 ? 'selected' : 'not_selected')}
                     onClick={() => {
-                        handleLinkClick(6);
+                        globalSidebar.handleSideBar(6);
                         handleLogout();
                     }}
                     to="/employer/sign-in"

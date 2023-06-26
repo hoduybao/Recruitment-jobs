@@ -14,6 +14,7 @@ import {
     faAddressCard,
     faBars,
     faBriefcase,
+    faCircleNotch,
     faClockRotateLeft,
     faCopy,
     faEyeSlash,
@@ -31,7 +32,7 @@ const cx = classNames.bind(styles);
 function DetailJob({ employer = false }) {
     const user = localStorage.getItem('user');
     const em = localStorage.getItem('is_employer');
-
+    const [loadingButton, setLoadingButton] = useState(false);
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const id_job = params.get('id');
@@ -99,6 +100,7 @@ function DetailJob({ employer = false }) {
         }
 
         if (success) {
+            setLoadingButton(true);
             var formdata = new FormData();
             formdata.append('file', apply.file_cv);
             formdata.append('name', apply.name);
@@ -109,6 +111,7 @@ function DetailJob({ employer = false }) {
                 if (response.status === 'ok') {
                     notify('success', 'Ứng tuyển thành công!');
                 }
+                setLoadingButton(false);
                 handleClose();
             };
             fetch();
@@ -149,13 +152,10 @@ function DetailJob({ employer = false }) {
 
     const handleSaveJob = (event) => {
         event.preventDefault();
+        notify('success', 'Đã lưu công việc!');
 
         const fetch = async () => {
             let response = await UserService.reportJob(`candidate/saveJobPosting/${id_job}`);
-            console.log(response);
-            if (response.status === 'ok') {
-                notify('success', 'Đã lưu công việc!');
-            }
         };
         fetch();
     };
@@ -238,7 +238,7 @@ function DetailJob({ employer = false }) {
                                         <div className={cx('name_company')}>{jobs.companyInfo?.name}</div>
                                     </Link>
                                 ) : (
-                                        <div className={cx('name_company')}>{jobs.companyInfo?.name}</div>
+                                    <div className={cx('name_company')}>{jobs.companyInfo?.name}</div>
                                 )}
 
                                 <div className={cx('deadline_submit')}>
@@ -339,7 +339,11 @@ function DetailJob({ employer = false }) {
                                                 Đóng
                                             </button>
                                             <button className={cx('primary-button')} onClick={handleSave}>
-                                                Hoàn thành
+                                                {loadingButton ? (
+                                                    <FontAwesomeIcon icon={faCircleNotch} spin />
+                                                ) : (
+                                                    'Hoàn thành'
+                                                )}
                                             </button>
                                         </div>
                                     </div>

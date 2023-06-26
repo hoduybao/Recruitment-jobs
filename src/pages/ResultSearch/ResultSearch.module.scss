@@ -71,9 +71,14 @@
 }
 .name_company {
     position: absolute;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
     width: 68%;
     left: 28%;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: 500;
     /* identical to box height */
     top: 25%;

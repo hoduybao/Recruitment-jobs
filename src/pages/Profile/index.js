@@ -14,6 +14,7 @@ import {
     faPhone,
     faDownload,
     faCamera,
+    faCircleNotch,
 } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import Modal from 'react-overlays/Modal';
@@ -25,6 +26,7 @@ const cx = classNames.bind(styles);
 function Profile({ employer = false, inforCV, accept, reject }) {
     const user = localStorage.getItem('user');
     const [info, setInfo] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [profile, setProfile] = useState(null);
     const [avatar, setAvatar] = useState(null);
@@ -56,7 +58,7 @@ function Profile({ employer = false, inforCV, accept, reject }) {
                     if (response.data.gender === null) {
                         response.data.gender = 'Nam';
                     }
-                    setAvatar(response.data.avatar);                    
+                    setAvatar(response.data.avatar);
                     setProfile(response.data);
                 };
                 fetch();
@@ -100,6 +102,7 @@ function Profile({ employer = false, inforCV, accept, reject }) {
         }
 
         if (success) {
+            setLoading(true);
             var formdata = new FormData();
             formdata.append('file', profile.avatar);
             formdata.append('fullName', profile.fullName);
@@ -114,6 +117,7 @@ function Profile({ employer = false, inforCV, accept, reject }) {
                 let response = await UserService.updateCandidate('candidate/updateInfoCandidate', formdata);
                 if (response.status === 'ok') {
                     notify('success', 'Cập nhật thành công!');
+                    setLoading(false);
                     window.location.href = '/profile';
                 }
                 // if (response.status === 'ok') {
@@ -294,7 +298,7 @@ function Profile({ employer = false, inforCV, accept, reject }) {
                                             Đóng
                                         </button>
                                         <button className={cx('primary-button')} onClick={handleSubmitInfo}>
-                                            Hoàn thành
+                                            {loading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Hoàn thành'}
                                         </button>
                                     </div>
                                 </div>

@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faBuilding,
     faCalendarDays,
+    faCircle,
+    faCircleNotch,
     faEnvelope,
     faLink,
     faLocationDot,
@@ -17,6 +19,7 @@ import { useEffect, useState } from 'react';
 const cx = classNames.bind(styles);
 
 function SignUp() {
+    const [loading, setLoading] = useState(false);
     const [signup, setSignup] = useState({
         fullname: '',
         email: '',
@@ -84,6 +87,7 @@ function SignUp() {
 
         // Handle form submission logic
         if (success) {
+            setLoading(true);
             const fetch = async () => {
                 let response = await UserService.postLogin(`auth/signup/employer`, {
                     name: signup.fullname,
@@ -92,13 +96,14 @@ function SignUp() {
                     address: signup.address,
                     phone: signup.phone,
                     domain: signup.web,
-                    
                 });
 
                 console.log(response);
                 if (response.status === 'ok') {
                     window.location.href = '/employer/sign-in';
+                    setLoading(false);
                 } else {
+                    setLoading(false);
                     newErrors.email = response.message;
                     setErrors(newErrors);
                 }
@@ -213,54 +218,6 @@ function SignUp() {
                         <FontAwesomeIcon icon={faLocationDot} className={cx('icon_name')} />
                     </div>
 
-                    {/* <div className={cx('location')}>
-                        <div>
-                            <input
-                                type="radio"
-                                id="HCM"
-                                name="address"
-                                value="HCM"
-                                className={cx('value_location')}
-                                onChange={handleChange}
-                            />
-                            <label for="HCM">Hồ Chí Minh</label>
-                        </div>
-
-                        <div>
-                            <input
-                                type="radio"
-                                id="DN"
-                                name="address"
-                                value="DN"
-                                className={cx('value_location')}
-                                onChange={handleChange}
-                            />
-                            <label for="DN">Đà Nẵng</label>
-                        </div>
-
-                        <div>
-                            <input
-                                type="radio"
-                                id="HN"
-                                name="address"
-                                value="HN"
-                                className={cx('value_location')}
-                                onChange={handleChange}
-                            />
-                            <label for="HN">Hà Nội</label>
-                        </div>
-
-                        <div>
-                            <input
-                                type="radio"
-                                name="address"
-                                value="Other"
-                                className={cx('value_location')}
-                                onChange={handleChange}
-                            />
-                            <label for="Other">Khác</label>
-                        </div>
-                    </div> */}
                     {errors.address && <span className={cx('error')}>{errors.address}</span>}
 
                     <div className={cx('label_location')}>Quy mô công ty</div>
@@ -349,7 +306,7 @@ function SignUp() {
                     </div>
 
                     <button type="button" onClick={handleRegister} className={cx('submit_form_login')}>
-                        Đăng ký
+                        {loading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Đăng ký'}
                     </button>
                 </form>
 

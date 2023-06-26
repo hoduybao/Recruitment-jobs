@@ -3,7 +3,14 @@ import styles from './ViewCompany.module.scss';
 import images from '~/assets/images';
 import Loading from '~/Layout/components/Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarDays, faCamera, faLocationDot, faPenToSquare, faUserGroup } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCalendarDays,
+    faCamera,
+    faCircleNotch,
+    faLocationDot,
+    faPenToSquare,
+    faUserGroup,
+} from '@fortawesome/free-solid-svg-icons';
 import ListJobs from '~/Layout/components/ListJobs';
 import InfoEmployer from '~/Layout/Employer/components/InfoEmloyer';
 import IntroCompany from '~/Layout/components/IntroCompany';
@@ -20,6 +27,7 @@ import Modal from 'react-overlays/Modal';
 const cx = classNames.bind(styles);
 
 function ViewCompany() {
+    const [loading, setLoading] = useState(false);
     const user = localStorage.getItem('user');
     const em = localStorage.getItem('is_employer');
     const location = useLocation();
@@ -43,12 +51,13 @@ function ViewCompany() {
 
     var handleSaveReport = (event) => {
         event.preventDefault();
-
+        setLoading(true);
         const fetch = async () => {
             let response = await UserService.reportJob(`candidate/rating/${id_company}`, {
                 rate: review.rate,
                 content: review.content,
             });
+            setLoading(false);
             handleCloseReport();
 
             if (response.status === 'ok') {
@@ -166,6 +175,7 @@ function ViewCompany() {
         setErrors(newErrors);
 
         if (success) {
+            setLoading(true);
             var formdata = new FormData();
             formdata.append('file', update.file);
             formdata.append('name', update.name);
@@ -181,7 +191,7 @@ function ViewCompany() {
                 let response = await UserService.updateCandidate('employer/updateInfoEmployer', formdata);
                 if (response.status === 'ok') {
                     notify('success', 'Cập nhật thành công!');
-
+                    setLoading(false);
                     window.location.href = '/employer/profile';
                 }
                 // if (response.status === 'ok') {
@@ -220,7 +230,7 @@ function ViewCompany() {
                     <div className={cx('header_detail_job')}>
                         <div className={cx('header_left')}>
                             <div className={cx('wrapper_logo')}>
-                                <img src={listJobs.logo||companies.logo} alt="logo_company" className={cx('logo')} />
+                                <img src={listJobs.logo || companies.logo} alt="logo_company" className={cx('logo')} />
                                 {!id_company && (
                                     <button
                                         className={cx('btn_edit')}
@@ -366,7 +376,11 @@ function ViewCompany() {
                                                     Đóng
                                                 </button>
                                                 <button className={cx('primary-button')} onClick={handleSubmitInfo}>
-                                                    Hoàn thành
+                                                    {loading ? (
+                                                        <FontAwesomeIcon icon={faCircleNotch} spin />
+                                                    ) : (
+                                                        'Hoàn thành'
+                                                    )}
                                                 </button>
                                             </div>
                                         </div>
@@ -452,7 +466,7 @@ function ViewCompany() {
                                             Hủy
                                         </button>
                                         <button className={cx('primary-button')} onClick={handleSaveReport}>
-                                            Gửi
+                                            {loading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Gửi'}
                                         </button>
                                     </div>
                                 </div>

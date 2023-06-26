@@ -1,9 +1,8 @@
 import classNames from 'classnames/bind';
 import styles from './Login.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faLock, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-
 import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -13,6 +12,7 @@ const cx = classNames.bind(styles);
 function Login({ employer = false }) {
     const navigate = useNavigate();
     const back = localStorage.getItem('back');
+    const [loading, setLoading] = useState(false);
     const [signin, setSignin] = useState({
         email: '',
         password: '',
@@ -45,6 +45,7 @@ function Login({ employer = false }) {
 
         // Handle form submission logic
         if (success) {
+            setLoading(true);
             const fetch = async () => {
                 if (employer) {
                     let response = await UserService.postLogin(`auth/loginEmployer`, {
@@ -58,7 +59,10 @@ function Login({ employer = false }) {
                         window.localStorage.setItem('is_employer', '1');
 
                         window.location.href = '/employer';
+                        setLoading(false);
                     } else {
+                        setLoading(false);
+
                         newErrors.email = response.message;
                         setErrors(newErrors);
                     }
@@ -71,6 +75,7 @@ function Login({ employer = false }) {
                     if (response.status === 'ok') {
                         window.localStorage.removeItem('user');
                         window.localStorage.removeItem('is_employer');
+                        window.localStorage.removeItem('sidebar');
 
                         window.localStorage.setItem('user', response.data);
                         if (back) {
@@ -79,7 +84,10 @@ function Login({ employer = false }) {
                         } else {
                             window.location.href = '/';
                         }
+                        setLoading(false);
                     } else {
+                        setLoading(false);
+
                         newErrors.email = response.message;
                         setErrors(newErrors);
                     }
@@ -163,7 +171,7 @@ function Login({ employer = false }) {
                         {errors.password && <span className={cx('error')}>{errors.password}</span>}
 
                         <button type="button" className={cx('submit_form_login')} onClick={handleRegister}>
-                            Đăng nhập
+                            {loading ? <FontAwesomeIcon icon={faSpinner} spin /> : 'Đăng nhập'}
                         </button>
                     </form>
                     {!employer && (

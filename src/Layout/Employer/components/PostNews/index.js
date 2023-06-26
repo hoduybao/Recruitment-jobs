@@ -2,11 +2,18 @@ import classNames from 'classnames/bind';
 import styles from './PostNews.module.scss';
 import { useEffect, useState } from 'react';
 import UserService from '~/utils/request';
-
+import { useNavigate } from 'react-router-dom';
 import { Link, useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import Toast from '~/Layout/components/Toast';
+import notify from '~/utils/toast';
 const cx = classNames.bind(styles);
 
 function PostNews({ update = false }) {
+    const navigate = useNavigate();
+
+    const [loading, setLoading] = useState(false);
     const [hidenSalary, setHidenSalary] = useState(true);
     const [selectedSalary, setSelectedSalary] = useState('0');
     var today = new Date();
@@ -27,12 +34,25 @@ function PostNews({ update = false }) {
     const convertDate = (time) => {
         const dateTime = new Date(time);
         const date = dateTime.getDate();
-        const month = dateTime.getMonth()  // Months are zero-based, so we add 1
-        
+        const month = dateTime.getMonth(); // Months are zero-based, so we add 1
+
         const year = dateTime.getFullYear();
-        const d=new Date(year,month,date);
-        const newDate=d.toISOString().split('T')[0];
+        const d = new Date(year, month, date);
+        const newDate = d.toISOString().split('T')[0];
         return newDate;
+    };
+    const postSamle = {
+        tittle: '',
+        quantity: '1',
+        gender: 'Không yêu cầu',
+        experience: 'Không yêu cầu',
+        salary: '',
+        working_form: 'Full time',
+        address_work: 'Thành phố Hà Nội',
+        description: '',
+        requirement: '',
+        benefits: '',
+        dueDate: dateString,
     };
     const [post, setPost] = useState({
         tittle: '',
@@ -58,7 +78,6 @@ function PostNews({ update = false }) {
                     let collator = new Intl.Collator('vi');
                     var splitSalary = '0';
                     if (!collator.compare(response.jobDescription.salary, 'Thỏa thuận')) {
-                        
                         setSelectedSalary(0);
                         setHidenSalary(true);
                     } else {
@@ -71,16 +90,16 @@ function PostNews({ update = false }) {
                     var newDue = due.toISOString().split('T')[0];
                     setPost({
                         tittle: response.title,
-                        quantity: response.jobDescription.number_candidates ,
+                        quantity: response.jobDescription.number_candidates,
                         gender: response.jobDescription.gender,
                         experience: response.jobDescription.experience,
-                        salary:splitSalary,
+                        salary: splitSalary,
                         working_form: response.jobDescription.working_form,
                         address_work: response.jobDescription.address_work,
                         description: response.jobDescription.description,
                         requirement: response.jobDescription.requirement,
                         benefits: response.jobDescription.benefits,
-                        dueDate: newDue, 
+                        dueDate: newDue,
                     });
 
                     //   setLoad(false);
@@ -160,9 +179,9 @@ function PostNews({ update = false }) {
 
         // Handle form submission logic
         if (success) {
+            setLoading(true);
             const fetch = async () => {
-                if(!update)
-                {
+                if (!update) {
                     let response = await UserService.postJob(`employer/addJobPosting`, {
                         title: post.tittle,
                         postDate: dateString,
@@ -179,12 +198,13 @@ function PostNews({ update = false }) {
                     });
                     console.log(response);
                     if (response.status === 'ok') {
-                        console.log('success');
+                        notify('success', 'Tin tuyển dụng vừa được đăng!');
+                        setPost(postSamle)
                     } else {
-                        console.log('no_success');
+                        notify('error', 'Đăng tin không thành công!');
                     }
-                }
-                else{
+                    setLoading(false);
+                } else {
                     let response = await UserService.postJob(`employer/updateJobPosting/${id_job}`, {
                         title: post.tittle,
                         postDate: dateString,
@@ -201,12 +221,13 @@ function PostNews({ update = false }) {
                     });
                     console.log(response);
                     if (response.status === 'ok') {
-                        console.log('success');
+                        notify('success', 'Cập nhật thành công!');
+                        setTimeout(navigate(-1), 5000);
                     } else {
-                        console.log('no_success');
+                        notify('error', 'Cập nhật không thành công!');
                     }
+                    setLoading(false);
                 }
-                
             };
             fetch();
         } else {
@@ -230,6 +251,7 @@ function PostNews({ update = false }) {
 
     return (
         <div className={cx('wrapper')}>
+            <Toast />
             <div className={cx('content')}>
                 {update === false ? (
                     <>
@@ -403,15 +425,26 @@ function PostNews({ update = false }) {
                 {errors.dueDate && <span className={cx('error')}>{errors.dueDate}</span>}
 
                 {update === false ? (
-                    <button type="button" className={cx('submit_recruits')} onClick={handleRegister}>
-                        Đăng tin
-                    </button>
+                    <>
+                        <button type="button" className={cx('submit_recruits')} onClick={handleRegister}>
+                            {loading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Đăng tin'}
+                        </button>
+                    </>
                 ) : (
-                    <button className={cx('submit_recruits')} onClick={handleRegister}>Cập nhật</button>
+                    <>
+                        <button className={cx('submit_recruits')} onClick={handleRegister}>
+                            {loading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Cập nhật'}
+                        </button>
+                        <button
+                            className={cx('cancle')}
+                            onClick={() => {
+                                navigate(-1);
+                            }}
+                        >
+                            Hủy bỏ
+                        </button>
+                    </>
                 )}
-                <Link className={cx('cancle')} to="/employer/jobs">
-                    Hủy bỏ
-                </Link>
             </div>
         </div>
     );

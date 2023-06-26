@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './SignUp.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCircleNotch, faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 import UserService from '~/utils/request';
@@ -9,6 +9,7 @@ import { useState } from 'react';
 const cx = classNames.bind(styles);
 
 function SignUp() {
+    const [loading, setLoading] = useState(false);
     const [signup, setSignup] = useState({
         name: '',
         email: '',
@@ -22,7 +23,7 @@ function SignUp() {
         confirm: '',
     });
 
-    let success=true;
+    let success = true;
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -36,23 +37,24 @@ function SignUp() {
         const newErrors = {};
         if (!signup.email) {
             newErrors.email = 'Chưa nhập email';
-            success=false;
+            success = false;
         }
         if (!signup.name) {
             newErrors.name = 'Chưa nhập họ tên';
-            success=false;
+            success = false;
         }
         if (!signup.password) {
             newErrors.password = 'Chưa nhập mật khẩu';
-            success=false;
+            success = false;
         }
         if (!signup.confirm || signup.password !== signup.confirm) {
             newErrors.confirm = 'Xác nhận mật khẩu không đúng';
-            success=false;
+            success = false;
         }
 
         // Handle form submission logic
         if (success) {
+            setLoading(true);
             const fetch = async () => {
                 let response = await UserService.postLogin(`auth/signup/candidate`, {
                     fullname: signup.name,
@@ -61,23 +63,19 @@ function SignUp() {
                 });
 
                 console.log(response);
-                if(response.status==="ok")
-                {
+                if (response.status === 'ok') {
+                    setLoading(false);
                     window.location.href = '/sign-in';
-                }
-                else{
+                } else {
+                    setLoading(false);
                     newErrors.email = response.message;
                     setErrors(newErrors);
-
                 }
             };
             fetch();
-        }
-        else{
+        } else {
             setErrors(newErrors);
-
         }
-
     };
 
     return (
@@ -164,7 +162,7 @@ function SignUp() {
                         </div>
                         {errors.confirm && <span className={cx('error')}>{errors.confirm}</span>}
                         <button type="button" className={cx('submit_form_login')} onClick={handleRegister}>
-                            Đăng ký
+                            {loading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Đăng ký'}
                         </button>
                     </form>
 

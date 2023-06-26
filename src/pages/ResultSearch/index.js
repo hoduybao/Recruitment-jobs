@@ -32,15 +32,20 @@ function ResultSearch() {
     const handleFilter = (working_form = '', experience = '', salary = '0 triệu') => {
         console.log(working_form);
         console.log(salary);
+        console.log(experience)
         let collator = new Intl.Collator('vi');
         let newResult = result.filter((job) => {
             if (experience === '00') {
-                return job.working_form.includes(working_form) && collator.compare(job.salary, salary)>=0;
+                return (
+                    job.working_form.includes(working_form) &&
+                    collator.compare(job.salary, salary) >= 0 &&
+                    collator.compare(job.experience, 'Không yêu cầu') === 0
+                );
             } else {
                 return (
                     job.working_form.includes(working_form) &&
                     collator.compare(job.experience, experience) >= 0 &&
-                    collator.compare(job.salary, salary)>=0
+                    collator.compare(job.salary, salary) >= 0
                 );
             }
         });

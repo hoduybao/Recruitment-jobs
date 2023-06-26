@@ -8,6 +8,7 @@ import { useDebounce } from '../hooks';
 import { Wrapper as PopperWrapper } from '~/Layout/components/Popper';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/shift-away.css';
+import React from 'react';
 const cx = classNames.bind(styles);
 
 function Search({ lang }) {
@@ -157,4 +158,4 @@ function Search({ lang }) {
     );
 }
 
-export default Search;
+export default React.memo(Search);

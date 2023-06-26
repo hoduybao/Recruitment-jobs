@@ -8,13 +8,14 @@ import UserService from '~/utils/request';
 
 const cx = classNames.bind(styles);
 
-function Menu({ children, items = null, notifies = null ,handleHide}) {
+function Menu({ children, items = null, notifies = null, handleHide }) {
     var classList = cx('menu-list');
     if (items === null) {
         classList = cx('menu-list-notify');
     }
     const handleLogout = () => {
         localStorage.removeItem('user');
+        localStorage.removeItem('back');
         window.location.href = '/sign-in';
     };
 
@@ -69,7 +70,7 @@ function Menu({ children, items = null, notifies = null ,handleHide}) {
                     return <MenuNotify key={index} data={item} />;
                 });
             } else {
-                return <div className={cx("not_notify")}>Không có thông báo nào</div>;
+                return <div className={cx('not_notify')}>Không có thông báo nào</div>;
             }
         }
     };

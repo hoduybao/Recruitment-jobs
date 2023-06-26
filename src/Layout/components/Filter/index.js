@@ -10,7 +10,7 @@ function Filter({ handleFilter }) {
     const [filter, setFilter] = useState({
         working_form: 't',
         experience: '0',
-        salary: 'triệu',
+        salary: '0 triệu',
     });
 
     const handleChange = (event) => {
