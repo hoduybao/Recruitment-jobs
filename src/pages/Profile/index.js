@@ -315,18 +315,26 @@ function Profile({ employer = false, inforCV, accept, reject }) {
                         </div>
                         {employer && (
                             <div className={cx('wrapper_apply')}>
-                                <button type="button" className={cx('btn_accept')} onClick={() => accept()}>
-                                    Chấp nhận
-                                </button>
-                                <button
-                                    type="button"
-                                    className={cx('btn_reject')}
-                                    onClick={() => {
-                                        reject();
-                                    }}
-                                >
-                                    Từ chối
-                                </button>
+                                {info.status === 'consider' ? (
+                                    <>
+                                        <button type="button" className={cx('btn_accept')} onClick={() => accept()}>
+                                            Chấp nhận
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className={cx('btn_reject')}
+                                            onClick={() => {
+                                                reject();
+                                            }}
+                                        >
+                                            Từ chối
+                                        </button>
+                                    </>
+                                ) : (
+                                    <button type="button" className={cx('btn_accept')}>
+                                        Đã duyệt
+                                    </button>
+                                )}
                             </div>
                         )}
                     </div>

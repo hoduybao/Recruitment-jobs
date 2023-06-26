@@ -28,6 +28,8 @@ function ListCandidate() {
                     fullName: response.data[0].name,
                     cv: response.data[0].fileCV,
                     introduce: response.data[0].introLetter,
+                    status: response.data[0].status,
+                    index: 0,
                 });
                 setLoading(false);
             } else {
@@ -46,10 +48,25 @@ function ListCandidate() {
             fullName: data.name,
             cv: data.fileCV,
             introduce: data.introLetter,
+            status: data.status,
+            index: id,
         });
     };
     const handleAccept = () => {
         console.log(candidate.id);
+        var newCandidate = listCV;
+        newCandidate[candidate.index].status = 'accepted';
+        setListCV(newCandidate);
+        setCandidate({
+            id: newCandidate[candidate.index].id,
+            avatar: newCandidate[candidate.index].avatarCandidate,
+            fullName: newCandidate[candidate.index].name,
+            cv: newCandidate[candidate.index].fileCV,
+            introduce: newCandidate[candidate.index].introLetter,
+            status: newCandidate[candidate.index].status,
+            index: candidate.index,
+        });
+
         const fetch = async () => {
             let response = await UserService.setStatusCV(`employer/setStatusCV?status=pass&id=${candidate.id}`);
             console.log(response);
@@ -57,11 +74,16 @@ function ListCandidate() {
         fetch();
     };
     const handleReject = () => {
+        var newCandidate = listCV;
+        newCandidate.splice(candidate.index, 1);
+        setListCV(newCandidate);
+
         const fetch = async () => {
             let response = await UserService.setStatusCV(`employer/setStatusCV?status=reject&id=${candidate.id}`);
             console.log(response);
         };
-        fetch();    };
+        fetch();
+    };
     return (
         <div className={cx('wrapper')}>
             {isLoading ? (

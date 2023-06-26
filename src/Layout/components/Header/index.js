@@ -154,8 +154,9 @@ function Header({ employer = false }) {
                 `);
                 setNotify(response1.data);
                 globalNotify.toggleNotify(0);
-                // let postSeen = await UserService.getUser(`employer/setSentNotification
-                // `);
+                let postSeen = await UserService.getUser(`employer/setSentNotification
+                `);
+                console.log(postSeen);
                 //setNumberNotify(0);
             };
             fetchNotify();
@@ -167,7 +168,10 @@ function Header({ employer = false }) {
                 console.log(response1.data);
                 setNotify(response1.data);
                 globalNotify.toggleNotify(0);
-
+                let postSeen = await UserService.getUser(`candidate/setSentNotification
+                `);
+                console.log(postSeen)
+                
                 //   setNumberNotify(0);
             };
             fetchNotify();
