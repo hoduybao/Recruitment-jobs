@@ -5,23 +5,22 @@ const cx = classNames.bind(styles);
 function WrapperNotify({ data, className }) {
     const switchTime = (time) => {
         var resultTime = '';
-        // Định nghĩa hai đối tượng Date
-        var date1 = new Date();
-        var date2 = new Date(time);
 
-        // Tính khoảng thời gian (đơn vị mili giây)
+        var date1 = new Date();
+
+        var date2 = new Date(time);
+        date2.setUTCHours(date2.getUTCHours() - 7);
+
         var timeDiff = Math.abs(date2.getTime() - date1.getTime());
 
-        // Chuyển đổi khoảng thời gian thành phút
         var result = Math.floor(timeDiff / (1000 * 60));
+
         resultTime = result.toString() + ' phút trước';
-
+        console.log(resultTime);
         if (result >= 60) {
-            // Định nghĩa hai đối tượng Date
-
-            // Chuyển đổi khoảng thời gian thành giờ
             result = Math.floor(timeDiff / (1000 * 60 * 60));
             resultTime = result.toString() + ' giờ trước';
+
             if (result >= 24) {
                 result = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
                 resultTime = result.toString() + ' ngày trước';
