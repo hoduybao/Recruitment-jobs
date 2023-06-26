@@ -2,33 +2,25 @@
 .menu-list {
     width: 224px;
     //menu
-    .menu-item {
-        margin-left: 0px;
-    }
 }
 .menu-list-notify {
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     border-top-right-radius: 0px;
-    border: 1px solid #d2cdcd;
     width: 365px;
     max-height: 490px;
     overflow-y: scroll;
-    //menu
-    .menu-item {
-        margin-left: 0px;
-    }
+    z-index: 20;
+
 }
-.not_notify{
+.not_notify {
     margin-top: 2rem;
     text-align: center;
 }
 
 .menu-item {
-    width: 100%;
     justify-content: flex-start;
     border-radius: 0px;
-    border-bottom: 1px solid #d2cdcd;
     font-weight: 600;
     padding: 11px 16px;
     line-height: 1.8rem;

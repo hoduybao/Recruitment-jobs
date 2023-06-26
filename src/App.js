@@ -2,8 +2,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import { publicRoutes } from '~/routes';
 import { Fragment } from 'react';
 import { DefaultLayout } from '~/Layout';
-import SignInLayout from './Layout/Employer/SignInLayout';
-import Login from './pages/Login';
+
 import { useEffect } from 'react';
 function App() {
     var em = localStorage.getItem('is_employer');

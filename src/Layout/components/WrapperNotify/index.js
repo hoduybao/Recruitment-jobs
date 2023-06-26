@@ -3,7 +3,6 @@ import styles from './WrapperNotify.module.scss';
 const cx = classNames.bind(styles);
 
 function WrapperNotify({ data, className }) {
-    console.log(data.image);
     return (
         <div className={cx('wrapper', className)}>
             <img src={data.image} alt="logo" className={cx('logo')} />

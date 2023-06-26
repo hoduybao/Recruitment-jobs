@@ -10,12 +10,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faBell, faBriefcase, faKey, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import React from 'react';
-import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-
+import { ThemeContext } from '~/utils/context';
+import { useContext } from 'react';
 const cx = classNames.bind(styles);
 
 function Header({ employer = false }) {
+    const globalNotify = useContext(ThemeContext);
+
+    console.log(globalNotify.notify);
+
     var classEmployer = cx('inner');
     if (employer) {
         classEmployer = cx('inner_employer');
@@ -26,7 +30,7 @@ function Header({ employer = false }) {
 
     console.log(user);
     const [info, setInfo] = useState({});
-    const [numberNotify, setNumberNotify] = useState(0);
+    // const [numberNotify, setNumberNotify] = useState(0);
     const [notifies, setNotify] = useState([]);
 
     useEffect(() => {
@@ -55,6 +59,7 @@ function Header({ employer = false }) {
                         // Xử lý sự kiện nhận thông báo
                         eventSource.onmessage = function (event) {
                             var data = JSON.parse(event.data);
+                            globalNotify.toggleNotify(globalNotify.notify + 1);
 
                             // var notificationDiv = document.getElementById('notification');
                             //notificationDiv.innerHTML += event.data.content + '<br>';
@@ -96,10 +101,11 @@ function Header({ employer = false }) {
                         eventSource.onmessage = function (event) {
                             var data = JSON.parse(event.data);
                             console.log(data);
+                            globalNotify.toggleNotify(globalNotify.notify + 1);
 
-                            setNumberNotify((pre) => {
-                                return pre + 1;
-                            });
+                            // setNumberNotify((pre) => {
+                            //     return pre + 1;
+                            // });
 
                             // var notificationDiv = document.getElementById('notification');
                             //notificationDiv.innerHTML += event.data.content + '<br>';
@@ -127,7 +133,9 @@ function Header({ employer = false }) {
                 let response1 = await UserService.getUser(`employer/getAllNotification
                 `);
                 setNotify(response1.data);
-                setNumberNotify(0);
+                globalNotify.toggleNotify(0);
+
+                //setNumberNotify(0);
             };
             fetchNotify();
         } else {
@@ -137,7 +145,9 @@ function Header({ employer = false }) {
                 `);
                 console.log(response1.data);
                 setNotify(response1.data);
-                setNumberNotify(0);
+                globalNotify.toggleNotify(0);
+
+                //   setNumberNotify(0);
             };
             fetchNotify();
         }
@@ -259,8 +269,11 @@ function Header({ employer = false }) {
                     (employer === false ? (
                         <div className={cx('actions')}>
                             <Menu notifies={notifies} handleHide={handleHide}>
-                                <div onClick={handleClickNotify}>
+                                <div onClick={handleClickNotify} className={cx('wrapper_notify')}>
                                     <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
+                                    {globalNotify.notify > 0 && (
+                                        <div className={cx('number_notify')}>{globalNotify.notify}</div>
+                                    )}
                                 </div>
                             </Menu>
 
@@ -336,7 +349,9 @@ function Header({ employer = false }) {
                             <Menu notifies={notifies} handleHide={handleHide}>
                                 <div onClick={handleClickNotify} className={cx('wrapper_notify')}>
                                     <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
-                                    {numberNotify > 0 && <div className={cx('number_notify')}>{numberNotify}</div>}
+                                    {globalNotify.notify > 0 && (
+                                        <div className={cx('number_notify')}>{globalNotify.notify}</div>
+                                    )}
                                 </div>
                             </Menu>
                             {/* <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
