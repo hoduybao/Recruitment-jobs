@@ -330,6 +330,10 @@ function Profile({ employer = false, inforCV, accept, reject }) {
                                             Từ chối
                                         </button>
                                     </>
+                                ) : info.status === 'deleted' ? (
+                                    <button type="button" className={cx('btn_accept')}>
+                                        Đã từ chối
+                                    </button>
                                 ) : (
                                     <button type="button" className={cx('btn_accept')}>
                                         Đã duyệt

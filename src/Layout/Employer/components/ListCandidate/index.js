@@ -74,9 +74,19 @@ function ListCandidate() {
         fetch();
     };
     const handleReject = () => {
+        console.log(candidate.id);
         var newCandidate = listCV;
-        newCandidate.splice(candidate.index, 1);
+        newCandidate[candidate.index].status = 'deleted';
         setListCV(newCandidate);
+        setCandidate({
+            id: newCandidate[candidate.index].id,
+            avatar: newCandidate[candidate.index].avatarCandidate,
+            fullName: newCandidate[candidate.index].name,
+            cv: newCandidate[candidate.index].fileCV,
+            introduce: newCandidate[candidate.index].introLetter,
+            status: newCandidate[candidate.index].status,
+            index: candidate.index,
+        });
 
         const fetch = async () => {
             let response = await UserService.setStatusCV(`employer/setStatusCV?status=reject&id=${candidate.id}`);
