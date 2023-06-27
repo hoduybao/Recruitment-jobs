@@ -52,11 +52,25 @@ function ViewCompany() {
     var handleSaveReport = (event) => {
         event.preventDefault();
         setLoading(true);
+
+        var newCompany = companies;
+        newCompany.rate =
+            (newCompany.rate * newCompany.ratingCompanies.length + review.rate) /
+            (newCompany.ratingCompanies.length + 1);
+        newCompany.ratingCompanies.push({
+            rate: review.rate,
+            content: review.content,
+            createdDate: new Date(),
+        });
+
+        setCompanies(newCompany);
+
         const fetch = async () => {
             let response = await UserService.reportJob(`candidate/rating/${id_company}`, {
                 rate: review.rate,
                 content: review.content,
             });
+
             setLoading(false);
             handleCloseReport();
 
