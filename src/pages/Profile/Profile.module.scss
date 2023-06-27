@@ -4,7 +4,6 @@
     display: flex;
     justify-content: center;
     min-height: 75vh;
-
 }
 
 .employer {
@@ -37,7 +36,6 @@
     display: flex;
     row-gap: 0.3rem;
     flex-direction: column;
-
 }
 .head_profie {
     background: white;
@@ -73,24 +71,25 @@
     flex-direction: column;
     row-gap: 1rem;
 }
-.wrapper_infor{
+.wrapper_infor {
     width: 50%;
-  
 }
-.wrapper_apply{
+.wrapper_apply {
     flex: 1;
 }
 .avatar {
+    margin-left: 10%;
+
     width: 12rem;
     height: 12rem;
 
     border: 1px solid #d7e4e8;
     border-radius: 50%;
 }
-.wrapper_update_avatar{
+.wrapper_update_avatar {
     position: relative;
 }
-.avatar_update{
+.avatar_update {
     width: 10rem;
     height: 10rem;
 
@@ -98,30 +97,27 @@
     border-radius: 50%;
     margin-left: 50%;
     transform: translate(-50%);
-
 }
-.input_avatar{
+.input_avatar {
     visibility: hidden;
 }
-.label_update_camera{
+.label_update_camera {
     position: absolute;
     top: 63%;
     left: 52%;
     width: 3rem;
     height: 3rem;
     border: 1px solid transparent;
-    background-color: #E4E6EB;
+    background-color: #e4e6eb;
     border-radius: 50%;
     padding: 4px 4px;
     cursor: pointer;
-    &:hover{
+    &:hover {
         background-color: #c3c5c8;
-
     }
 }
-.icon_camera{
+.icon_camera {
     font-size: 2rem;
-    
 }
 
 .btn_edit {
@@ -261,8 +257,6 @@
     right: 0;
     background-color: #000;
     opacity: 0.5;
- 
-
 }
 .modal-title {
     margin-left: 3rem;
@@ -399,8 +393,7 @@
     font-size: 1.6rem;
 }
 
-.list_skill{
-
+.list_skill {
     font-size: 1.6rem;
     word-wrap: break-word;
 }
@@ -411,11 +404,11 @@
     word-wrap: break-word;
     margin-top: 0.4rem;
 }
-.wrapper_apply{
+.wrapper_apply {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    width:30% ;
+    width: 30%;
     row-gap: 1rem;
 }
 .btn_accept {
@@ -433,16 +426,15 @@
     /* identical to box height */
     color: #ffffff;
     cursor: pointer;
-    &:hover{
+    &:hover {
         background: #035e8f;
-
     }
 }
-.btn_reject{
+.btn_reject {
     width: 80%;
     height: 40%;
 
-    background:  rgb(189, 66, 90);
+    background: rgb(189, 66, 90);
     border-radius: 6px;
     border: none;
 
@@ -453,8 +445,7 @@
     /* identical to box height */
     color: #ffffff;
     cursor: pointer;
-    &:hover{
-        background:  rgb(198, 2, 41);
-
+    &:hover {
+        background: rgb(198, 2, 41);
     }
 }

@@ -44,6 +44,19 @@ function Profile({ employer = false, inforCV, accept, reject }) {
         setShowModal(false);
         setProfile(info);
     };
+    const convertDate = (time) => {
+        const dateTime = new Date(time);
+        var date = dateTime.getDate();
+        var month = dateTime.getMonth() + 1; // Months are zero-based, so we add 1
+        if (month.toString().length === 1) {
+            month = '0' + month;
+        }
+        if (date.toString().length === 1) {
+            date = '0' + date;
+        }
+        const year = dateTime.getFullYear();
+        return date + '-' + month + '-' + year;
+    };
     useEffect(() => {
         if (!employer) {
             if (user) {
@@ -55,8 +68,9 @@ function Profile({ employer = false, inforCV, accept, reject }) {
                     if (response.data.skill === null) {
                         response.data.skill = [];
                     }
-                    if (response.data.gender === null) {
-                        response.data.gender = 'Nam';
+                    if (response.data.dob != null) {
+                        var due = new Date(response.data.dob);
+                        response.data.dob = due.toISOString().split('T')[0];
                     }
                     setAvatar(response.data.avatar);
                     setProfile(response.data);
@@ -136,19 +150,6 @@ function Profile({ employer = false, inforCV, accept, reject }) {
     } else {
         classes = cx('wrapper');
     }
-    const convertDate = (time) => {
-        const dateTime = new Date(time);
-        var date = dateTime.getDate();
-        var month = dateTime.getMonth() + 1; // Months are zero-based, so we add 1
-        if (month.toString().length === 1) {
-            month = '0' + month;
-        }
-        if (date.toString().length === 1) {
-            date = '0' + date;
-        }
-        const year = dateTime.getFullYear();
-        return date + '-' + month + '-' + year;
-    };
 
     return (
         <div className={classes}>
@@ -222,7 +223,9 @@ function Profile({ employer = false, inforCV, accept, reject }) {
                                                 onChange={handleChange}
                                                 className={cx('sex_select')}
                                             >
-                                                <option value="Nam">Nam</option>
+                                                <option value="Nam" selected>
+                                                    Nam
+                                                </option>
                                                 <option value="Nữ">Nữ</option>
                                                 <option value="Khác">Khác</option>
                                             </select>
