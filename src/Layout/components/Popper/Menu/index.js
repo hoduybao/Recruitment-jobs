@@ -8,7 +8,7 @@ import UserService from '~/utils/request';
 
 const cx = classNames.bind(styles);
 
-function Menu({ children, items = null, notifies = null, handleHide }) {
+function Menu({ children, items = null, notifies = null }) {
     var classList = cx('menu-list');
     if (items === null) {
         classList = cx('menu-list-notify');
@@ -83,7 +83,6 @@ function Menu({ children, items = null, notifies = null, handleHide }) {
             hideOnClick={true}
             placement="bottom-end"
             trigger="click"
-            onHide={handleHide}
             render={(attrs) => (
                 <div className={classList} tabIndex="-1" {...attrs}>
                     <PopperWrapper className={cx('menu-popper')}>{renderItems()}</PopperWrapper>

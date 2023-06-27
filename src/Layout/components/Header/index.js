@@ -11,15 +11,10 @@ import { faArrowRight, faBell, faBriefcase, faKey, faSignOut, faUser } from '@fo
 import { useEffect, useState } from 'react';
 import React from 'react';
 import 'tippy.js/dist/tippy.css'; // optional
-import { ThemeContext } from '~/utils/context';
-import { useContext } from 'react';
 const cx = classNames.bind(styles);
 
 function Header({ employer = false }) {
-    const globalNotify = useContext(ThemeContext);
-
-    console.log(globalNotify.notify);
-
+    const [numberNotify,setNumberNotify]=useState(0);
     var classEmployer = cx('inner');
     if (employer) {
         classEmployer = cx('inner_employer');
@@ -28,13 +23,11 @@ function Header({ employer = false }) {
     var user = localStorage.getItem('user');
     var em = localStorage.getItem('is_employer');
 
-    console.log(user);
     const [info, setInfo] = useState({});
     // const [numberNotify, setNumberNotify] = useState(0);
-    const [notifies, setNotify] = useState([]);
+    const [notifies, setListNotify] = useState([]);
     const countNotify = (array) => {
         return array.data.reduce((count, num) => {
-            console.log(num.status);
             if (num.status === 'new') {
                 return count + 1;
             } else {
@@ -52,7 +45,7 @@ function Header({ employer = false }) {
                     let response1 = await UserService.getUser(`candidate/getAllNotification
                     `);
 
-                    globalNotify.toggleNotify(countNotify(response1));
+                    setNumberNotify(countNotify(response1));
                     var eventSource;
 
                     function reconnect() {
@@ -71,8 +64,9 @@ function Header({ employer = false }) {
                         // Xử lý sự kiện nhận thông báo
                         eventSource.onmessage = function (event) {
                             var data = JSON.parse(event.data);
-                            var newNotify = globalNotify.notify + 1;
-                            globalNotify.toggleNotify(newNotify);
+                            console.log(data);
+                            var newNotify = numberNotify + 1;
+                            setNumberNotify(newNotify);
                             // var notificationDiv = document.getElementById('notification');
                             //notificationDiv.innerHTML += event.data.content + '<br>';
                             //  console.log(data);
@@ -92,24 +86,20 @@ function Header({ employer = false }) {
                     //  setInfo(response.data);
                 } else {
                     let response = await UserService.getUser(`employer/myInfo`);
-                    console.log(response.data);
 
                     let response1 = await UserService.getUser(`employer/getAllNotification
                     `);
-                    console.log(response1.data);
 
-                    globalNotify.toggleNotify(countNotify(response1));
-                    //setNotify(response1.data);
-                    //globalNotify.toggleNotify(0);
+                    setNumberNotify(countNotify(response1));
 
                     var eventSource;
 
                     function reconnect() {
                         // Đóng kết nối hiện tại
                         eventSource.close();
-
+                        connect();
                         // Tái kết nối sau 3 giây
-                        setTimeout(connect, 3000);
+                        //  setTimeout(connect, 0);
                     }
                     function connect() {
                         // Tạo một EventSource kết nối đến endpoint SSE
@@ -120,18 +110,11 @@ function Header({ employer = false }) {
                         // Xử lý sự kiện nhận thông báo
                         eventSource.onmessage = function (event) {
                             var data = JSON.parse(event.data);
+                            console.log(numberNotify);
                             console.log(data);
-                            console.log(globalNotify.notify);
-                            var newNotify = globalNotify.notify + 1;
-                            globalNotify.toggleNotify(newNotify);
-
-                            // setNumberNotify((pre) => {
-                            //     return pre + 1;
-                            // });
-
-                            // var notificationDiv = document.getElementById('notification');
-                            //notificationDiv.innerHTML += event.data.content + '<br>';
-                            //  console.log(data);
+                            setNumberNotify((pre) => {
+                                return (pre + 1);
+                            });
                         };
 
                         // Xử lý sự kiện lỗi kết nối SSE
@@ -151,36 +134,32 @@ function Header({ employer = false }) {
 
     const handleClickNotify = () => {
         if (employer) {
+            setNumberNotify(0);
+
             const fetchNotify = async () => {
                 let response1 = await UserService.getUser(`employer/getAllNotification
                 `);
-                setNotify(response1.data);
-                globalNotify.toggleNotify(0);
+                setListNotify(response1.data);
                 let postSeen = await UserService.getUser(`employer/setSentNotification
                 `);
-                console.log(postSeen);
+
                 //setNumberNotify(0);
             };
             fetchNotify();
         } else {
-            console.log('Zo');
             const fetchNotify = async () => {
+                setNumberNotify(0);
+
                 let response1 = await UserService.getUser(`candidate/getAllNotification
                 `);
-                console.log(response1.data);
-                setNotify(response1.data);
-                globalNotify.toggleNotify(0);
+                setListNotify(response1.data);
                 let postSeen = await UserService.getUser(`candidate/setSentNotification
                 `);
-                console.log(postSeen);
 
                 //   setNumberNotify(0);
             };
             fetchNotify();
         }
-    };
-    const handleHide = () => {
-        setNotify([]);
     };
     const userMenu = [
         {
@@ -297,11 +276,11 @@ function Header({ employer = false }) {
                     !em &&
                     (employer === false ? (
                         <div className={cx('actions')}>
-                            <Menu notifies={notifies} handleHide={handleHide}>
+                            <Menu notifies={notifies}>
                                 <div onClick={handleClickNotify} className={cx('wrapper_notify')}>
                                     <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
-                                    {globalNotify.notify > 0 && (
-                                        <div className={cx('number_notify')}>{globalNotify.notify}</div>
+                                    {numberNotify > 0 && (
+                                        <div className={cx('number_notify')}>{numberNotify}</div>
                                     )}
                                 </div>
                             </Menu>
@@ -376,11 +355,11 @@ function Header({ employer = false }) {
                         </div>
                     ) : (
                         <div className={cx('actions')}>
-                            <Menu notifies={notifies} handleHide={handleHide}>
+                            <Menu notifies={notifies}>
                                 <div onClick={handleClickNotify} className={cx('wrapper_notify')}>
                                     <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
-                                    {globalNotify.notify > 0 && (
-                                        <div className={cx('number_notify')}>{globalNotify.notify}</div>
+                                    {numberNotify > 0 && (
+                                        <div className={cx('number_notify')}>{numberNotify}</div>
                                     )}
                                 </div>
                             </Menu>
@@ -396,4 +375,4 @@ function Header({ employer = false }) {
     );
 }
 
-export default React.memo(Header);
+export default Header;
