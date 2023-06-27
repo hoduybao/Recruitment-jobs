@@ -14,7 +14,7 @@ import 'tippy.js/dist/tippy.css'; // optional
 const cx = classNames.bind(styles);
 
 function Header({ employer = false }) {
-    const [numberNotify,setNumberNotify]=useState(0);
+    const [numberNotify, setNumberNotify] = useState(0);
     var classEmployer = cx('inner');
     if (employer) {
         classEmployer = cx('inner_employer');
@@ -64,10 +64,9 @@ function Header({ employer = false }) {
                         // Xử lý sự kiện nhận thông báo
                         eventSource.onmessage = function (event) {
                             var data = JSON.parse(event.data);
-                            console.log(data);
-                            var newNotify = numberNotify + 1;
-                            setNumberNotify(newNotify);
-                            // var notificationDiv = document.getElementById('notification');
+                            setNumberNotify((pre) => {
+                                return pre + 1;
+                            }); // var notificationDiv = document.getElementById('notification');
                             //notificationDiv.innerHTML += event.data.content + '<br>';
                             //  console.log(data);
                         };
@@ -113,7 +112,7 @@ function Header({ employer = false }) {
                             console.log(numberNotify);
                             console.log(data);
                             setNumberNotify((pre) => {
-                                return (pre + 1);
+                                return pre + 1;
                             });
                         };
 
@@ -279,9 +278,7 @@ function Header({ employer = false }) {
                             <Menu notifies={notifies}>
                                 <div onClick={handleClickNotify} className={cx('wrapper_notify')}>
                                     <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
-                                    {numberNotify > 0 && (
-                                        <div className={cx('number_notify')}>{numberNotify}</div>
-                                    )}
+                                    {numberNotify > 0 && <div className={cx('number_notify')}>{numberNotify}</div>}
                                 </div>
                             </Menu>
 
@@ -358,9 +355,7 @@ function Header({ employer = false }) {
                             <Menu notifies={notifies}>
                                 <div onClick={handleClickNotify} className={cx('wrapper_notify')}>
                                     <FontAwesomeIcon icon={faBell} className={cx('post_new')} />
-                                    {numberNotify > 0 && (
-                                        <div className={cx('number_notify')}>{numberNotify}</div>
-                                    )}
+                                    {numberNotify > 0 && <div className={cx('number_notify')}>{numberNotify}</div>}
                                 </div>
                             </Menu>
                             {/* <Tippy delay={[0, 100]} content="Thông báo" placement="bottom">
