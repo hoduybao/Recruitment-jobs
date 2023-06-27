@@ -172,7 +172,7 @@ function ManageJobs({ employer }) {
                                                                 />
                                                                 Cập nhật gần nhất:{' '}
                                                                 <span className={cx('value')}>
-                                                                    {convertDate(job?.dueDate)}
+                                                                    {convertDate(job?.postDate)}
                                                                 </span>
                                                             </div>
                                                         </Link>
@@ -233,7 +233,7 @@ function ManageJobs({ employer }) {
                                                                 />
                                                                 Cập nhật gần nhất:{' '}
                                                                 <span className={cx('value')}>
-                                                                    {convertDate(job?.dueDate)}
+                                                                    {convertDate(job?.postDate)}
                                                                 </span>
                                                             </div>
                                                         </Link>
@@ -335,7 +335,7 @@ function ManageJobs({ employer }) {
                                                         />
                                                         Cập nhật gần nhất:{' '}
                                                         <span className={cx('value')}>
-                                                            {convertDate(job?.infoJobPosting?.dueDate)}
+                                                            {convertDate(job?.infoJobPosting?.postDate)}
                                                         </span>
                                                     </div>
                                                 </Link>
@@ -393,7 +393,7 @@ function ManageJobs({ employer }) {
                                                         />
                                                         Cập nhật gần nhất:{' '}
                                                         <span className={cx('value')}>
-                                                            {convertDate(job?.infoJobPosting?.dueDate)}
+                                                            {convertDate(job?.infoJobPosting?.postDate)}
                                                         </span>
                                                     </div>
                                                 </Link>
