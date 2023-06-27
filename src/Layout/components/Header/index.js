@@ -51,9 +51,9 @@ function Header({ employer = false }) {
                     function reconnect() {
                         // Đóng kết nối hiện tại
                         eventSource.close();
+                        connect();
 
                         // Tái kết nối sau 3 giây
-                        setTimeout(connect, 3000);
                     }
                     function connect() {
                         // Tạo một EventSource kết nối đến endpoint SSE
