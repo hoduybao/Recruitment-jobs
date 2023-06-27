@@ -79,8 +79,6 @@ const searchKeywords = [
     'Mobile Web',
     'Web Application',
     'CMS',
-    'Front-end',
-    'Back-end',
     'Web Architect',
 ];
 function DefaultLayout({ children }) {
