@@ -269,7 +269,7 @@ function Header({ employer = false }) {
                                     className={cx('btn_switch_recruiter')}
                                     onClick={() => {
                                         var em = localStorage.getItem('is_employer');
-                                        localStorage.removeItem('sidebar');
+                                        window.localStorage.removeItem('sidebar');
 
                                         if (em) {
                                             window.location.href = '/sign-in';
@@ -353,6 +353,7 @@ function Header({ employer = false }) {
                                 className={cx('btn_switch_recruiter')}
                                 onClick={() => {
                                     var em = localStorage.getItem('is_employer');
+                                    window.localStorage.removeItem('sidebar');
 
                                     if (em) {
                                         window.location.href = '/employer';
