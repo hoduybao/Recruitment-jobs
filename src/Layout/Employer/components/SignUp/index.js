@@ -95,7 +95,9 @@ function SignUp() {
                     password: signup.password,
                     address: signup.address,
                     phone: signup.phone,
+                    companySize: signup.size,
                     domain: signup.web,
+                    workTime: signup.time1 + ' - ' + signup.time2,
                 });
 
                 console.log(response);
