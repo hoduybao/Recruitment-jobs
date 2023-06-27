@@ -55,7 +55,7 @@ function ListJobs({ ListJobs,logo }) {
                                 </ul>
                                 <div className={cx('time_update')}>
                                     <FontAwesomeIcon icon={faClockRotateLeft} style={{ marginRight: 5 }} />
-                                    Cập nhật gần nhất: {convertDate(job.dueDate)}
+                                    Cập nhật gần nhất: {convertDate(job.postDate)}
                                 </div>
                             </Link>
                         );
