@@ -71,8 +71,8 @@ function Header({ employer = false }) {
                         // Xử lý sự kiện nhận thông báo
                         eventSource.onmessage = function (event) {
                             var data = JSON.parse(event.data);
-                            globalNotify.toggleNotify(globalNotify.notify + 1);
-
+                            var newNotify = globalNotify.notify + 1;
+                            globalNotify.toggleNotify(newNotify);
                             // var notificationDiv = document.getElementById('notification');
                             //notificationDiv.innerHTML += event.data.content + '<br>';
                             //  console.log(data);
@@ -121,7 +121,9 @@ function Header({ employer = false }) {
                         eventSource.onmessage = function (event) {
                             var data = JSON.parse(event.data);
                             console.log(data);
-                            globalNotify.toggleNotify(globalNotify.notify + 1);
+                            console.log(globalNotify.notify);
+                            var newNotify = globalNotify.notify + 1;
+                            globalNotify.toggleNotify(newNotify);
 
                             // setNumberNotify((pre) => {
                             //     return pre + 1;
