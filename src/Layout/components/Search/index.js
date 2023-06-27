@@ -60,7 +60,7 @@ function Search({ lang }) {
         };
     }, []);
     const search = () => {
-        var text = debounced.trim();
+        var text = searchValue.trim();
         window.location.href = `/search-job?text=${text}&address=${address}`;
     };
     const handleClickSearch = (value) => {
