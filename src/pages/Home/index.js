@@ -20,7 +20,9 @@ function Home() {
             //let response1 = await UserService.GetCompany('company/getTop');
             console.log(response.data);
             setCompanies(response.data);
-            setIsLoading(false);
+            if (response.data) {
+                setIsLoading(false);
+            }
         };
         fetch();
     }, [user]);
