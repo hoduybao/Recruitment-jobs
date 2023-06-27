@@ -170,8 +170,8 @@ function Header({ employer = false }) {
                 globalNotify.toggleNotify(0);
                 let postSeen = await UserService.getUser(`candidate/setSentNotification
                 `);
-                console.log(postSeen)
-                
+                console.log(postSeen);
+
                 //   setNumberNotify(0);
             };
             fetchNotify();
@@ -238,6 +238,7 @@ function Header({ employer = false }) {
                                     className={cx('btn_switch_recruiter')}
                                     onClick={() => {
                                         var em = localStorage.getItem('is_employer');
+                                        localStorage.removeItem('sidebar');
 
                                         if (em) {
                                             window.location.href = '/employer';
@@ -268,6 +269,7 @@ function Header({ employer = false }) {
                                     className={cx('btn_switch_recruiter')}
                                     onClick={() => {
                                         var em = localStorage.getItem('is_employer');
+                                        localStorage.removeItem('sidebar');
 
                                         if (em) {
                                             window.location.href = '/sign-in';
