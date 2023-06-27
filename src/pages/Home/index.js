@@ -20,9 +20,7 @@ function Home() {
             //let response1 = await UserService.GetCompany('company/getTop');
             console.log(response.data);
             setCompanies(response.data);
-            if (response.data) {
-                setIsLoading(false);
-            }
+            setIsLoading(false);
         };
         fetch();
     }, [user]);
@@ -35,18 +33,19 @@ function Home() {
                 <div className={cx('inner')}>
                     <div className={cx('text_top_job')}>Top nhà tuyển dụng được quan tâm nhất</div>
                     <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
-                        {companies.map((company) => (
-                            <Link
-                                key={company.id}
-                                // to="/view-company"
-                                to={`/view-company?id=${company.id}`}
-                                className={cx('item_company_candidate', 'p-2 m-2')}
-                            >
-                                <img src={company.logo} alt="logo" className={cx('logo_company_home')} />
-                                <div className={cx('name_company_home')}>{company.name}</div>
-                                <div className={cx('number_recruit_company_home')}>{company.address}</div>
-                            </Link>
-                        ))}
+                        {companies &&
+                            companies.map((company) => (
+                                <Link
+                                    key={company.id}
+                                    // to="/view-company"
+                                    to={`/view-company?id=${company.id}`}
+                                    className={cx('item_company_candidate', 'p-2 m-2')}
+                                >
+                                    <img src={company.logo} alt="logo" className={cx('logo_company_home')} />
+                                    <div className={cx('name_company_home')}>{company.name}</div>
+                                    <div className={cx('number_recruit_company_home')}>{company.address}</div>
+                                </Link>
+                            ))}
                     </div>
                 </div>
             )}
