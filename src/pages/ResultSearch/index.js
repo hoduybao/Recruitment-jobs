@@ -7,6 +7,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import UserService from '~/utils/request';
 import { useState } from 'react';
+import Loading from '~/Layout/components/Loading';
 const cx = classNames.bind(styles);
 function ResultSearch() {
     const location = useLocation();
@@ -16,13 +17,14 @@ function ResultSearch() {
     const [result, setResult] = useState([]);
     const [resultFilter, setResultFilter] = useState([]);
     const [visibleItems, setVisibleItems] = useState(10);
-
+    const [loading, setIsLoading] = useState(true);
     useEffect(() => {
         const fetch = async () => {
             const response = await UserService.searchJob(`job/search?text=${text}&address=${address}`, {});
             console.log(response.data);
             setResultFilter(response.data);
             setResult(response.data);
+            setIsLoading(false);
         };
         fetch();
     }, [text, address]);
@@ -32,7 +34,7 @@ function ResultSearch() {
     const handleFilter = (working_form = '', experience = '', salary = '0 triệu') => {
         console.log(working_form);
         console.log(salary);
-        console.log(experience)
+        console.log(experience);
         let collator = new Intl.Collator('vi');
         let newResult = result.filter((job) => {
             if (experience === '00') {
@@ -66,54 +68,65 @@ function ResultSearch() {
     };
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('inner')}>
-                <Filter className={cx('fil')} handleFilter={handleFilter} />
-                <div className={cx('inner_content')}>
-                    {resultFilter.length === 0 ? (
-                        <div className={cx('text_top_job')}>Không tìm thấy công việc nào phù hợp với bạn</div>
-                    ) : (
-                        <div className={cx('text_top_job')}>
-                            Tìm thấy<span> {resultFilter.length} </span> công việc phù hợp với bạn
-                        </div>
-                    )}
+            {loading ? (
+                <Loading />
+            ) : (
+                <div className={cx('inner')}>
+                    <Filter className={cx('fil')} handleFilter={handleFilter} />
+                    <div className={cx('inner_content')}>
+                        {resultFilter && (
+                            <>
+                                {resultFilter.length === 0 ? (
+                                    <div className={cx('text_top_job')}>
+                                        Không tìm thấy công việc nào phù hợp với bạn
+                                    </div>
+                                ) : (
+                                    <div className={cx('text_top_job')}>
+                                        Tìm thấy<span> {resultFilter.length} </span> công việc phù hợp với bạn
+                                    </div>
+                                )}
+                            </>
+                        )}
 
-                    <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
-                        {resultFilter.slice(0, visibleItems).map((job, index) => (
-                            <Link
-                                key={index}
-                                className={cx('item_recruit_candidate', 'p-2 m-2')}
-                                to={`/detail-job?id=${job.id_JobPosting}`}
-                            >
-                                <img src={job.companyLogo} alt="logo" className={cx('logo_company')} />
-                                <div className={cx('name_recruit')} href="/">
-                                    {job.title}
-                                </div>
-                                <div className={cx('name_company')}>{job.companyName}</div>
-                                <ul className={cx('require')}>
-                                    <li className={cx('label')}>
-                                        Mức lương: <span className={cx('value')}>{job.salary}</span>
-                                    </li>
-                                    <li className={cx('label')}>
-                                        Kinh nghiệm: <span className={cx('value')}>{job.experience}</span>
-                                    </li>
-                                    <li className={cx('label')}>
-                                        Địa điểm: <span className={cx('value')}>{job.addressWork}</span>
-                                    </li>
-                                </ul>
-                                <div className={cx('time_update')}>
-                                    <FontAwesomeIcon icon={faClockRotateLeft} style={{ marginRight: 5 }} />
-                                    Cập nhật gần nhất: <span className={cx('value')}>{convertDate(job.postDate)}</span>
-                                </div>
-                            </Link>
-                        ))}
+                        <div className={cx('d-flex', 'flex-wrap', 'card_company_home')}>
+                            {resultFilter.slice(0, visibleItems).map((job, index) => (
+                                <Link
+                                    key={index}
+                                    className={cx('item_recruit_candidate', 'p-2 m-2')}
+                                    to={`/detail-job?id=${job.id_JobPosting}`}
+                                >
+                                    <img src={job.companyLogo} alt="logo" className={cx('logo_company')} />
+                                    <div className={cx('name_recruit')} href="/">
+                                        {job.title}
+                                    </div>
+                                    <div className={cx('name_company')}>{job.companyName}</div>
+                                    <ul className={cx('require')}>
+                                        <li className={cx('label')}>
+                                            Mức lương: <span className={cx('value')}>{job.salary}</span>
+                                        </li>
+                                        <li className={cx('label')}>
+                                            Kinh nghiệm: <span className={cx('value')}>{job.experience}</span>
+                                        </li>
+                                        <li className={cx('label')}>
+                                            Địa điểm: <span className={cx('value')}>{job.addressWork}</span>
+                                        </li>
+                                    </ul>
+                                    <div className={cx('time_update')}>
+                                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ marginRight: 5 }} />
+                                        Cập nhật gần nhất:{' '}
+                                        <span className={cx('value')}>{convertDate(job.postDate)}</span>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                        {visibleItems < resultFilter.length && (
+                            <button onClick={handleShowMore} className={cx('show_more')}>
+                                Xem thêm
+                            </button>
+                        )}
                     </div>
-                    {visibleItems < resultFilter.length && (
-                        <button onClick={handleShowMore} className={cx('show_more')}>
-                            Xem thêm
-                        </button>
-                    )}
                 </div>
-            </div>
+            )}
         </div>
     );
 }

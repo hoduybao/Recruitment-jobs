@@ -9,9 +9,14 @@ import { Wrapper as PopperWrapper } from '~/Layout/components/Popper';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/shift-away.css';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 const cx = classNames.bind(styles);
 
 function Search({ lang }) {
+    const navigate = useNavigate();
+
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(true);
@@ -59,18 +64,8 @@ function Search({ lang }) {
             resizeObserver.unobserve(targetElement);
         };
     }, []);
-    const search = () => {
-        var text = searchValue.trim();
-        window.location.href = `/search-job?text=${text}&address=${address}`;
-    };
-    const handleClickSearch = (value) => {
-        window.location.href = `/search-job?text=${value}&address=${address}`;
-    };
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            search();
-        }
-    };
+
+
     const urlProvice = 'https://provinces.open-api.vn/api/';
     const [provinces, setProvinces] = useState([]);
     useEffect(() => {
@@ -102,13 +97,17 @@ function Search({ lang }) {
                                 <PopperWrapper>
                                     <h3 className={cx('search-title')}>Việc làm</h3>
                                     {searchResult.map((result, index) => (
-                                        <div
+                                        <Link
                                             key={index}
                                             className={cx('item_result')}
-                                            onClick={() => handleClickSearch(result)}
+                                            to={`/search-job?text=${result}&address=${address}`}
+                                            onClick={() => {
+                                                setSearchValue(result);
+                                                handleHideResult();
+                                            }}
                                         >
                                             {result}
-                                        </div>
+                                        </Link>
                                     ))}
                                 </PopperWrapper>
                             </div>
@@ -125,7 +124,12 @@ function Search({ lang }) {
                                 onFocus={(e) => {
                                     setShowResult(true);
                                 }}
-                                onKeyPress={handleKeyPress}
+                                onKeyPress={(event) => {
+                                    if (event.key === 'Enter') {
+                                        navigate(`/search-job?text=${searchValue}&address=${address}`);
+                                        handleHideResult();
+                                    }
+                                }}
                             />
 
                             <div className={cx('search-btn')}>
@@ -149,7 +153,13 @@ function Search({ lang }) {
                             ))}
                         </select>
                     </div>
-                    <button className={cx('btn_search_candidate')} onClick={search}>
+                    <button
+                        className={cx('btn_search_candidate')}
+                        onClick={() => {
+                            navigate(`/search-job?text=${searchValue}&address=${address}`);
+                            handleHideResult();
+                        }}
+                    >
                         Tìm kiếm
                     </button>
                 </div>
