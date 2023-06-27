@@ -6,6 +6,8 @@ import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 import UserService from '~/utils/request';
 import { useState } from 'react';
+import Toast from '~/Layout/components/Toast';
+import notify from '~/utils/toast';
 const cx = classNames.bind(styles);
 
 function SignUp() {
@@ -64,6 +66,7 @@ function SignUp() {
 
                 console.log(response);
                 if (response.status === 'ok') {
+                    notify('success', 'Đăng ký thành công!');
                     setLoading(false);
                     window.location.href = '/sign-in';
                 } else {
@@ -80,6 +83,7 @@ function SignUp() {
 
     return (
         <div className={cx('wrapper')}>
+            <Toast />
             <div className={cx('inner')}>
                 <div className={cx('side-left')}>
                     <div className={cx('text_welcome_signup')}>
