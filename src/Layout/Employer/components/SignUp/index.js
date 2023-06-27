@@ -2,6 +2,8 @@ import classNames from 'classnames/bind';
 import styles from './SignUp.module.scss';
 import UserService from '~/utils/request';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Toast from '~/Layout/components/Toast';
+import notify from '~/utils/toast';
 import {
     faBuilding,
     faCalendarDays,
@@ -102,6 +104,7 @@ function SignUp() {
 
                 console.log(response);
                 if (response.status === 'ok') {
+                    notify("success","Đăng ký thành công, hãy đăng nhập vào gmail để xác nhận!")
                     window.location.href = '/employer/sign-in';
                     setLoading(false);
                 } else {
@@ -132,6 +135,7 @@ function SignUp() {
 
     return (
         <div className={cx('wrapper')}>
+            <Toast />
             <div className={cx('inner')}>
                 <div className={cx('text_welcome_signup')}>
                     Chào mừng bạn đến với <span className={cx('text_jore')}>JORE BUSINESS</span>
