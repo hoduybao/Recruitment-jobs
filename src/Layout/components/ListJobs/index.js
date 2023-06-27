@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 const cx = classNames.bind(styles);
 
-function ListJobs({ ListJobs }) {
+function ListJobs({ ListJobs,logo }) {
     const [visibleItems, setVisibleItems] = useState(5);
     const handleShowMore = () => {
         setVisibleItems((prevVisibleItems) => prevVisibleItems + 5);
@@ -37,7 +37,7 @@ function ListJobs({ ListJobs }) {
                                 key={index}
                                 to={`/detail-job?id=${job.id}`}
                             >
-                                <img src={images.logo} alt="logo" className={cx('logo_company')} />
+                                <img src={logo} alt="logo" className={cx('logo_company')} />
                                 <div className={cx('name_recruit')} href="/">
                                     {job.title}
                                 </div>

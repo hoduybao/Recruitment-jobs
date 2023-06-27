@@ -110,7 +110,7 @@ function ViewCompany() {
             const fetch = async () => {
                 let response = await UserService.GetCompany(`company/${id_company}`);
                 let response1 = await UserService.GetCompany(`company/job/${id_company}`);
-                console.log(response.data);
+                console.log(response1.data);
                 setCompanies(response.data);
                 setListJobs(response1.data);
             };
@@ -512,7 +512,9 @@ function ViewCompany() {
                     <div className={cx('content')}>
                         {classJob.length > 0 ? (
                             <div className={cx('side_left')}>
-                                {listJobs != null && id_company && <ListJobs ListJobs={listJobs} />}
+                                {listJobs != null && id_company && (
+                                    <ListJobs logo={companies.logo} ListJobs={listJobs} />
+                                )}
                                 {listJobs != null && !id_company && <InfoEmployer info={listJobs} />}
                                 <IntroCompany companies={companies.description} />
                             </div>
