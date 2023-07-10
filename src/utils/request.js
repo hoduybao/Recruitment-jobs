@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { authHeader, authPost } from './auth';
 const request = axios.create({
-    baseURL: 'https://hiringweb.up.railway.app/',
+    baseURL: 'https://joreapi.up.railway.app/',
 });
 
 class UserService {
